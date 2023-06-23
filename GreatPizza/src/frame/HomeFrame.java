@@ -1,4 +1,4 @@
-package test;
+package frame;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -78,22 +78,27 @@ public class HomeFrame extends JFrame {
         
         JPanel panel1 = new JPanel();
         panel1.add(new JLabel("매출"));
+        panel1.setBackground(Color.WHITE);
         cards.add(panel1, "panel1");
 
         JPanel panel2 = new JPanel();
         panel2.add(new JLabel("재정"));
+        panel2.setBackground(Color.WHITE);
         cards.add(panel2, "panel2");
         
         JPanel panel3 = new JPanel();
         panel3.add(new JLabel("포스"));
+        panel3.setBackground(Color.WHITE);
         cards.add(panel3, "panel3");
 
         JPanel panel4 = new JPanel();
         panel4.add(new JLabel("메뉴관리"));
+        panel4.setBackground(Color.WHITE);
         cards.add(panel4, "panel4");
         
         JPanel panel5 = new JPanel();
         panel5.add(new JLabel("재고관리"));
+        panel5.setBackground(Color.WHITE);
         cards.add(panel5, "panel4");
 
         cardLayout = (CardLayout) cards.getLayout();
