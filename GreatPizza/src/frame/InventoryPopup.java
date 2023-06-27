@@ -9,27 +9,14 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 
 public class InventoryPopup extends JFrame {
 
 	private JPanel contentPane;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					InventoryPopup frame = new InventoryPopup();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -50,21 +37,40 @@ public class InventoryPopup extends JFrame {
 		panel.setBounds(0, 0, 600, 77);
 		contentPane.add(panel);
 		
-		JLabel lblNewLabel = new JLabel("현재 부족 재고");
-		lblNewLabel.setFont(new Font("굴림", Font.BOLD, 35));
-		lblNewLabel.setBounds(167, 76, 250, 77);
-		contentPane.add(lblNewLabel);
+		JLabel lbltitle = new JLabel("현재 부족 재고");
+		lbltitle.setFont(new Font("굴림", Font.BOLD, 35));
+		lbltitle.setBounds(167, 76, 250, 77);
+		contentPane.add(lbltitle);
 		
-		JPanel pnl = new JPanel();
-		pnl.setBounds(99, 163, 396, 451);
-		contentPane.add(pnl);
+		JPanel panel1 = new JPanel();
+		panel1.setBounds(99, 163, 396, 451);
+		contentPane.add(panel1);
 		
-		JPanel panel_1 = new JPanel();
-		pnl.add(panel_1);
+		for (int i = 0; i < 5; i++) {
+			JPanel pnl1 = new JPanel();
+			panel1.add(pnl1);
+			
+			JLabel ingredient = new JLabel("치즈");
+			ingredient.setFont(new Font("굴림", Font.BOLD, 25));
+			pnl1.add(ingredient);
+			
+			JLabel lblNewLabel = new JLabel("-");
+			lblNewLabel.setFont(new Font("굴림", Font.BOLD, 25));
+			pnl1.add(lblNewLabel);
+			
+			JLabel current_cnt = new JLabel("10개 구매");
+			current_cnt.setFont(new Font("굴림", Font.BOLD, 25));
+			pnl1.add(current_cnt);
+		}
 		
 		JButton btnNewButton = new JButton("확인");
+		btnNewButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+			}
+		});
 		btnNewButton.setBounds(175, 664, 217, 48);
 		contentPane.add(btnNewButton);
 	}
-
 }

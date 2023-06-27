@@ -9,6 +9,8 @@ import java.awt.FlowLayout;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
@@ -150,6 +152,13 @@ public class InventoryList extends JPanel {
 			
 			JButton btnbuy = new JButton("확인");
 			btnbuy.setBounds(433, 6, 80, 23);
+			btnbuy.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					InventoryPlus pop = new InventoryPlus();
+					pop.setVisible(true);
+				}
+			});
 			pnl1.add(btnbuy);
 			scrollPane.setBounds(0, 45, 550, 405);
 			pnlinven.add(scrollPane);

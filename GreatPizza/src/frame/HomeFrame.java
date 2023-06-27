@@ -15,7 +15,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import com.sun.glass.events.MouseEvent;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -34,8 +33,6 @@ public class HomeFrame extends JFrame {
 	private JPanel contentPane;
 	private JPanel cards;
 	private CardLayout cardLayout;
-//	private CardLayout cardLayouts;
-//	private JPanel cardsIncards;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -85,11 +82,9 @@ public class HomeFrame extends JFrame {
 		btnNewButton5.setBounds(0, 378, 250, 68);
 		panel.add(btnNewButton5);
 
-		// CardLayout 설정
 		cards = new JPanel(new CardLayout());
 		cards.setBounds(245, 0, 639, 861);
 		contentPane.add(cards, BorderLayout.CENTER);
-		
 		
 		BuyList panel3 = new BuyList();
 		panel3.setLayout(null);
@@ -137,7 +132,6 @@ public class HomeFrame extends JFrame {
 		panel5.setBackground(Color.WHITE);
 		cards.add(panel5, "panel5");
 		cardLayout = (CardLayout) cards.getLayout();
-//		cardLayouts = (CardLayout) cardsIncards.getLayout();
 
 		btnNewButton1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -165,6 +159,8 @@ public class HomeFrame extends JFrame {
 
 		btnNewButton5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				InventoryPopup pop = new InventoryPopup();
+				pop.setVisible(true);
 				cardLayout.show(cards, "panel5");
 			}
 		});
