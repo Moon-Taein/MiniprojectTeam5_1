@@ -39,13 +39,13 @@ public class FinancialList extends JPanel {
 		innerPanel.setBorder(new EmptyBorder(10, 10, 100, 50)); // 패널 간격 설정
 
 		// 라벨 추가
-		JLabel label1 = new JLabel("이 름");
+		JLabel label1 = new JLabel("날 짜");
 		label1.setOpaque(true);
 		label1.setFont(new Font("굴림", Font.PLAIN, 15));
-		JLabel label2 = new JLabel("분 류");
+		JLabel label2 = new JLabel("매 출");
 		label2.setOpaque(true);
 		label2.setFont(new Font("굴림", Font.PLAIN, 15));
-		JLabel label3 = new JLabel("금 액");
+		JLabel label3 = new JLabel("매 입 ");
 		label3.setOpaque(true);
 		label3.setFont(new Font("굴림", Font.PLAIN, 15));
 
@@ -76,7 +76,7 @@ public class FinancialList extends JPanel {
 		lblNewLabel.setBounds(50, 79, 79, 34);
 		add(lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("월별");
+		JLabel lblNewLabel_1 = new JLabel("월");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setBounds(141, 79, 58, 34);
 		add(lblNewLabel_1);

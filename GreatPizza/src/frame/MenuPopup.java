@@ -101,7 +101,7 @@ public class MenuPopup extends JFrame {
 
 		JComboBox comboBox = new JComboBox();
 		comboBox.setToolTipText("분 류\r\n");
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"토 핑", "소 스", "엣 지", "사 이 드", "음 료"}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"토 핑", "소 스", "엣 지"}));
 		comboBox.setBounds(686, 28, 129, 43);
 		getContentPane().add(comboBox);
 

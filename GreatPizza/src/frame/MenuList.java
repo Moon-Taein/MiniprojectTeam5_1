@@ -36,7 +36,8 @@ public class MenuList extends JPanel {
 		JPanel scrollablePanel = new JPanel();
 		scrollablePanel.setBackground(Color.WHITE);
 		scrollablePanel.setLayout(new BoxLayout(scrollablePanel, BoxLayout.Y_AXIS));
-
+		
+		
 		// 패널 내부의 패널 생성
 		JPanel innerPanel = new JPanel();
 		innerPanel.setLayout(new GridLayout(1, 3, 100, 50)); // 가로로 3개의 컴포넌트 배치

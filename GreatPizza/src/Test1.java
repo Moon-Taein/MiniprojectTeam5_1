@@ -23,7 +23,7 @@ public class Test1 {
 		// 주문부터 고객전달까지 일련의 과정에서 필요한 동작
 		// 위 동작이 완료 되었을때 데이터 처리
 
-		String sql = "select * from test_table";
+		String sql = "select * from account";
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
