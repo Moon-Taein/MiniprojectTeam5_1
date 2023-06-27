@@ -66,23 +66,23 @@ public class HomeFrame extends JFrame {
 		panel.setLayout(null);
 
 		JButton btnNewButton1 = new JButton("매 출 확 인");
-		btnNewButton1.setBounds(0, 246, 250, 77);
+		btnNewButton1.setBounds(0, 246, 250, 68);
 		panel.add(btnNewButton1);
 
 		JButton btnNewButton2 = new JButton("재 정 확 인");
-		btnNewButton2.setBounds(0, 312, 250, 77);
+		btnNewButton2.setBounds(0, 312, 250, 68);
 		panel.add(btnNewButton2);
 
 		JButton btnNewButton3 = new JButton("주 문 내 역");
-		btnNewButton3.setBounds(0, 116, 250, 77);
+		btnNewButton3.setBounds(0, 116, 250, 68);
 		panel.add(btnNewButton3);
 
 		JButton btnNewButton4 = new JButton("메 뉴 관 리");
-		btnNewButton4.setBounds(0, 180, 250, 77);
+		btnNewButton4.setBounds(0, 180, 250, 68);
 		panel.add(btnNewButton4);
 
 		JButton btnNewButton5 = new JButton("재 고 관 리");
-		btnNewButton5.setBounds(0, 378, 250, 77);
+		btnNewButton5.setBounds(0, 378, 250, 68);
 		panel.add(btnNewButton5);
 
 		// CardLayout 설정
