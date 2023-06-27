@@ -40,19 +40,26 @@ public class MenuList extends JPanel {
 		
 		// 패널 내부의 패널 생성
 		JPanel innerPanel = new JPanel();
-		innerPanel.setLayout(new GridLayout(1, 3, 100, 50)); // 가로로 3개의 컴포넌트 배치
-		innerPanel.setBorder(new EmptyBorder(10, 10, 100, 50)); // 패널 간격 설정
-
+		innerPanel.setLayout(new GridLayout(1, 3, 130, 120)); // (행, 열, 글자사이 가로 간격, 격자사이 수직 간격)
+		innerPanel.setBorder(new EmptyBorder(10, 40, 10, 40)); // (위로 간격, 왼쪽 ,아래, 우측) 레이아웃과의 간격
+		
+		
+		
+		
+		
 		// 라벨 추가
-		JLabel label1 = new JLabel("이 름");
+		JLabel label1 = new JLabel(" 이 름 ");
+		label1.setHorizontalAlignment(SwingConstants.CENTER);
 		label1.setOpaque(true);
-		label1.setFont(new Font("굴림", Font.PLAIN, 15));
-		JLabel label2 = new JLabel("분 류");
+		label1.setFont(new Font("굴림", Font.PLAIN, 18));
+		JLabel label2 = new JLabel(" 분 류 ");
+		label2.setHorizontalAlignment(SwingConstants.CENTER);
 		label2.setOpaque(true);
-		label2.setFont(new Font("굴림", Font.PLAIN, 15));
-		JLabel label3 = new JLabel("금 액");
+		label2.setFont(new Font("굴림", Font.PLAIN, 18));
+		JLabel label3 = new JLabel(" 금 액 ");
+		label3.setHorizontalAlignment(SwingConstants.CENTER);
 		label3.setOpaque(true);
-		label3.setFont(new Font("굴림", Font.PLAIN, 15));
+		label3.setFont(new Font("굴림", Font.PLAIN, 18));
 
 		// 라벨을 패널에 추가
 		innerPanel.add(label1);
@@ -85,21 +92,21 @@ public class MenuList extends JPanel {
 		add(panel_1);
 		panel_1.setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("너 는 누 구 냐");
+		JLabel lblNewLabel = new JLabel("이 름");
 		lblNewLabel.setBackground(Color.WHITE);
 		lblNewLabel.setOpaque(true);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(12, 10, 164, 36);
 		panel_1.add(lblNewLabel);
 
-		JLabel lblNewLabel_1 = new JLabel("너 는 누 구 냐");
+		JLabel lblNewLabel_1 = new JLabel("분 류");
 		lblNewLabel_1.setBackground(Color.WHITE);
 		lblNewLabel_1.setOpaque(true);
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setBounds(198, 10, 164, 36);
 		panel_1.add(lblNewLabel_1);
 
-		JLabel lblNewLabel_2 = new JLabel("너 는 누 구 냐");
+		JLabel lblNewLabel_2 = new JLabel("금 액");
 		lblNewLabel_2.setBackground(Color.WHITE);
 		lblNewLabel_2.setOpaque(true);
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
