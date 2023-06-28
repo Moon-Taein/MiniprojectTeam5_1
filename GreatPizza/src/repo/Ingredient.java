@@ -1,33 +1,39 @@
 package repo;
 
 public class Ingredient {
-	int no;
 	String id;
 	String name;
 	int priceRetail;
 	int priceSupply;
 	int lowerLimitCount;
 	int currentCount;
+	String type;
 
 	public Ingredient(String id) {
 		this.id = id;
 	}
 
-	public Ingredient(int no, String id, String name, int priceRetail, int priceSupply, int lowerLimitCount,
+	public Ingredient(String id, String name, int priceRetail, int priceSupply, int lowerLimitCount,
 			int currentCount) {
 		super();
-		this.no = no;
 		this.id = id;
 		this.name = name;
 		this.priceRetail = priceRetail;
 		this.priceSupply = priceSupply;
 		this.lowerLimitCount = lowerLimitCount;
 		this.currentCount = currentCount;
+		
+		this.type = setingType(id);
+	}
+	
+	public String setingType(String id) {
+		String types[] = id.split("_");
+		String type = types[0];
+		return type;
 	}
 
 	public Ingredient(String name, int lowerCount, int currentCount) {
 		super();
-		this.no = 0;
 		this.name = name;
 		this.priceRetail = 0;
 		this.priceSupply = 0;
@@ -35,12 +41,12 @@ public class Ingredient {
 		this.currentCount = currentCount;
 	}
 
-	public int getNo() {
-		return no;
+	public String getType() {
+		return type;
 	}
 
-	public void setNo(int no) {
-		this.no = no;
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public String getId() {
@@ -93,7 +99,7 @@ public class Ingredient {
 
 	@Override
 	public String toString() {
-		return "Ingredient [no=" + no + ", id=" + id + ", name=" + name + ", priceRetail=" + priceRetail
+		return "Ingredient [id=" + id + ", name=" + name + ", priceRetail=" + priceRetail
 				+ ", priceSupply=" + priceSupply + ", lowerLimitCount=" + lowerLimitCount + ", currentCount="
 				+ currentCount + "]";
 	}

@@ -142,5 +142,35 @@ public class OrderRepo {
 		}
 		return 0;
 	}
-
+	
+	public List<Ingredient> getIngredients(){
+		String sql = "SELECT * FROM ingredient";
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		List<Ingredient> list = new ArrayList<>();
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				String id = rs.getString("inventory_id");
+				String name = rs.getString("inventory_name");
+				int priceRetail = rs.getInt("price_retail");
+				int priceSupply = rs.getInt("price_supply");
+				int lowerCount = rs.getInt("lower_limit_count");
+				int currentCount = rs.getInt("current_count");
+				
+				list.add(new Ingredient(id, name, priceRetail, priceSupply, lowerCount, currentCount));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		return list;
+	}
 }

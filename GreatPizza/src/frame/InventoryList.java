@@ -11,9 +11,14 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
+
+import repo.Ingredient;
+import repo.OrderRepo;
+
 import javax.swing.JButton;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JTextField;
@@ -26,14 +31,12 @@ public class InventoryList extends JPanel {
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
+	private OrderRepo order;
 
-	/**
-	 * Create the panel.
-	 */
 	public InventoryList() {
+		order = new OrderRepo();
 		setBounds(0, 0, 650, 900);
 		setLayout(null);
-		
 		
 		JPanel pnlinven = new JPanel();
 		pnlinven.setBounds(49, 55, 550, 450);
@@ -120,31 +123,33 @@ public class InventoryList extends JPanel {
 		btninput.setBounds(393, 173, 97, 23);
 		pnlPlus.add(btninput);
 		
+		List<Ingredient> ingredients = order.getIngredients();
 		JPanel panel = new JPanel();
 		panel.setFocusTraversalPolicyProvider(true);
-		panel.setLayout(new GridLayout(20, 1)); 
+		panel.setLayout(new GridLayout(ingredients.size(), 1)); 
 		JScrollPane scrollPane = new JScrollPane(panel);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		
-		for(int i = 0; i < 20; i++) {
+		for(int i = 0; i < ingredients.size(); i++) {
+			Ingredient ingredient = ingredients.get(i);
 			JPanel pnl1 = new JPanel();
 			panel.add(pnl1);
 			pnl1.setLayout(null);
 			pnl1.setPreferredSize(new Dimension(500, 50));
 			
-			JLabel lbl1 = new JLabel("불고기 피자");
+			JLabel lbl1 = new JLabel(ingredient.getName());
 			lbl1.setHorizontalAlignment(SwingConstants.CENTER);
 			lbl1.setFont(new Font("굴림", Font.PLAIN, 19));
 			lbl1.setBounds(0, 0, 151, 30);
 			pnl1.add(lbl1);
 			
-			JLabel lbl2 = new JLabel("토핑");
+			JLabel lbl2 = new JLabel(ingredient.getType());
 			lbl2.setHorizontalAlignment(SwingConstants.CENTER);
 			lbl2.setFont(new Font("굴림", Font.PLAIN, 19));
 			lbl2.setBounds(154, 0, 97, 30);
 			pnl1.add(lbl2);
 			
-			JLabel lbl3 = new JLabel("10개");
+			JLabel lbl3 = new JLabel(String.valueOf(ingredient.getCurrentCount()));
 			lbl3.setHorizontalAlignment(SwingConstants.CENTER);
 			lbl3.setFont(new Font("굴림", Font.PLAIN, 19));
 			lbl3.setBounds(288, 0, 103, 30);
