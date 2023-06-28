@@ -113,12 +113,36 @@ public class PosRepo {
 		return list;
 	}
 
-	public List<Integer> monthYear() {
+	public List<String> monthYear() {
+		List<String> list = new ArrayList();
+		String sql = "select * from account";
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+			rs = stmt.executeQuery();
 
-		return null;
+			while (rs.next()) {
+				String date = rs.getString("date");
+				String purchase = rs.getString("purchase");
+				String sales = rs.getString("sales");
+				list.add(date);
+				list.add(purchase);
+				list.add(sales);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		
+		System.out.println(list);
+		return list;
 	}
 
 	public static void main(String[] args) {
 		PosRepo pr = new PosRepo();
+		pr.monthYear();
 	}
 }

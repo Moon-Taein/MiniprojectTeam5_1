@@ -40,7 +40,6 @@ public class MenuList extends JPanel {
 		
 		
 		// 패널 내부의 패널 생성
-		
 		PosRepo pr = new PosRepo();
 		List<Menu> list = pr.menuIdPrice();
 		for (Menu m : list) {
@@ -73,9 +72,7 @@ public class MenuList extends JPanel {
 		    btn.setHorizontalAlignment(SwingConstants.LEFT);
 		    btn.setHorizontalTextPosition(SwingConstants.LEFT);
 		    btn.setPreferredSize(new Dimension(60, 30));
-		    
-		    
-
+ 
 		    // Add the labels to the inner panel
 		    innerPanel.add(nameLabel);
 		    innerPanel.add(typeLabel);
@@ -84,7 +81,6 @@ public class MenuList extends JPanel {
 		    
 		    scrollablePanel.add(innerPanel);
 		}
-				
 
 		// JScrollPane 생성 및 스크롤 가능한 패널 설정
 		JScrollPane scrollPane = new JScrollPane(scrollablePanel);
@@ -93,7 +89,7 @@ public class MenuList extends JPanel {
 		scrollPane.setBackground(Color.WHITE);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		panel.add(scrollPane);
-
+		
 		// JFrame에 JScrollPane 추가
 		add(panel);
 

@@ -122,7 +122,7 @@ public class MenuPopup extends JFrame {
 		panel_4.setBounds(598, 91, 274, 214);
 		getContentPane().add(panel_4);
 
-		JPanel scrollablePanel = new JPanel();
+		final JPanel scrollablePanel = new JPanel();
 		scrollablePanel.setLayout(new BoxLayout(scrollablePanel, BoxLayout.Y_AXIS));
 
 		JScrollPane jsp = new JScrollPane(scrollablePanel);
@@ -130,7 +130,7 @@ public class MenuPopup extends JFrame {
 		jsp.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		panel_4.add(jsp);
 
-		JComboBox comboBox = new JComboBox();
+		final JComboBox comboBox = new JComboBox();
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				selectType = comboBox.getSelectedItem().toString();

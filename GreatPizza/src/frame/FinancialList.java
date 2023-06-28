@@ -20,14 +20,18 @@ import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
 import java.awt.ComponentOrientation;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class FinancialList extends JPanel {
-	String selectYear;
+	private String selectYear;
+	private String year;
+	private String month;
 
 	public FinancialList() {
-		PosRepo pr = new PosRepo();
+		final PosRepo pr = new PosRepo();
 		setLocation(-259, -115);
 		setSize(new Dimension(650, 900));
 		setLayout(null);
@@ -67,26 +71,26 @@ public class FinancialList extends JPanel {
 
 		// JScrollPane 생성 및 스크롤 가능한 패널 설정
 		JScrollPane scrollPane = new JScrollPane(scrollablePanel);
+
 		scrollPane.setBackground(Color.WHITE);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		panel.add(scrollPane);
 
-		JComboBox comboBox = new JComboBox();
-
+		final JComboBox comboBox = new JComboBox();
 		comboBox.setBounds(50, 118, 79, 34);
+		add(comboBox);
 
+		// 콤보박스 디폴트 값 설정해주기
 		for (int i : pr.year()) {
 			comboBox.addItem(i);
 		}
-		add(comboBox);
 
-		JComboBox comboBox_1 = new JComboBox();
+		final JComboBox comboBox_1 = new JComboBox();
 		comboBox_1.setBounds(141, 118, 58, 34);
-
+		add(comboBox_1);
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				selectYear = comboBox.getSelectedItem().toString();
-
 				comboBox_1.removeAllItems();
 
 				for (Integer i : pr.month(Integer.valueOf(selectYear))) {
@@ -95,7 +99,23 @@ public class FinancialList extends JPanel {
 			}
 		});
 
-		add(comboBox_1);
+		// 콤보박스2 디폴트 값 설정해주기
+		for (Integer j : pr.month(Integer.valueOf(comboBox.getSelectedItem().toString()))) {
+			comboBox_1.addItem(j);
+		}
+
+		JButton btnNewButton = new JButton("\uD655 \uC778");
+		btnNewButton.setBounds(211, 118, 66, 34);
+		add(btnNewButton);
+
+		btnNewButton.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				year = comboBox.getSelectedItem().toString();
+				month = comboBox_1.getSelectedItem().toString();
+			}
+		});
+		String yearAndMonth = year + "-" + month;
 
 		JLabel lblNewLabel = new JLabel("년도");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -109,18 +129,18 @@ public class FinancialList extends JPanel {
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(Color.PINK);
-		panel_1.setBounds(259, 112, 339, 45);
+		panel_1.setBounds(289, 112, 309, 45);
 		add(panel_1);
 		panel_1.setLayout(null);
 
 		JLabel lblNewLabel_2 = new JLabel("매 출");
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2.setBounds(12, 10, 141, 27);
+		lblNewLabel_2.setBounds(12, 10, 130, 27);
 		panel_1.add(lblNewLabel_2);
 
 		JLabel lblNewLabel_2_1 = new JLabel("매 입");
 		lblNewLabel_2_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2_1.setBounds(165, 10, 162, 27);
+		lblNewLabel_2_1.setBounds(154, 10, 143, 27);
 		panel_1.add(lblNewLabel_2_1);
 
 		JPanel panel_2 = new JPanel();
@@ -136,6 +156,5 @@ public class FinancialList extends JPanel {
 		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_4.setBounds(83, 10, 121, 59);
 		panel_2.add(lblNewLabel_4);
-
 	}
 }
