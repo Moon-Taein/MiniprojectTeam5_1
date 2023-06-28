@@ -8,6 +8,16 @@ public class Menu {
 	private int price;
 	private Integer size;
 
+	public Menu(String menuId,String menuName, int price) {
+		super();
+		this.no = 0;
+		this.menuId = menuId;
+		this.menuName = menuName;
+		this.price = price;
+		this.size = 0;
+		
+		this.type = setingType(menuId);
+	}
 	public Menu(int no, String menuId, String menuName, int price, Integer size) {
 		super();
 		this.no = no;

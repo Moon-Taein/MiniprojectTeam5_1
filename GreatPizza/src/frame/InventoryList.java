@@ -112,7 +112,7 @@ public class InventoryList extends JPanel {
 		pnlPlus.add(l1_3);
 		
 		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"소스", "토핑", "엣지", "사이드", "음료"}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"소스", "토핑", "엣지"}));
 		comboBox.setBounds(378, 44, 112, 21);
 		pnlPlus.add(comboBox);
 		
@@ -152,6 +152,7 @@ public class InventoryList extends JPanel {
 			
 			JButton btnbuy = new JButton("확인");
 			btnbuy.setBounds(433, 6, 80, 23);
+			
 			btnbuy.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {

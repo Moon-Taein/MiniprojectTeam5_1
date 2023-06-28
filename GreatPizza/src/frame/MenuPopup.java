@@ -8,21 +8,32 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+
+import repo.Ingredient;
+import repo.Menu;
+import repo.PosRepo;
+
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.Font;
+import java.awt.GridLayout;
+
 import javax.swing.ScrollPaneConstants;
+import java.awt.event.ActionListener;
+import java.util.List;
+import java.awt.event.ActionEvent;
 
 public class MenuPopup extends JFrame {
 	private JTextField textField;
 	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
+	private String selectType;
 
 	public MenuPopup() {
 		getContentPane().setBackground(Color.PINK);
@@ -32,7 +43,7 @@ public class MenuPopup extends JFrame {
 
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(255, 228, 225));
-		panel.setBounds(59, 25, 300, 50);
+		panel.setBounds(43, 28, 268, 50);
 		getContentPane().add(panel);
 		panel.setLayout(null);
 
@@ -41,14 +52,15 @@ public class MenuPopup extends JFrame {
 		lblNewLabel.setBounds(12, 10, 86, 30);
 		panel.add(lblNewLabel);
 
-		textField = new JTextField();
-		textField.setBounds(110, 10, 178, 30);
-		panel.add(textField);
-		textField.setColumns(10);
+		JComboBox comboBox_1 = new JComboBox();
+		comboBox_1.setModel(new DefaultComboBoxModel(new String[] { "피자", "토핑", "엣지", "소스", "사이드", "음료" }));
+		comboBox_1.setBackground(Color.WHITE);
+		comboBox_1.setBounds(110, 10, 150, 30);
+		panel.add(comboBox_1);
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(255, 228, 225));
-		panel_1.setBounds(59, 126, 300, 50);
+		panel_1.setBounds(43, 129, 268, 50);
 		getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 
@@ -57,14 +69,15 @@ public class MenuPopup extends JFrame {
 		lblNewLabel_1.setBounds(12, 10, 86, 30);
 		panel_1.add(lblNewLabel_1);
 
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(110, 10, 178, 30);
-		panel_1.add(textField_1);
+		JComboBox comboBox_1_1 = new JComboBox();
+		comboBox_1_1.setModel(
+				new DefaultComboBoxModel(new String[] { "피자 사이즈 M", "피자 사이즈 L", "음료 사이즈 500ML", "음료 사이즈 1.25L" }));
+		comboBox_1_1.setBounds(110, 10, 150, 30);
+		panel_1.add(comboBox_1_1);
 
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(new Color(255, 228, 225));
-		panel_2.setBounds(59, 237, 300, 50);
+		panel_2.setBounds(43, 240, 268, 50);
 		getContentPane().add(panel_2);
 		panel_2.setLayout(null);
 
@@ -73,14 +86,15 @@ public class MenuPopup extends JFrame {
 		lblNewLabel_2.setBounds(12, 10, 86, 30);
 		panel_2.add(lblNewLabel_2);
 
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(110, 10, 178, 30);
-		panel_2.add(textField_2);
+		textField = new JTextField();
+		textField.setHorizontalAlignment(SwingConstants.RIGHT);
+		textField.setBounds(110, 10, 146, 30);
+		panel_2.add(textField);
+		textField.setColumns(10);
 
 		JPanel panel_3 = new JPanel();
 		panel_3.setBackground(new Color(255, 228, 225));
-		panel_3.setBounds(59, 342, 300, 50);
+		panel_3.setBounds(43, 345, 268, 50);
 		getContentPane().add(panel_3);
 		panel_3.setLayout(null);
 
@@ -89,10 +103,11 @@ public class MenuPopup extends JFrame {
 		lblNewLabel_3.setBounds(12, 10, 86, 30);
 		panel_3.add(lblNewLabel_3);
 
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(110, 10, 178, 30);
-		panel_3.add(textField_3);
+		textField_1 = new JTextField();
+		textField_1.setHorizontalAlignment(SwingConstants.RIGHT);
+		textField_1.setColumns(10);
+		textField_1.setBounds(110, 10, 146, 30);
+		panel_3.add(textField_1);
 
 		JButton btnNewButton = new JButton("메 뉴 추 가");
 		btnNewButton.setBackground(new Color(255, 222, 173));
@@ -100,43 +115,66 @@ public class MenuPopup extends JFrame {
 		getContentPane().add(btnNewButton);
 
 		JComboBox comboBox = new JComboBox();
+		comboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				selectType = comboBox.getSelectedItem().toString();
+				System.out.println(selectType);
+
+			}
+		});
 		comboBox.setToolTipText("분 류\r\n");
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"토 핑", "소 스", "엣 지"}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] { "토 핑", "소 스", "엣 지" }));
 		comboBox.setBounds(686, 28, 129, 43);
 		getContentPane().add(comboBox);
 
 		JPanel panel_4 = new JPanel();
 		panel_4.setBackground(Color.PINK);
-		panel_4.setBounds(575, 81, 309, 206);
-		getContentPane().add(panel_4);
+		panel_4.setBounds(506, 81, 309, 206);
+		add(panel_4);
 
-		// JList 생성
-		DefaultListModel<String> listModel = new DefaultListModel<>();
-		listModel.addElement("토핑_피망");
-		listModel.addElement("사이드_핫윙");
-		listModel.addElement("사이드_스파게뤼");
-		listModel.addElement("음료_사이다");
-		listModel.addElement("음료_환타");
-		listModel.addElement("항목 6");
-		listModel.addElement("항목 7");
-		listModel.addElement("항목 8");
-		listModel.addElement("항목 9");
-		listModel.addElement("항목 10");
+		JPanel scrollablePanel = new JPanel();
+		scrollablePanel.setSize(new Dimension(309, 206));
+		scrollablePanel.setBackground(Color.WHITE);
+		scrollablePanel.setLayout(new BoxLayout(scrollablePanel, BoxLayout.Y_AXIS));
 
-		JList<String> list = new JList<>(listModel);
-		list.setBackground(Color.WHITE);
-		list.setFont(new Font("굴림", Font.PLAIN, 20));
-		list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		// 패널 내부의 패널 생성
 
-		// JScrollPane 생성 및 JList 추가
-		JScrollPane scrollPane = new JScrollPane(list);
+		PosRepo pr = new PosRepo();
+		List<Ingredient> list = pr.ingredientID(selectType);
+		System.out.println(list);
+		for (Ingredient ig : list) {
+
+			JPanel innerPanel = new JPanel();
+//			innerPanel.setLayout(new GridLayout(1, 3, 30, 120)); // (행, 열, 글자사이 가로 간격, 격자사이 수직 간격)
+//			innerPanel.setBorder(new EmptyBorder(15, 5, 15, 5)); // (위로 간격, 왼쪽 ,아래, 우측) 레이아웃과의 간격
+
+			JLabel nameLabel = new JLabel(ig.getId());
+			nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
+			nameLabel.setOpaque(true);
+			nameLabel.setFont(new Font("굴림", Font.PLAIN, 18));
+
+
+			// Add the labels to the inner panel
+			innerPanel.add(nameLabel);
+
+			scrollablePanel.add(innerPanel);
+		}
+
+		// JScrollPane 생성 및 스크롤 가능한 패널 설정
+		JScrollPane scrollPane = new JScrollPane(scrollablePanel);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setPreferredSize(new Dimension(300, 200));
+		scrollPane.setBackground(Color.WHITE);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		panel_4.add(scrollPane);
-		
+
+		// JList 생성
+
 		JPanel panel_5 = new JPanel();
-		panel_5.setBounds(464, 315, 351, 158);
+		panel_5.setBackground(Color.WHITE);
+		panel_5.setBounds(368, 297, 504, 176);
 		getContentPane().add(panel_5);
-		
+
 		setVisible(true);
 	}
 }
