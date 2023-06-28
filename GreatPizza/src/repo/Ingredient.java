@@ -20,6 +20,18 @@ public class Ingredient {
 		this.lowerLimitCount = lowerLimitCount;
 		this.currentCount = currentCount;
 	}
+	
+	public Ingredient(String name, int lowerCount, int currentCount) {
+		super();
+		this.no = 0;
+		this.id = "";
+		this.name = name;
+		this.priceRetail = 0;
+		this.priceSupply = 0;
+		this.lowerLimitCount = lowerCount;
+		this.currentCount = currentCount;
+	}
+	
 	public int getNo() {
 		return no;
 	}

@@ -8,74 +8,103 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+import repo.DetailOrder;
 import repo.MainOrder;
 import repo.OrderRepo;
 
 public class BuyList extends JPanel {
-	OrderRepo order;
-	/**
-	 * Create the panel.
-	 */
-	public BuyList() {
-		setLayout(null);
-		setBounds(0, 0, 650, 900);
-		order = new OrderRepo();
-		
-		List<MainOrder> mainOrders = order.getList();
-		
-		for (int i = 0; i < mainOrders.size(); i++) {
-			JPanel pnl = new JPanel();
-			pnl.setBounds(74, 111 + (170 * i), 500, 150);
-			add(pnl);
-			pnl.setLayout(null);
-			
-			JButton check = new JButton("미확인");
-			check.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					BuyListPopup popUp = new BuyListPopup();
-					popUp.setVisible(true);
-				}
-			});
-			check.setBounds(413, 65, 75, 23);
-			pnl.add(check);
-			
-			JLabel id = new JLabel("2023062501");
-			id.setFont(new Font("굴림", Font.BOLD, 30));
-			id.setBounds(40, 65, 190, 50);
-			pnl.add(id);
-			
-			JLabel date = new JLabel("20230625");
-			date.setFont(new Font("굴림", Font.PLAIN, 25));
-			date.setBounds(40, 16, 118, 29);
-			pnl.add(date);
-			
-			JLabel time = new JLabel("08 : 30");
-			time.setFont(new Font("굴림", Font.PLAIN, 25));
-			time.setBounds(162, 16, 118, 29);
-			pnl.add(time);
-			
-			JLabel price = new JLabel("34,000원");
-			price.setFont(new Font("굴림", Font.BOLD, 25));
-			price.setBounds(260, 65, 146, 50);
-			pnl.add(price);
-			
-			id.setText(mainOrders.get(i).getDate() + "0" + mainOrders.get(i).getNo());
-			date.setText(mainOrders.get(i).getDate());
-			time.setText(mainOrders.get(i).getTime());
-			price.setText(String.valueOf(mainOrders.get(i).getTotalprice()));
-			check.setText(mainOrders.get(i).getState());
-		}
-		
-		JButton allCheck = new JButton("새로고침");
-		allCheck.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				
-			}
-		});
-		allCheck.setBounds(477, 45, 97, 23);
-		add(allCheck);
-	}
-	
+    OrderRepo order;
+    private JPanel[] pnls;
+    private JLabel[] ids;
+    private JLabel[] dates;
+    private JLabel[] times;
+    private JLabel[] prices;
+    private JButton[] checks;
+    private List<MainOrder> mainOrders;
+    private JButton allCheck;
+	private int size;
+    
+    public BuyList() {
+        order = new OrderRepo();
+        initialize();
+    }
+
+    public void setTexts() {
+        for (int i = 0; i < size; i++) {
+            MainOrder currentOrder = mainOrders.get(i);
+            if (currentOrder != null) {
+                ids[i].setText(currentOrder.getDate() + "0" + currentOrder.getNo());
+                dates[i].setText(currentOrder.getDate());
+                times[i].setText(currentOrder.getTime());
+                prices[i].setText(String.valueOf(currentOrder.getTotalprice()));
+                checks[i].setText(currentOrder.getState());
+                checks[i].addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						BuyListPopup popUp = new BuyListPopup(currentOrder.getNo());
+	                    popUp.setVisible(true);
+					}
+                });
+            }
+        }
+    }
+    
+
+    public void initialize() {
+        setLayout(null);
+        setBounds(0, 0, 650, 900);
+        pnls = new JPanel[4];
+        ids = new JLabel[4];
+        dates = new JLabel[4];
+        times = new JLabel[4];
+        prices = new JLabel[4];
+        checks = new JButton[4];
+        
+        mainOrders = order.getMainOrders();
+        size = Math.min(mainOrders.size(), 4);
+        
+        for (int i = 0; i < size; i++) {
+            pnls[i] = new JPanel();
+            pnls[i].setBounds(74, 111 + (170 * i), 500, 150);
+            add(pnls[i]);
+            pnls[i].setLayout(null);
+
+            checks[i] = new JButton();
+            checks[i].setBounds(413, 65, 75, 23);
+            pnls[i].add(checks[i]);
+
+            ids[i] = new JLabel();
+            ids[i].setFont(new Font("굴림", Font.BOLD, 30));
+            ids[i].setBounds(40, 65, 190, 50);
+            pnls[i].add(ids[i]);
+
+            dates[i] = new JLabel();
+            dates[i].setFont(new Font("굴림", Font.PLAIN, 25));
+            dates[i].setBounds(40, 16, 118, 29);
+            pnls[i].add(dates[i]);
+
+            times[i] = new JLabel();
+            times[i].setFont(new Font("굴림", Font.PLAIN, 25));
+            times[i].setBounds(162, 16, 118, 29);
+            pnls[i].add(times[i]);
+
+            prices[i] = new JLabel();
+            prices[i].setFont(new Font("굴림", Font.BOLD, 25));
+            prices[i].setBounds(260, 65, 146, 50);
+            pnls[i].add(prices[i]);
+        }
+        setTexts();
+        
+        allCheck = new JButton("새로고침");
+        allCheck.setBounds(477, 45, 97, 23);
+        allCheck.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                removeAll();
+                repaint();
+                initialize();
+            }
+        });
+        add(allCheck);
+    }
 }
