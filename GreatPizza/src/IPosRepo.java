@@ -17,5 +17,6 @@ public interface IPosRepo {
 	
 	// 세부 주문 내역 가져오기
 	void getDetailOrder(String name);
+	
 
 }
