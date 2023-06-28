@@ -21,13 +21,6 @@ public class PosRepo {
 			stmt = conn.prepareStatement(sql);
 			rs = stmt.executeQuery();
 			while (rs.next()) {
-				int no = rs.getInt("no");
-				int totalprice = rs.getInt("total_price");
-				String date = rs.getString("주문날짜");
-				String time = rs.getString("주문시간");
-				String state = rs.getString("state");
-
-				list.add(new MainOrder(no, totalprice, date, time, state));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
