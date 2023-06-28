@@ -94,6 +94,53 @@ public class OrderRepo {
 		return list;
 	}
 	
-
+	public Ingredient getIngredient(String menu) {
+		String sql = "SELECT inventory_name, lower_limit_count, current_count \r\n" + 
+				"FROM ingredient WHERE inventory_id = ?";
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, menu);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				String name = rs.getString("inventory_name");
+				int lowerCount = rs.getInt("lower_limit_count");
+				int currentCount = rs.getInt("current_count");
+				
+				return new Ingredient(name, lowerCount, currentCount);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		return null;
+	}
+	
+	public int updateMainOrder(String state, int no) {
+		String sql = "UPDATE mainorder SET state = ? WHERE no = ?";
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, state);
+			stmt.setInt(2, no);
+			return stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		return 0;
+	}
 
 }
