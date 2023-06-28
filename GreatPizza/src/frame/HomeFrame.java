@@ -10,7 +10,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -73,7 +72,7 @@ public class HomeFrame extends JFrame {
 		cards = new JPanel(new CardLayout());
 		cards.setBounds(245, 0, 639, 861);
 		contentPane.add(cards, BorderLayout.CENTER);
-		
+
 		BuyList panel3 = new BuyList();
 		panel3.setLayout(null);
 		JLabel label = new JLabel("주 문 내 역");
@@ -82,7 +81,7 @@ public class HomeFrame extends JFrame {
 		panel3.add(label);
 		panel3.setBackground(Color.WHITE);
 		cards.add(panel3, "panel3");
-		
+
 		SalesList panel1 = new SalesList();
 		panel1.setBackground(Color.WHITE);
 		panel1.setLayout(null);
@@ -101,7 +100,6 @@ public class HomeFrame extends JFrame {
 		panel2.add(label_3);
 		panel2.setBackground(Color.WHITE);
 		cards.add(panel2, "panel2");
-
 
 		MenuList panel4 = new MenuList();
 		panel4.setLayout(null);

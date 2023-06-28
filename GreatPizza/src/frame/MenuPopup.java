@@ -34,8 +34,11 @@ public class MenuPopup extends JFrame {
 	private JTextField textField;
 	private JTextField textField_1;
 	private String selectType;
+	private JPanel scrollablePanel;
+	private PosRepo pr = new PosRepo();
 
 	public MenuPopup() {
+		pr = new PosRepo();
 		getContentPane().setBackground(Color.PINK);
 		setBackground(Color.PINK);
 		setSize(new Dimension(900, 540));
@@ -114,65 +117,53 @@ public class MenuPopup extends JFrame {
 		btnNewButton.setBounds(93, 423, 225, 50);
 		getContentPane().add(btnNewButton);
 
+		JPanel panel_4 = new JPanel();
+		panel_4.setBackground(Color.PINK);
+		panel_4.setBounds(598, 91, 274, 214);
+		getContentPane().add(panel_4);
+
+		JPanel scrollablePanel = new JPanel();
+		scrollablePanel.setLayout(new BoxLayout(scrollablePanel, BoxLayout.Y_AXIS));
+
+		JScrollPane jsp = new JScrollPane(scrollablePanel);
+		jsp.setPreferredSize(new Dimension(250, 198));
+		jsp.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		panel_4.add(jsp);
+
 		JComboBox comboBox = new JComboBox();
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				selectType = comboBox.getSelectedItem().toString();
-				System.out.println(selectType);
 
+				scrollablePanel.removeAll();
+
+				List<Ingredient> list = pr.ingredientID(selectType);
+				for (Ingredient ig : list) {
+					System.out.println(ig.getId());
+					JPanel igPanel = new JPanel();
+					JLabel igLabel = new JLabel(ig.getId());
+					igLabel.setHorizontalAlignment(SwingConstants.CENTER);
+					igLabel.setOpaque(true);
+
+					igPanel.add(igLabel);
+					scrollablePanel.add(igPanel);
+				}
+
+				scrollablePanel.revalidate();
+				scrollablePanel.repaint();
 			}
 		});
+
 		comboBox.setToolTipText("분 류\r\n");
-		comboBox.setModel(new DefaultComboBoxModel(new String[] { "토 핑", "소 스", "엣 지" }));
-		comboBox.setBounds(686, 28, 129, 43);
+		comboBox.setModel(new DefaultComboBoxModel(new String[] { "토핑", "소스", "엣지" }));
+		comboBox.setBounds(730, 35, 129, 43);
 		getContentPane().add(comboBox);
-
-		JPanel panel_4 = new JPanel();
-		panel_4.setBackground(Color.PINK);
-		panel_4.setBounds(506, 81, 309, 206);
-		add(panel_4);
-
-		JPanel scrollablePanel = new JPanel();
-		scrollablePanel.setSize(new Dimension(309, 206));
-		scrollablePanel.setBackground(Color.WHITE);
-		scrollablePanel.setLayout(new BoxLayout(scrollablePanel, BoxLayout.Y_AXIS));
-
-		// 패널 내부의 패널 생성
-
-		PosRepo pr = new PosRepo();
-		List<Ingredient> list = pr.ingredientID(selectType);
-		System.out.println(list);
-		for (Ingredient ig : list) {
-
-			JPanel innerPanel = new JPanel();
-//			innerPanel.setLayout(new GridLayout(1, 3, 30, 120)); // (행, 열, 글자사이 가로 간격, 격자사이 수직 간격)
-//			innerPanel.setBorder(new EmptyBorder(15, 5, 15, 5)); // (위로 간격, 왼쪽 ,아래, 우측) 레이아웃과의 간격
-
-			JLabel nameLabel = new JLabel(ig.getId());
-			nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
-			nameLabel.setOpaque(true);
-			nameLabel.setFont(new Font("굴림", Font.PLAIN, 18));
-
-
-			// Add the labels to the inner panel
-			innerPanel.add(nameLabel);
-
-			scrollablePanel.add(innerPanel);
-		}
-
-		// JScrollPane 생성 및 스크롤 가능한 패널 설정
-		JScrollPane scrollPane = new JScrollPane(scrollablePanel);
-		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setPreferredSize(new Dimension(300, 200));
-		scrollPane.setBackground(Color.WHITE);
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		panel_4.add(scrollPane);
 
 		// JList 생성
 
 		JPanel panel_5 = new JPanel();
 		panel_5.setBackground(Color.WHITE);
-		panel_5.setBounds(368, 297, 504, 176);
+		panel_5.setBounds(424, 315, 448, 176);
 		getContentPane().add(panel_5);
 
 		setVisible(true);

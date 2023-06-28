@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class PosRepo {
 	private List<Menu> list = null;
@@ -13,12 +15,11 @@ public class PosRepo {
 	private Connection conn = null;
 	private PreparedStatement stmt = null;
 	private ResultSet rs = null;
-	private String sql = null;
 
 	public List<Menu> menuIdPrice() {
 		list = new ArrayList<>();
 
-		sql = "select menu_id,menu_name,Price from menu";
+		String sql = "select menu_id,menu_name,Price from menu";
 		try {
 			conn = DBUtil.getConnection();
 			stmt = conn.prepareStatement(sql);
@@ -39,14 +40,13 @@ public class PosRepo {
 			DBUtil.close(stmt);
 			DBUtil.close(conn);
 		}
-
 		return list;
 	}
 
 	public List<Ingredient> ingredientID(String type) {
 		listIg = new ArrayList<>();
-		
-		sql = "select ingredient_id from ingredient where ingredient_id like '" + type + "%'";
+
+		String sql = "select ingredient_id from ingredient where ingredient_id like '" + type + "%'";
 		try {
 			conn = DBUtil.getConnection();
 			stmt = conn.prepareStatement(sql);
@@ -64,13 +64,61 @@ public class PosRepo {
 			DBUtil.close(stmt);
 			DBUtil.close(conn);
 		}
-		System.out.println(listIg);
 		return listIg;
+	}
+
+	public Set<Integer> year() {
+		Set<Integer> listY = new HashSet();
+		String sql = "select year from asset";
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+			rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				Integer year = rs.getInt("year");
+				listY.add(year);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		return listY;
+	}
+
+	public List<Integer> month(Integer year) {
+		List<Integer> list = new ArrayList();
+		String sql = "select month from asset where year = " + year;
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+			rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				Integer month = rs.getInt("month");
+				list.add(month);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		return list;
+	}
+
+	public List<Integer> monthYear() {
+
+		return null;
 	}
 
 	public static void main(String[] args) {
 		PosRepo pr = new PosRepo();
-//		pr.menuIdPrice();
-		pr.ingredientID("토핑");
 	}
 }
