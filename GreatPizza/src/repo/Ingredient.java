@@ -9,6 +9,10 @@ public class Ingredient {
 	int lowerLimitCount;
 	int currentCount;
 	
+	public Ingredient(String id) {
+		this.id = id;
+	}
+	
 	public Ingredient(int no, String id, String name, int priceRetail, int priceSupply, int lowerLimitCount,
 			int currentCount) {
 		super();
