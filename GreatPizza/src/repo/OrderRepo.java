@@ -34,6 +34,13 @@ public class OrderRepo {
 		}
 		return list;
 	}
+	
+	
+	
+	
+	
+	
+	
 
 //	public List<MainOrder> getDetailOrder() {
 //		
@@ -41,3 +48,5 @@ public class OrderRepo {
 //	
 
 }
+//0번이 타입 
+//1번이 이름
