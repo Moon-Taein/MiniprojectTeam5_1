@@ -161,7 +161,7 @@ public class InventoryList extends JPanel {
 			btnbuy.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					InventoryPlus pop = new InventoryPlus();
+					InventoryPlus pop = new InventoryPlus(ingredient);
 					pop.setVisible(true);
 				}
 			});

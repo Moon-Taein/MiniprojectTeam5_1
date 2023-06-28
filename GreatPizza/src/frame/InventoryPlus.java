@@ -1,24 +1,20 @@
 package frame;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import java.awt.Dimension;
+
+import repo.Ingredient;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+import javax.swing.DefaultComboBoxModel;
 
 public class InventoryPlus extends JFrame {
 
 	private JPanel contentPane;
 
-	/**
-	 * Create the frame.
-	 */
-	public InventoryPlus() {
+	public InventoryPlus(Ingredient ingredient) {
 		setBounds(100, 100, 600, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -41,21 +37,22 @@ public class InventoryPlus extends JFrame {
 		lblNewLabel_3.setBounds(63, 187, 94, 42);
 		contentPane.add(lblNewLabel_3);
 		
-		JLabel lblNewLabel_3_1 = new JLabel("숫자(개)");
-		lblNewLabel_3_1.setBounds(144, 187, 63, 42);
-		contentPane.add(lblNewLabel_3_1);
+		JLabel name = new JLabel(ingredient.getName());
+		name.setBounds(107, 31, 63, 42);
+		contentPane.add(name);
 		
-		JLabel lblNewLabel_3_2 = new JLabel("숫자(개)");
-		lblNewLabel_3_2.setBounds(134, 135, 63, 42);
-		contentPane.add(lblNewLabel_3_2);
+		JLabel price = new JLabel(String.valueOf(ingredient.getPriceRetail()));
+		price.setBounds(124, 83, 63, 42);
+		contentPane.add(price);
 		
-		JLabel lblNewLabel_3_3 = new JLabel("금 액 (원)");
-		lblNewLabel_3_3.setBounds(124, 83, 63, 42);
-		contentPane.add(lblNewLabel_3_3);
+		JLabel current = new JLabel(String.valueOf(ingredient.getCurrentCount()));
+		current.setBounds(134, 135, 63, 42);
+		contentPane.add(current);
 		
-		JLabel lblNewLabel_3_4 = new JLabel("이 름");
-		lblNewLabel_3_4.setBounds(107, 31, 63, 42);
-		contentPane.add(lblNewLabel_3_4);
+		JLabel little = new JLabel(String.valueOf(ingredient.getLowerLimitCount()));
+		little.setBounds(144, 187, 63, 42);
+		contentPane.add(little);
+		
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setBounds(346, 51, 169, 55);

@@ -1,28 +1,30 @@
 package frame;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import repo.Ingredient;
+import repo.OrderRepo;
+
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 
 public class InventoryPopup extends JFrame {
 
 	private JPanel contentPane;
+	private OrderRepo order;
 
-	/**
-	 * Create the frame.
-	 */
 	public InventoryPopup() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		order = new OrderRepo();
+		List<Ingredient> ingredients = order.getIngredients();
+		
 		setBounds(100, 100, 600, 800);
 		setLocationRelativeTo(null);
 		setUndecorated(true);
@@ -46,22 +48,27 @@ public class InventoryPopup extends JFrame {
 		panel1.setBounds(99, 163, 396, 451);
 		contentPane.add(panel1);
 		
-		for (int i = 0; i < 5; i++) {
-			JPanel pnl1 = new JPanel();
-			panel1.add(pnl1);
-			
-			JLabel ingredient = new JLabel("치즈");
-			ingredient.setFont(new Font("굴림", Font.BOLD, 25));
-			pnl1.add(ingredient);
-			
-			JLabel lblNewLabel = new JLabel("-");
-			lblNewLabel.setFont(new Font("굴림", Font.BOLD, 25));
-			pnl1.add(lblNewLabel);
-			
-			JLabel current_cnt = new JLabel("10개 구매");
-			current_cnt.setFont(new Font("굴림", Font.BOLD, 25));
-			pnl1.add(current_cnt);
+		for (int i = 0; i < ingredients.size(); i++) {
+		    Ingredient ingredient = ingredients.get(i);
+		    if (ingredient.getLowerLimitCount() > ingredient.getCurrentCount()) {
+		        JPanel pnl1 = new JPanel();
+		        panel1.add(pnl1);
+
+		        JLabel lbl = new JLabel(ingredient.getName());
+		        lbl.setFont(new Font("굴림", Font.BOLD, 25));
+		        pnl1.add(lbl);
+
+		        JLabel lblN = new JLabel("-");
+		        lblN.setFont(new Font("굴림", Font.BOLD, 25));
+		        pnl1.add(lblN);
+
+		        String current = String.valueOf(ingredient.getCurrentCount());
+		        JLabel cnt = new JLabel(current + "개 있음");
+		        cnt.setFont(new Font("굴림", Font.BOLD, 25));
+		        pnl1.add(cnt);
+		    }
 		}
+
 		
 		JButton btnNewButton = new JButton("확인");
 		btnNewButton.addActionListener(new ActionListener() {
