@@ -4,6 +4,7 @@ public class Menu {
 	private int no; 
 	private String menuId;
 	private String menuName;
+	private String type;
 	private int price;
 	private Integer size;
 
@@ -14,6 +15,22 @@ public class Menu {
 		this.menuName = menuName;
 		this.price = price;
 		this.size = size;
+		
+		this.type = setingType(menuId);
+	}
+	
+	public String setingType(String menuId) {
+		String types[] = menuId.split("_");
+		String type = types[0];
+		return type;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public int getNo() {
