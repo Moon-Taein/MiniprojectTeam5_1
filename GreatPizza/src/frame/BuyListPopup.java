@@ -83,10 +83,8 @@ public class BuyListPopup extends JFrame {
         JButton btncancel = new JButton("주문 취소");
         btncancel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-            	if (!isCan) {
-	            	order.updateMainOrder("취소", no);
-	                setVisible(false);
-            	}
+	            order.updateMainOrder("취소", no);
+	            setVisible(false);
             }
         });
         btncancel.setFont(new Font("굴림", Font.BOLD, 25));
