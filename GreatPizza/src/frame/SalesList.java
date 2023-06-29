@@ -86,33 +86,8 @@ public class SalesList extends JPanel {
 		JLabel bestMenu = new JLabel("많이팔린메뉴");
 		bestMenu.setFont(new Font("굴림", Font.PLAIN, 20));
 		bestMenu.setHorizontalAlignment(SwingConstants.CENTER);
-		bestMenu.setBounds(179, 5, 128, 47);
+		bestMenu.setBounds(180, 5, 128, 47);
 		panel_2.add(bestMenu);
-		
-		JLabel first = new JLabel("1. " + bests.get(1).get(0) + "위 " + bests.get(1).get(1));
-		first.setFont(new Font("굴림", Font.PLAIN, 15));
-		first.setBounds(179, 62, 128, 27);
-		panel_2.add(first);
-		
-		JLabel second = new JLabel("2. " + bests.get(2).get(0) + "위 " + bests.get(2).get(1));
-		second.setFont(new Font("굴림", Font.PLAIN, 15));
-		second.setBounds(179, 99, 128, 27);
-		panel_2.add(second);
-		
-		JLabel third = new JLabel("3. " + bests.get(3).get(0) + "위 " + bests.get(3).get(1));
-		third.setFont(new Font("굴림", Font.PLAIN, 15));
-		third.setBounds(179, 136, 128, 27);
-		panel_2.add(third);
-		
-		JLabel four = new JLabel("4. " + bests.get(4).get(0) + "위 " + bests.get(4).get(1));
-		four.setFont(new Font("굴림", Font.PLAIN, 15));
-		four.setBounds(179, 173, 128, 27);
-		panel_2.add(four);
-		
-		JLabel five = new JLabel("5. " + bests.get(5).get(0) + "위 " + bests.get(5).get(1));
-		five.setFont(new Font("굴림", Font.PLAIN, 15));
-		five.setBounds(179, 210, 128, 27);
-		panel_2.add(five);
 		
 		JPanel panel_3 = new JPanel();
 		panel_3.setBounds(76, 400, 485, 370);
@@ -124,31 +99,24 @@ public class SalesList extends JPanel {
 		month.setFont(new Font("굴림", Font.PLAIN, 20));
 		month.setBounds(180, 10, 128, 47);
 		panel_3.add(month);
+
+		for (int i = 1; i <= 5; i++) {
+			if (bests.get(i) != null) {
+				JLabel first = new JLabel(i + ". " + bests.get(i).get(0) + "위 " + bests.get(i).get(1));
+				first.setFont(new Font("굴림", Font.PLAIN, 15));
+				first.setBounds(180, 60 + 30*(i-1), 128, 27);
+				panel_2.add(first);
+			}
+		}
 		
-		JLabel first_1 = new JLabel("1. " + bestMonth.get(1).get(0)+ "월 " + bestMonth.get(1).get(1));
-		first_1.setFont(new Font("굴림", Font.PLAIN, 15));
-		first_1.setBounds(180, 67, 128, 27);
-		panel_3.add(first_1);
-		
-		JLabel second_1 = new JLabel("2. " + bestMonth.get(2).get(0)+ "월 " + bestMonth.get(2).get(1));
-		second_1.setFont(new Font("굴림", Font.PLAIN, 15));
-		second_1.setBounds(180, 104, 128, 27);
-		panel_3.add(second_1);
-		
-		JLabel third_1 = new JLabel("3. " + bestMonth.get(3).get(0)+ "월 " + bestMonth.get(3).get(1));
-		third_1.setFont(new Font("굴림", Font.PLAIN, 15));
-		third_1.setBounds(180, 141, 128, 27);
-		panel_3.add(third_1);
-		
-		JLabel four_1 = new JLabel("4. " + bestMonth.get(4).get(0)+ "월 " + bestMonth.get(4).get(1));
-		four_1.setFont(new Font("굴림", Font.PLAIN, 15));
-		four_1.setBounds(180, 178, 128, 27);
-		panel_3.add(four_1);
-		
-		JLabel five_1 = new JLabel("5. " + bestMonth.get(5).get(0)+ "월 " + bestMonth.get(5).get(1));
-		five_1.setFont(new Font("굴림", Font.PLAIN, 15));
-		five_1.setBounds(180, 215, 128, 27);
-		panel_3.add(five_1);
+		for (int i = 1; i <= 5; i++) {
+			if (bestMonth.get(i) != null) {
+				JLabel first = new JLabel(i + ". " + bestMonth.get(i).get(0) + "월 " + bestMonth.get(i).get(1));
+				first.setFont(new Font("굴림", Font.PLAIN, 15));
+				first.setBounds(180, 60 + 30*(i-1), 128, 27);
+				panel_3.add(first);
+			}
+		}
 
 		JButton btndate = new JButton("일 별");
 		btndate.addActionListener(new ActionListener() {
