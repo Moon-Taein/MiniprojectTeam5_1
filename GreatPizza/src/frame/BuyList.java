@@ -41,7 +41,7 @@ public class BuyList extends JPanel {
 				checks[i].addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						BuyListPopup popUp = new BuyListPopup(currentOrder.getNo());
+						BuyListPopup popUp = new BuyListPopup(currentOrder);
 						popUp.setVisible(true);
 					}
 				});

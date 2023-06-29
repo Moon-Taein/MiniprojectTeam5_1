@@ -20,6 +20,7 @@ import javax.swing.border.EmptyBorder;
 
 import repo.DetailOrder;
 import repo.Ingredient;
+import repo.MainOrder;
 import repo.OrderRepo;
 
 public class BuyListPopup extends JFrame {
@@ -30,11 +31,13 @@ public class BuyListPopup extends JFrame {
     private List<DetailOrder> menus;
     private ButtonGroup group;
     private JRadioButton[] rdbtns;
+    private MainOrder mainOrder;
     private int no;
     private boolean isCan;
 
-    public BuyListPopup(int no) {
-    	this.no = no;
+    public BuyListPopup(MainOrder currentOrder) {
+    	this.mainOrder = currentOrder;
+    	this.no = currentOrder.getNo();
     	isCan = true;
         order = new OrderRepo();
         menus = order.getDetailOrders(no);
@@ -95,6 +98,7 @@ public class BuyListPopup extends JFrame {
             public void actionPerformed(ActionEvent arg0) {
             	if (isCan) {
             		updateIngredients();
+            		order.plusAccount(mainOrder.getTotalprice(), mainOrder.getDate());
             		order.updateMainOrder("확인", no);
             		setVisible(false);
             	}
@@ -133,6 +137,9 @@ public class BuyListPopup extends JFrame {
             });
             group.add(rdbtns[i]);
             menulist.add(rdbtns[i]);
+            if(menu.getCount() != 1) {
+            	rdbtns[i].setText(menu.getMenu() + " * " + menu.getCount());
+            }
         }
         for (JRadioButton rdbtn : rdbtns) {
         	rdbtn.doClick();
@@ -193,10 +200,10 @@ public class BuyListPopup extends JFrame {
     public void updateIngredients() {
     	for (DetailOrder menu : menus) {
     		for (Ingredient ing : menu.getIngredients()) {
-    			order.minusIngredient(ing.getId());
+    			order.minusIngredient(menu.getCount(), ing.getId());
     		}
     		for (Ingredient ing : menu.getAddIngredients()) {
-    			order.minusIngredient(ing.getId());
+    			order.minusIngredient(menu.getCount(), ing.getId());
     		}
     	}
     }

@@ -82,8 +82,9 @@ public class OrderRepo {
 				int no = rs.getInt("no");
 				String menu = rs.getString("menu");
 				int mainOrder = rs.getInt("mainorder");
+				int count = rs.getInt("menu_count");
 				
-				list.add(new DetailOrder(no, menu, mainOrder));
+				list.add(new DetailOrder(no, menu, mainOrder, count));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -243,15 +244,81 @@ public class OrderRepo {
 		return 0;
 	}
 	
-	public int minusIngredient(String ingredient) {
-		String sql = "UPDATE ingredient SET current_count = current_count - 1 WHERE inventory_id = ?";
+	public int minusIngredient(int count, String id) {
+		String sql = "UPDATE ingredient SET current_count = current_count - ? WHERE inventory_id = ?";
 		
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		try {
 			conn = DBUtil.getConnection();
 			stmt = conn.prepareStatement(sql);
-			stmt.setString(1, ingredient);
+			stmt.setInt(1, count);
+			stmt.setString(2, id);
+			return stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		return 0;
+	}
+	
+	public int plusIngredient(int number, String id) {
+		String sql = "UPDATE ingredient SET current_count = current_count + ? WHERE inventory_id = ?";
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, number);
+			stmt.setString(2, id);
+			return stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		return 0;
+	}
+	
+	public int plusAccount(int sales, String date) {
+		String sql = "UPDATE account SET sales = sales + ? WHERE date = ?";
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, sales);
+			stmt.setString(2, date);
+			return stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		return 0;
+	}
+	
+	public int insertIngredient(String name, String priceRetail, String priceSupply, String lowerCount, String type) {
+		String sql = "INSERT INTO ingredient \r\n" + 
+				"(inventory_id, inventory_name, price_retail, price_supply, lower_limit_count, current_count)\r\n" + 
+				"VALUES (?, ?, ?, ?, ?, 0)";
+		String id = type + "_" + name;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, id);
+			stmt.setString(2, name);
+			stmt.setString(3, priceRetail);
+			stmt.setString(4, priceSupply);
+			stmt.setString(5, lowerCount);
 			return stmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

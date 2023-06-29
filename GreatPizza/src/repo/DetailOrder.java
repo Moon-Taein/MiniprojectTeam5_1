@@ -8,16 +8,18 @@ public class DetailOrder {
 	private int no;
 	private String menu;
 	private int mainOrder;
+	private int count;
 	
 	private OrderRepo order;
 	private List<Ingredient> ingredients;
 	private List<Ingredient> addIngredients;
 	
-	public DetailOrder(int no, String menu, int mainOrder) {
+	public DetailOrder(int no, String menu, int mainOrder, int count) {
 		super();
 		this.no = no;
 		this.menu = menu;
 		this.mainOrder = mainOrder;
+		this.count = count;
 		setIngredients();
 	}
 	public void setIngredients() {
@@ -61,6 +63,12 @@ public class DetailOrder {
 	}
 	public void setMainOrder(int mainOrder) {
 		this.mainOrder = mainOrder;
+	}
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
 	}
 	@Override
 	public String toString() {

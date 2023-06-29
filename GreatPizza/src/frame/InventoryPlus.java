@@ -5,16 +5,22 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import repo.Ingredient;
+import repo.OrderRepo;
+
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class InventoryPlus extends JFrame {
 
 	private JPanel contentPane;
+	private OrderRepo order;
 
 	public InventoryPlus(Ingredient ingredient) {
+		order = new OrderRepo();
 		setBounds(100, 100, 600, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -55,10 +61,19 @@ public class InventoryPlus extends JFrame {
 		
 		
 		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new Integer[] {10, 20, 30, 40, 50, 60, 100}));
 		comboBox.setBounds(346, 51, 169, 55);
 		contentPane.add(comboBox);
 		
 		JButton btnNewButton = new JButton("구 매");
+		btnNewButton.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent arg0) {
+		        int plus = (Integer) comboBox.getSelectedItem();
+		        order.plusIngredient(plus, ingredient.getId());
+		        setVisible(false);
+		    }
+		});
+
 		btnNewButton.setBounds(418, 171, 97, 32);
 		contentPane.add(btnNewButton);
 	}
