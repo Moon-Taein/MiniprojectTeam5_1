@@ -34,9 +34,10 @@ import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class MenuPopup extends JFrame {
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField menuName;
+	private JTextField hopedPrice;
 	private String selectType;
+	private String selectSize;
 	private JPanel scrollablePanel;
 	private JCheckBox cb;
 	private JRadioButton rb;
@@ -74,19 +75,19 @@ public class MenuPopup extends JFrame {
 
 		JPanel panel_5 = new JPanel();
 		panel_5.setBackground(Color.WHITE);
-		panel_5.setBounds(359, 10, 265, 431);
+		panel_5.setBounds(359, 10, 265, 460);
 		getContentPane().add(panel_5);
 		panel_5.setLayout(null);
 
 		JPanel panel_6 = new JPanel();
 		panel_6.setBackground(Color.LIGHT_GRAY);
-		panel_6.setBounds(0, 0, 265, 431);
+		panel_6.setBounds(0, 0, 265, 272);
 		panel_5.add(panel_6);
 		panel_6.setLayout(null);
 
 		JLabel lblNewLabel_6 = new JLabel("피자 클릭 시 오픈");
 		lblNewLabel_6.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_6.setBounds(51, 166, 169, 65);
+		lblNewLabel_6.setBounds(51, 94, 169, 65);
 		panel_6.add(lblNewLabel_6);
 
 		JComboBox comboBox_1_1 = new JComboBox();
@@ -98,11 +99,10 @@ public class MenuPopup extends JFrame {
 		JButton btnNewButton_1 = new JButton("추가");
 		btnNewButton_1.setBounds(154, 282, 82, 23);
 		panel_5.add(btnNewButton_1);
-		btnNewButton_1.setVisible(false);
+//		btnNewButton_1.setVisible(false);
 		final JComboBox comboBox = new JComboBox();
 		comboBox.setEnabled(false);
-		
-		
+
 		JComboBox comboBox_1 = new JComboBox();
 		comboBox_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -111,7 +111,7 @@ public class MenuPopup extends JFrame {
 				if (type.equals("피자")) {
 					comboBox.setEnabled(true);
 					panel_6.setVisible(false);
-					btnNewButton_1.setVisible(true);
+//					btnNewButton_1.setVisible(true);
 					comboBox_1_1.setEnabled(true);
 					comboBox_1_1.removeAllItems();
 					comboBox_1_1.addItem("M");
@@ -119,20 +119,20 @@ public class MenuPopup extends JFrame {
 				} else if (type.equals("음료")) {
 					comboBox.setEnabled(false);
 					panel_6.setVisible(true);
-					btnNewButton_1.setVisible(false);
+//					btnNewButton_1.setVisible(false);
 					comboBox_1_1.setEnabled(true);
 					comboBox_1_1.removeAllItems();
 					comboBox_1_1.addItem("500ML");
 					comboBox_1_1.addItem("1.25L");
 				} else {
 					comboBox.setEnabled(false);
-					btnNewButton_1.setVisible(false);
+//					btnNewButton_1.setVisible(false);
 					panel_6.setVisible(true);
 					comboBox_1_1.setEnabled(false);
 				}
 			}
 		});
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] { "피자", "토핑", "엣지", "소스", "사이드", "음료" }));
+		comboBox_1.setModel(new DefaultComboBoxModel(new String[] { "피자", "사이드", "음료" }));
 		comboBox_1.setBackground(Color.WHITE);
 		comboBox_1.setBounds(84, 10, 155, 30);
 		panel.add(comboBox_1);
@@ -148,11 +148,11 @@ public class MenuPopup extends JFrame {
 		lblNewLabel_2.setBounds(12, 10, 60, 30);
 		panel_2.add(lblNewLabel_2);
 
-		textField = new JTextField();
-		textField.setHorizontalAlignment(SwingConstants.RIGHT);
-		textField.setBounds(84, 11, 155, 30);
-		panel_2.add(textField);
-		textField.setColumns(10);
+		menuName = new JTextField();
+		menuName.setHorizontalAlignment(SwingConstants.RIGHT);
+		menuName.setBounds(84, 11, 155, 30);
+		panel_2.add(menuName);
+		menuName.setColumns(10);
 
 		JPanel panel_3 = new JPanel();
 		panel_3.setBackground(new Color(255, 228, 225));
@@ -165,16 +165,11 @@ public class MenuPopup extends JFrame {
 		lblNewLabel_3.setBounds(12, 10, 60, 30);
 		panel_3.add(lblNewLabel_3);
 
-		textField_1 = new JTextField();
-		textField_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		textField_1.setColumns(10);
-		textField_1.setBounds(84, 11, 155, 30);
-		panel_3.add(textField_1);
-
-		JButton btnNewButton = new JButton("메 뉴 추 가");
-		btnNewButton.setBackground(new Color(255, 222, 173));
-		btnNewButton.setBounds(396, 451, 186, 50);
-		getContentPane().add(btnNewButton);
+		hopedPrice = new JTextField();
+		hopedPrice.setHorizontalAlignment(SwingConstants.RIGHT);
+		hopedPrice.setColumns(10);
+		hopedPrice.setBounds(84, 11, 155, 30);
+		panel_3.add(hopedPrice);
 
 		JPanel panel_4 = new JPanel();
 		panel_4.setBackground(Color.PINK);
@@ -286,7 +281,7 @@ public class MenuPopup extends JFrame {
 
 		JLabel lblNewLabel_5 = new JLabel("이 미 지 출 력");
 		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_5.setBounds(12, 313, 241, 108);
+		lblNewLabel_5.setBounds(12, 313, 241, 137);
 		panel_5.add(lblNewLabel_5);
 
 		JLabel pizzaSize = new JLabel("없 음");
@@ -339,7 +334,6 @@ public class MenuPopup extends JFrame {
 
 								if (countCb == 0 && selectType.equals("토핑")) {
 									topping_1.setText(ig.getId());
-									btn.setVisible(false);
 									countCb++;
 								} else if (countCb == 1 && selectType.equals("토핑")) {
 									topping_2.setText(ig.getId());
@@ -352,7 +346,7 @@ public class MenuPopup extends JFrame {
 									countCb++;
 								} else if (countCb == 4 && selectType.equals("토핑")) {
 									topping_5.setText(ig.getId());
-									countCb = 0;
+									countCb++;
 								}
 							} else if (selectType.equals("소스")) {
 								sauce.setText(ig.getId());
@@ -368,6 +362,20 @@ public class MenuPopup extends JFrame {
 				scrollablePanel.repaint();
 			}
 		});
+
+		JButton btnNewButton = new JButton("메 뉴 추 가");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				selectType = comboBox_1.getSelectedItem().toString();
+				selectSize = comboBox_1_1.getSelectedItem().toString();
+				String price = String.valueOf(hopedPrice.getText());
+				String name = String.valueOf(menuName.getText());
+				pr.InsertDrink(selectType, name, selectSize, price);
+			}
+		});
+		btnNewButton.setBackground(new Color(255, 222, 173));
+		btnNewButton.setBounds(396, 480, 186, 38);
+		getContentPane().add(btnNewButton);
 
 		comboBox.setToolTipText("분 류\r\n");
 		comboBox.setModel(new DefaultComboBoxModel(new String[] { "토핑", "소스", "엣지" }));
