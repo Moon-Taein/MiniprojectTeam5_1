@@ -341,8 +341,9 @@ public class OrderRepo {
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, date);
 			rs = stmt.executeQuery();
-			rs.next();
-			return rs.getString("sales");
+			if(rs.next()) {
+				return rs.getString("sales");
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -353,22 +354,25 @@ public class OrderRepo {
 		return "0";
 	}
 	
-	public Map<String, Integer> bestMenu(String year) {
+	public Map<Integer, List<String>> bestMonth(String year) {
 		String sql = "SELECT month, money FROM asset WHERE year = ? ORDER BY money DESC LIMIT 5";
 		
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		Map<String, Integer> list = new LinkedHashMap<>();
+		Map<Integer, List<String>> map = new LinkedHashMap<>();
 		try {
 			conn = DBUtil.getConnection();
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, year);
 			rs = stmt.executeQuery();
+			int i = 1;
 			while (rs.next()) {
-				String month = rs.getString("month");
-				int money = rs.getInt("money");
-				list.put(month, money);
+				List<String> list = new ArrayList<>();
+				list.add(rs.getString("month"));
+				list.add(rs.getString("money"));
+				map.put(i, list);
+				i++;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -377,7 +381,37 @@ public class OrderRepo {
 			DBUtil.close(stmt);
 			DBUtil.close(conn);
 		}
-		return list;
+		return map;
+	}
+	
+	public Map<Integer, List<String>> bestMenu() {
+		String sql = "SELECT menu, COUNT(*) AS menu_count\r\n"
+				+ "FROM detailorder GROUP BY menu ORDER BY menu_count DESC;";
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		Map<Integer, List<String>> map = new LinkedHashMap<>();
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+			rs = stmt.executeQuery();
+			int i = 1;
+			while (rs.next()) {
+				List<String> list = new ArrayList<>();
+				list.add(rs.getString("menu"));
+				list.add(rs.getString("menu_count"));
+				map.put(i, list);
+				i++;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		return map;
 	}
 	
 	

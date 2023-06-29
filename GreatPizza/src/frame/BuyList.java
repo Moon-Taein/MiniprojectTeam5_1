@@ -33,7 +33,8 @@ public class BuyList extends JPanel {
 		for (int i = 0; i < size; i++) {
 			final MainOrder currentOrder = mainOrders.get(i);
 			if (currentOrder != null) {
-				ids[i].setText(currentOrder.getDate() + "0" + currentOrder.getNo());
+				String id = currentOrder.getDate().replace("-", "") + "0" + currentOrder.getNo();
+				ids[i].setText(id);
 				dates[i].setText(currentOrder.getDate());
 				times[i].setText(currentOrder.getTime());
 				prices[i].setText(String.valueOf(currentOrder.getTotalprice()));
