@@ -12,6 +12,7 @@ import java.util.Set;
 public class PosRepo {
 	private List<Menu> list = null;
 	private List<Ingredient> listIg = null;
+	private List<Account> listAc = null;
 	private Connection conn = null;
 	private PreparedStatement stmt = null;
 	private ResultSet rs = null;
@@ -113,9 +114,9 @@ public class PosRepo {
 		return list;
 	}
 
-	public List<String> monthYear() {
-		List<String> list = new ArrayList();
-		String sql = "select * from account";
+	public List<Account> monthYear매입매출(String dateDay) {
+		listAc = new ArrayList();
+		String sql = "select * from account where date like '" + dateDay + "-%' ORDER BY date ASC;";
 		try {
 			conn = DBUtil.getConnection();
 			stmt = conn.prepareStatement(sql);
@@ -123,11 +124,9 @@ public class PosRepo {
 
 			while (rs.next()) {
 				String date = rs.getString("date");
-				String purchase = rs.getString("purchase");
-				String sales = rs.getString("sales");
-				list.add(date);
-				list.add(purchase);
-				list.add(sales);
+				Integer purchase = Integer.valueOf(rs.getString("purchase"));
+				Integer sales = Integer.valueOf(rs.getString("sales"));
+				listAc.add(new Account(date, purchase, sales));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -136,13 +135,34 @@ public class PosRepo {
 			DBUtil.close(stmt);
 			DBUtil.close(conn);
 		}
-		
-		System.out.println(list);
-		return list;
+
+		return listAc;
+	}
+
+	public String cost(String month) {
+		String totalCost = "";
+		String sql = "select money from asset where month = " + month;
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+			rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				totalCost = rs.getString("money");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		System.out.println(totalCost);
+		return totalCost;
 	}
 
 	public static void main(String[] args) {
 		PosRepo pr = new PosRepo();
-		pr.monthYear();
 	}
+
 }

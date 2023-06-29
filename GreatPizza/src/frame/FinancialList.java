@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import repo.Account;
 import repo.PosRepo;
 
 import java.awt.Color;
@@ -23,12 +24,14 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class FinancialList extends JPanel {
 	private String selectYear;
 	private String year;
 	private String month;
+	private JPanel scrollablePanel;
 
 	public FinancialList() {
 		final PosRepo pr = new PosRepo();
@@ -36,48 +39,49 @@ public class FinancialList extends JPanel {
 		setSize(new Dimension(650, 900));
 		setLayout(null);
 
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(Color.PINK);
+		panel_1.setBounds(50, 122, 549, 45);
+		add(panel_1);
+		panel_1.setLayout(null);
+
+		JLabel lblNewLabel_2 = new JLabel("날 짜");
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2.setBounds(12, 10, 168, 25);
+		panel_1.add(lblNewLabel_2);
+
+		JLabel lblNewLabel_2_1 = new JLabel("매 입");
+		lblNewLabel_2_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2_1.setBounds(192, 10, 168, 25);
+		panel_1.add(lblNewLabel_2_1);
+
+		JLabel lblNewLabel_2_2 = new JLabel("매 출");
+		lblNewLabel_2_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2_2.setBounds(372, 10, 168, 25);
+		panel_1.add(lblNewLabel_2_2);
+
 		JPanel panel = new JPanel();
 		panel.setBounds(50, 162, 549, 590);
 		add(panel);
 
-		// 스크롤 가능한 패널 생성
-		JPanel scrollablePanel = new JPanel();
+		scrollablePanel = new JPanel();
+		scrollablePanel.setSize(new Dimension(550, 600));
 		scrollablePanel.setBackground(Color.WHITE);
 		scrollablePanel.setLayout(new BoxLayout(scrollablePanel, BoxLayout.Y_AXIS));
 
-		// 패널 내부의 패널 생성
-		JPanel innerPanel = new JPanel();
-		innerPanel.setLayout(new GridLayout(1, 3, 100, 50)); // 가로로 3개의 컴포넌트 배치
-		innerPanel.setBorder(new EmptyBorder(10, 10, 100, 50)); // 패널 간격 설정
-
-		// 라벨 추가
-		JLabel label1 = new JLabel("날 짜");
-		label1.setOpaque(true);
-		label1.setFont(new Font("굴림", Font.PLAIN, 15));
-		JLabel label2 = new JLabel("매 출");
-		label2.setOpaque(true);
-		label2.setFont(new Font("굴림", Font.PLAIN, 15));
-		JLabel label3 = new JLabel("매 입 ");
-		label3.setOpaque(true);
-		label3.setFont(new Font("굴림", Font.PLAIN, 15));
-
-		// 라벨을 패널에 추가
-		innerPanel.add(label1);
-		innerPanel.add(label2);
-		innerPanel.add(label3);
-
-		// 패널을 스크롤 가능한 패널에 추가
-		scrollablePanel.add(innerPanel);
-
 		// JScrollPane 생성 및 스크롤 가능한 패널 설정
 		JScrollPane scrollPane = new JScrollPane(scrollablePanel);
-
+		scrollPane.setPreferredSize(new Dimension(550, 585));
 		scrollPane.setBackground(Color.WHITE);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollablePanel.revalidate();
+		scrollablePanel.repaint();
 		panel.add(scrollPane);
 
+		defaultCreate();
+
 		final JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(50, 118, 79, 34);
+		comboBox.setBounds(51, 85, 79, 34);
 		add(comboBox);
 
 		// 콤보박스 디폴트 값 설정해주기
@@ -86,7 +90,7 @@ public class FinancialList extends JPanel {
 		}
 
 		final JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(141, 118, 58, 34);
+		comboBox_1.setBounds(142, 85, 58, 34);
 		add(comboBox_1);
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -105,50 +109,16 @@ public class FinancialList extends JPanel {
 		}
 
 		JButton btnNewButton = new JButton("\uD655 \uC778");
-		btnNewButton.setBounds(211, 118, 66, 34);
+		btnNewButton.setBounds(212, 85, 66, 34);
 		add(btnNewButton);
-
-		btnNewButton.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				year = comboBox.getSelectedItem().toString();
-				month = comboBox_1.getSelectedItem().toString();
-			}
-		});
-		String yearAndMonth = year + "-" + month;
-
-		JLabel lblNewLabel = new JLabel("년도");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(50, 79, 79, 34);
-		add(lblNewLabel);
-
-		JLabel lblNewLabel_1 = new JLabel("월");
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(141, 79, 58, 34);
-		add(lblNewLabel_1);
-
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(Color.PINK);
-		panel_1.setBounds(289, 112, 309, 45);
-		add(panel_1);
-		panel_1.setLayout(null);
-
-		JLabel lblNewLabel_2 = new JLabel("매 출");
-		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2.setBounds(12, 10, 130, 27);
-		panel_1.add(lblNewLabel_2);
-
-		JLabel lblNewLabel_2_1 = new JLabel("매 입");
-		lblNewLabel_2_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2_1.setBounds(154, 10, 143, 27);
-		panel_1.add(lblNewLabel_2_1);
-
+		
 		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(Color.WHITE);
 		panel_2.setBounds(50, 762, 549, 79);
 		add(panel_2);
 		panel_2.setLayout(null);
-
-		JLabel lblNewLabel_3 = new JLabel("금액( 00000000000000000 )");
+		
+		JLabel lblNewLabel_3 = new JLabel("금 액");
 		lblNewLabel_3.setBounds(216, 10, 221, 59);
 		panel_2.add(lblNewLabel_3);
 
@@ -156,5 +126,102 @@ public class FinancialList extends JPanel {
 		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_4.setBounds(83, 10, 121, 59);
 		panel_2.add(lblNewLabel_4);
+		
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				scrollablePanel.removeAll();
+				year = comboBox.getSelectedItem().toString();
+				month = comboBox_1.getSelectedItem().toString();
+
+				// 연도 - 월 형식으로 출력
+				String yearAndMonth = year + "-" + month;
+				System.out.println(yearAndMonth);
+
+				List<Account> list = pr.monthYear매입매출(yearAndMonth);
+				System.out.println(list);
+				for (Account ac : list) {
+					// 패널 내부의 패널 생성
+					JPanel innerPanel = new JPanel();
+					innerPanel.setLayout(new GridLayout(1, 3, 100, 10)); // 가로로 3개의 컴포넌트 배치
+					innerPanel.setBorder(new EmptyBorder(10, 50, 0, 50)); // 패널 간격 설정
+					innerPanel.setBackground(Color.WHITE);
+
+					String day = ac.settingDateYearMonth(ac.getDate());
+					System.out.println(day);
+
+					// 라벨 추가
+					JLabel label1 = new JLabel(month + " / " + day);
+					label1.setOpaque(true);
+					label1.setBackground(Color.white);
+					label1.setFont(new Font("굴림", Font.PLAIN, 15));
+
+					JLabel label2 = new JLabel(String.valueOf(ac.getPurchase()));
+					label2.setOpaque(true);
+					label2.setBackground(Color.white);
+					label2.setFont(new Font("굴림", Font.PLAIN, 15));
+
+					JLabel label3 = new JLabel(String.valueOf(ac.getSales()));
+					label3.setOpaque(true);
+					label3.setBackground(Color.white);
+					label3.setFont(new Font("굴림", Font.PLAIN, 15));
+
+					// 라벨을 패널에 추가
+					innerPanel.add(label1);
+					innerPanel.add(label2);
+					innerPanel.add(label3);
+
+					// 패널을 스크롤 가능한 패널에 추가
+					scrollablePanel.add(innerPanel);
+					innerPanel.revalidate();
+					innerPanel.repaint();
+				}
+				lblNewLabel_3.setText(pr.cost(month));
+				scrollablePanel.revalidate();
+				scrollablePanel.repaint();
+			}
+		});
+
+		JLabel lblNewLabel = new JLabel("년도");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(51, 46, 79, 34);
+		add(lblNewLabel);
+
+		JLabel lblNewLabel_1 = new JLabel("월");
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setBounds(142, 46, 58, 34);
+		add(lblNewLabel_1);
+
+	}
+
+	public void defaultCreate() {
+		JPanel innerPanel = new JPanel();
+		innerPanel.setLayout(new GridLayout(1, 3, 160, 50)); // 가로로 3개의 컴포넌트 배치
+		innerPanel.setBorder(new EmptyBorder(10, 10, 10, 10)); // 패널 간격 설정
+		innerPanel.setBackground(Color.WHITE);
+
+		// 라벨 추가
+		JLabel label1 = new JLabel(" 날 짜 ");
+		label1.setOpaque(true);
+		label1.setBackground(Color.white);
+		label1.setFont(new Font("굴림", Font.PLAIN, 15));
+
+		JLabel label2 = new JLabel(" 매 입 ");
+		label2.setOpaque(true);
+		label2.setBackground(Color.white);
+		label2.setFont(new Font("굴림", Font.PLAIN, 15));
+
+		JLabel label3 = new JLabel(" 매 출 ");
+		label3.setOpaque(true);
+		label3.setBackground(Color.white);
+		label3.setFont(new Font("굴림", Font.PLAIN, 15));
+
+		// 라벨을 패널에 추가
+		innerPanel.add(label1);
+		innerPanel.add(label2);
+		innerPanel.add(label3);
+
+		// 패널을 스크롤 가능한 패널에 추가
+		scrollablePanel.add(innerPanel);
+
 	}
 }
