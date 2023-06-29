@@ -31,55 +31,45 @@ public class MenuList extends JPanel {
 		panel.setSize(new Dimension(550, 750));
 		panel.setBounds(52, 126, 550, 642);
 		add(panel);
-		
+
 		// 스크롤 가능한 패널 생성
 		JPanel scrollablePanel = new JPanel();
 		scrollablePanel.setSize(new Dimension(550, 550));
 		scrollablePanel.setBackground(Color.WHITE);
 		scrollablePanel.setLayout(new BoxLayout(scrollablePanel, BoxLayout.Y_AXIS));
-		
-		
+
 		// 패널 내부의 패널 생성
 		PosRepo pr = new PosRepo();
 		List<Menu> list = pr.menuIdPrice();
 		for (Menu m : list) {
-			
+
 			JPanel innerPanel = new JPanel();
 			innerPanel.setLayout(new GridLayout(1, 3, 30, 120)); // (행, 열, 글자사이 가로 간격, 격자사이 수직 간격)
 			innerPanel.setBorder(new EmptyBorder(15, 5, 15, 5)); // (위로 간격, 왼쪽 ,아래, 우측) 레이아웃과의 간격
-			
-		    JLabel nameLabel = new JLabel(m.getMenuName());
-		    nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		    nameLabel.setOpaque(true);
-		    nameLabel.setFont(new Font("굴림", Font.PLAIN, 18));
 
-		    JLabel typeLabel = new JLabel(m.getType());
-		    typeLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		    typeLabel.setOpaque(true);
-		    typeLabel.setFont(new Font("굴림", Font.PLAIN, 18));
+			JLabel nameLabel = new JLabel(m.getMenuName());
+			nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
+			nameLabel.setOpaque(true);
+			nameLabel.setFont(new Font("굴림", Font.PLAIN, 18));
 
-		    JLabel priceLabel = new JLabel(String.valueOf(m.getPrice()));
-		    priceLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		    priceLabel.setOpaque(true);
-		    priceLabel.setFont(new Font("굴림", Font.PLAIN, 18));
-		    
-		    JButton btn = new JButton("수정");
-		    btn.addActionListener(new ActionListener() {
-		    	public void actionPerformed(ActionEvent arg0) {
-		    		new MenuPopup2();
-		    	}
-		    });
-		    btn.setHorizontalAlignment(SwingConstants.LEFT);
-		    btn.setHorizontalTextPosition(SwingConstants.LEFT);
-		    btn.setPreferredSize(new Dimension(60, 30));
- 
-		    // Add the labels to the inner panel
-		    innerPanel.add(nameLabel);
-		    innerPanel.add(typeLabel);
-		    innerPanel.add(priceLabel);
-		    innerPanel.add(btn);
-		    
-		    scrollablePanel.add(innerPanel);
+			JLabel typeLabel = new JLabel(m.getType());
+			typeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+			typeLabel.setOpaque(true);
+			typeLabel.setFont(new Font("굴림", Font.PLAIN, 18));
+
+			JLabel priceLabel = new JLabel(String.valueOf(m.getPrice()));
+			priceLabel.setHorizontalAlignment(SwingConstants.CENTER);
+			priceLabel.setOpaque(true);
+			priceLabel.setFont(new Font("굴림", Font.PLAIN, 18));
+
+			// Add the labels to the inner panel
+			innerPanel.add(nameLabel);
+			innerPanel.add(typeLabel);
+			innerPanel.add(priceLabel);
+
+			scrollablePanel.add(innerPanel);
+			scrollablePanel.revalidate();
+			scrollablePanel.repaint();
 		}
 
 		// JScrollPane 생성 및 스크롤 가능한 패널 설정
@@ -89,7 +79,7 @@ public class MenuList extends JPanel {
 		scrollPane.setBackground(Color.WHITE);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		panel.add(scrollPane);
-		
+
 		// JFrame에 JScrollPane 추가
 		add(panel);
 

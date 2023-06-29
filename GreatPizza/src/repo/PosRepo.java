@@ -47,14 +47,14 @@ public class PosRepo {
 	public List<Ingredient> ingredientID(String type) {
 		listIg = new ArrayList<>();
 
-		String sql = "select ingredient_id from ingredient where ingredient_id like '" + type + "%'";
+		String sql = "select inventory_id from ingredient where inventory_id like '" + type + "%'";
 		try {
 			conn = DBUtil.getConnection();
 			stmt = conn.prepareStatement(sql);
 			rs = stmt.executeQuery();
 
 			while (rs.next()) {
-				String id = rs.getString("ingredient_id");
+				String id = rs.getString("inventory_id");
 				listIg.add(new Ingredient(id));
 			}
 
