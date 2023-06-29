@@ -117,6 +117,5 @@ public class MenuList extends JPanel {
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_2.setBounds(304, 10, 141, 36);
 		panel_1.add(lblNewLabel_2);
-
 	}
 }

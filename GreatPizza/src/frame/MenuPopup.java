@@ -30,6 +30,7 @@ import java.awt.GridLayout;
 
 import javax.swing.ScrollPaneConstants;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
 
@@ -48,6 +49,8 @@ public class MenuPopup extends JFrame {
 	private JLabel topping_3;
 	private JLabel topping_2;
 	private JLabel topping_1;
+	private JLabel edge;
+	private JLabel sauce;
 
 	public MenuPopup() {
 		pr = new PosRepo();
@@ -239,13 +242,13 @@ public class MenuPopup extends JFrame {
 		lblNewLabel_4_8.setBounds(56, 283, 60, 20);
 		panel_5.add(lblNewLabel_4_8);
 
-		final JLabel edge = new JLabel("없 음");
+		edge = new JLabel("없 음");
 		edge.setSize(new Dimension(0, 20));
 		edge.setHorizontalAlignment(SwingConstants.CENTER);
 		edge.setBounds(81, 40, 170, 20);
 		panel_5.add(edge);
 
-		final JLabel sauce = new JLabel("없 음");
+		sauce = new JLabel("없 음");
 		sauce.setSize(new Dimension(0, 20));
 		sauce.setHorizontalAlignment(SwingConstants.CENTER);
 		sauce.setBounds(81, 70, 170, 20);
@@ -310,17 +313,13 @@ public class MenuPopup extends JFrame {
 				if (selectType.equals("토핑")) {
 					addMenuReset();
 				}
-
 				List<Ingredient> list = pr.ingredientID(selectType);
 				for (final Ingredient ig : list) {
-
 					JPanel igPanel = new JPanel();
 					JLabel igLabel = new JLabel(ig.getId());
 					btn = new JButton("선택");
-
 					igLabel.setHorizontalAlignment(SwingConstants.LEFT);
 					igLabel.setOpaque(true);
-
 					igPanel.add(igLabel);
 					igPanel.add(btn);
 					igPanel.revalidate();
@@ -329,7 +328,6 @@ public class MenuPopup extends JFrame {
 						@Override
 						public void actionPerformed(ActionEvent e) {
 							if (countCb < 5 && selectType.equals("토핑")) {
-
 								if (countCb == 0 && selectType.equals("토핑")) {
 									topping_1.setText(ig.getId());
 									countCb++;
@@ -355,7 +353,6 @@ public class MenuPopup extends JFrame {
 					});
 					scrollablePanel.add(igPanel);
 				}
-
 				scrollablePanel.revalidate();
 				scrollablePanel.repaint();
 			}
@@ -364,10 +361,13 @@ public class MenuPopup extends JFrame {
 		// 메뉴 추가
 		JButton btnNewButton = new JButton("메 뉴 추 가");
 		btnNewButton.addActionListener(new ActionListener() {
+			private List<String> list;
+
 			public void actionPerformed(ActionEvent e) {
 				selectType = comboBox_1.getSelectedItem().toString();
-				selectSize = comboBox_1_1.getSelectedItem().toString();
-				
+				if (selectType.equals("피자") || selectType.equals("음료")) {
+					selectSize = comboBox_1_1.getSelectedItem().toString();
+				}
 				// 가격
 				String price = String.valueOf(hopedPrice.getText());
 				// 작성한 이름
@@ -375,40 +375,45 @@ public class MenuPopup extends JFrame {
 				// 입력된 소스
 				String selectSauce = sauce.getText();
 				String selectEdge = edge.getText();
-				
-				if(name != null || price != null) {
-				if (selectType.equals("피자")) {
-					pr.InsertPizzaMenu(selectType, name, selectSize, price);
-//					pr.InsertPizzaRecipe(name, name, name, null, name, name, price);
-					addMenuReset();
-					menuName.setText(" ");
-					hopedPrice.setText(" ");
-				} else if (selectType.equals("음료")) {
-					pr.InsertDrink(selectType, name, selectSize, price);
-					addMenuReset();
-					menuName.setText(" ");
-					hopedPrice.setText(" ");
-				} else if (selectType.equals("사이드")) {
-					pr.InsertSide(selectType, name, selectSize, price);
-					addMenuReset();
-					menuName.setText(" ");
-					hopedPrice.setText(" ");
+
+				list = new ArrayList<>();
+				list.add(topping_1.getText());
+				list.add(topping_2.getText());
+				list.add(topping_3.getText());
+				list.add(topping_4.getText());
+				list.add(topping_5.getText());
+
+				if (name != null || price != null) {
+					if (selectType.equals("피자")) {
+						pr.InsertPizzaMenu(selectType, name, selectSize, price);
+						pr.InsertPizzaRecipe(selectType, name, selectSize, price, list);
+						addMenuReset();
+						menuName.setText(" ");
+						hopedPrice.setText(" ");
+					} else if (selectType.equals("음료")) {
+						pr.InsertDrink(selectType, name, selectSize, price);
+						addMenuReset();
+						menuName.setText(" ");
+						hopedPrice.setText(" ");
+					} else if (selectType.equals("사이드")) {
+						pr.InsertSide(selectType, name, price);
+						addMenuReset();
+						menuName.setText(" ");
+						hopedPrice.setText(" ");
+					}
+				} else {
+					System.out.println(" 입력은 하고 하는거냐! ");
 				}
-			}else {
-				System.out.println(" 입력은 하고 하는거냐! ");
-			}
 			}
 		});
 
 		btnNewButton.setBackground(new Color(255, 222, 173));
 		btnNewButton.setBounds(396, 480, 186, 38);
 		getContentPane().add(btnNewButton);
-
 		comboBox.setToolTipText("분 류\r\n");
-		comboBox.setModel(new DefaultComboBoxModel(new String[] { "토핑", "소스", "엣지" }));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] { "엣지", "소스", "토핑" }));
 		comboBox.setBounds(155, 250, 113, 43);
 		getContentPane().add(comboBox);
-
 		setVisible(true);
 	}
 
@@ -418,6 +423,8 @@ public class MenuPopup extends JFrame {
 		topping_3.setText("없음");
 		topping_4.setText("없음");
 		topping_5.setText("없음");
+		edge.setText("없음");
+		sauce.setText("없음");
 
 	}
 }
