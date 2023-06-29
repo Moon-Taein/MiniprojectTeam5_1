@@ -359,7 +359,7 @@ public class OrderRepo {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		Map<String, Integer> list = new HashMap<>();
+		Map<String, Integer> list = new LinkedHashMap<>();
 		try {
 			conn = DBUtil.getConnection();
 			stmt = conn.prepareStatement(sql);
@@ -379,4 +379,6 @@ public class OrderRepo {
 		}
 		return list;
 	}
+	
+	
 }

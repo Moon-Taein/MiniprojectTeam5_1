@@ -30,6 +30,7 @@ public class SalesList extends JPanel {
 		order = new OrderRepo();
 		LocalDate today = LocalDate.now();
 	    String day = today.format(DateTimeFormatter.ofPattern("yyyy-M-d"));
+		Map<String, Integer> bests = order.bestMenu(String.valueOf(today.getYear()));
 		
 		setSize(new Dimension(650, 900));
 		setLayout(null);
