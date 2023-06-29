@@ -160,21 +160,19 @@ public class PosRepo {
 		return totalCost;
 	}
 
-	public void InsertSide(String type, String name, String price, byte[] by) {
-		String sql = "INSERT INTO menu (Menu_id,Menu_name,price,image) VALUES (?,?,?,?)";
+	public int InsertSide(String type, String name, String price) {
+		String sql = "INSERT INTO menu (Menu_id,Menu_name,price) VALUES (?,?,?)";
 		try {
 			conn = DBUtil.getConnection();
 			stmt = conn.prepareStatement(sql);
 
 			String menuId = type + "_" + name;
 
-			while (rs.next()) {
-				stmt.setString(1, menuId);
-				stmt.setString(2, name);
-				stmt.setString(3, price);
+			stmt.setString(1, menuId);
+			stmt.setString(2, name);
+			stmt.setString(3, price);
 //				stmt.setString(4, priceSupply);
-//				return stmt.executeUpdate();
-			}
+			return stmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -182,6 +180,7 @@ public class PosRepo {
 			DBUtil.close(stmt);
 			DBUtil.close(conn);
 		}
+		return 0;
 	}
 
 	public int InsertDrink(String type, String name, String size, String price) {
@@ -196,8 +195,7 @@ public class PosRepo {
 			stmt.setString(1, menuId);
 			stmt.setString(2, menuName);
 			stmt.setString(3, price);
-			
-			
+
 			return stmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -210,10 +208,37 @@ public class PosRepo {
 	}
 
 	// 피자는 메뉴 용 하나, 레시피용 하나가 필요합니다. 주의 하세요
-	public void InsertPizza(String type, String name, String size, List<String> topping, String sauce, String edge,
+	public int InsertPizzaMenu(String type, String name, String size,String price) {
+		String sql = "INSERT INTO menu (Menu_id,Menu_name,size,price) VALUES (?,?,?,?)";
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+
+			String menuId = type + "_" + name;
+			String menuName = name + size;
+
+			stmt.setString(1, menuId);
+			stmt.setString(2, menuName);
+			stmt.setString(3, size);
+			stmt.setString(4, price);
+
+			return stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		return 0;
+	}
+	
+	// 피자는 메뉴 용 하나, 레시피용 하나가 필요합니다. 주의 하세요
+	public void InsertPizzaRecipe(String type, String name, String size, List<String> topping, String sauce, String edge,
 			String price) {
 		String sql = "INSERT INTO menu (Menu_id,Menu_name,price,image) VALUES (?,?,?,?)";
 	}
+
 
 	public static void main(String[] args) {
 		PosRepo pr = new PosRepo();

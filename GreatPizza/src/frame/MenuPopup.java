@@ -370,9 +370,17 @@ public class MenuPopup extends JFrame {
 				selectSize = comboBox_1_1.getSelectedItem().toString();
 				String price = String.valueOf(hopedPrice.getText());
 				String name = String.valueOf(menuName.getText());
-				pr.InsertDrink(selectType, name, selectSize, price);
+
+				if (selectType.equals("피자")) {
+					pr.InsertPizzaMenu(selectType, name, selectSize, price);
+				} else if (selectType.equals("음료")) {
+					pr.InsertDrink(selectType, name, selectSize, price);
+				} else if (selectType.equals("사이드")) {
+					
+				}
 			}
 		});
+
 		btnNewButton.setBackground(new Color(255, 222, 173));
 		btnNewButton.setBounds(396, 480, 186, 38);
 		getContentPane().add(btnNewButton);
