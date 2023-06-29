@@ -2,6 +2,7 @@ package repo;
 
 import java.sql.*;
 import java.util.*;
+import java.util.AbstractMap.SimpleEntry;
 
 public class OrderRepo {
 
@@ -329,4 +330,53 @@ public class OrderRepo {
 		return 0;
 	}
 	
+	public String todaySales(String date) {
+		String sql = "SELECT * FROM account WHERE date = ?";
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, date);
+			rs = stmt.executeQuery();
+			rs.next();
+			return rs.getString("sales");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		return "0";
+	}
+	
+	public Map<String, Integer> bestMenu(String year) {
+		String sql = "SELECT month, money FROM asset WHERE year = ? ORDER BY money DESC LIMIT 5";
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		Map<String, Integer> list = new HashMap<>();
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, year);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				String month = rs.getString("month");
+				int money = rs.getInt("money");
+				list.put(month, money);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		return list;
+	}
 }

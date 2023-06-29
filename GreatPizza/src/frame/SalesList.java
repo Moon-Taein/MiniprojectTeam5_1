@@ -4,6 +4,11 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.AbstractMap.SimpleEntry;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -12,13 +17,20 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
+import repo.OrderRepo;
+
 public class SalesList extends JPanel {
 
 	private JPanel cards;
 	protected CardLayout cl_cards;
 	private JLabel todaytotal;
+	private OrderRepo order;
 
 	public SalesList() {
+		order = new OrderRepo();
+		LocalDate today = LocalDate.now();
+	    String day = today.format(DateTimeFormatter.ofPattern("yyyy-M-d"));
+		
 		setSize(new Dimension(650, 900));
 		setLayout(null);
 
@@ -42,7 +54,7 @@ public class SalesList extends JPanel {
 		todaytotal.setBounds(183, 28, 134, 37);
 		panel.add(todaytotal);
 		
-		JLabel total = new JLabel("0000000");
+		JLabel total = new JLabel(order.todaySales(day));
 		total.setHorizontalAlignment(SwingConstants.CENTER);
 		total.setFont(new Font("굴림", Font.BOLD, 20));
 		total.setBounds(90, 75, 326, 47);
@@ -68,11 +80,11 @@ public class SalesList extends JPanel {
 		monthpage.add(panel_2);
 		panel_2.setLayout(null);
 		
-		JLabel today = new JLabel("많이팔린메뉴");
-		today.setFont(new Font("굴림", Font.PLAIN, 20));
-		today.setHorizontalAlignment(SwingConstants.CENTER);
-		today.setBounds(179, 5, 128, 47);
-		panel_2.add(today);
+		JLabel bestMenu = new JLabel("많이팔린메뉴");
+		bestMenu.setFont(new Font("굴림", Font.PLAIN, 20));
+		bestMenu.setHorizontalAlignment(SwingConstants.CENTER);
+		bestMenu.setBounds(179, 5, 128, 47);
+		panel_2.add(bestMenu);
 		
 		JLabel first = new JLabel("1.");
 		first.setFont(new Font("굴림", Font.PLAIN, 15));
@@ -84,17 +96,17 @@ public class SalesList extends JPanel {
 		second.setBounds(179, 99, 128, 27);
 		panel_2.add(second);
 		
-		JLabel third = new JLabel("New label");
+		JLabel third = new JLabel("3");
 		third.setFont(new Font("굴림", Font.PLAIN, 15));
 		third.setBounds(179, 136, 128, 27);
 		panel_2.add(third);
 		
-		JLabel four = new JLabel("New label");
+		JLabel four = new JLabel("4");
 		four.setFont(new Font("굴림", Font.PLAIN, 15));
 		four.setBounds(179, 173, 128, 27);
 		panel_2.add(four);
 		
-		JLabel five = new JLabel("New label");
+		JLabel five = new JLabel("5");
 		five.setFont(new Font("굴림", Font.PLAIN, 15));
 		five.setBounds(179, 210, 128, 27);
 		panel_2.add(five);
@@ -103,6 +115,37 @@ public class SalesList extends JPanel {
 		panel_3.setBounds(76, 400, 485, 370);
 		monthpage.add(panel_3);
 		panel_3.setLayout(null);
+		
+		JLabel month = new JLabel("월매출 순위");
+		month.setHorizontalAlignment(SwingConstants.CENTER);
+		month.setFont(new Font("굴림", Font.PLAIN, 20));
+		month.setBounds(180, 10, 128, 47);
+		panel_3.add(month);
+		
+		JLabel first_1 = new JLabel("1.");
+		first_1.setFont(new Font("굴림", Font.PLAIN, 15));
+		first_1.setBounds(180, 67, 128, 27);
+		panel_3.add(first_1);
+		
+		JLabel second_1 = new JLabel("2.");
+		second_1.setFont(new Font("굴림", Font.PLAIN, 15));
+		second_1.setBounds(180, 104, 128, 27);
+		panel_3.add(second_1);
+		
+		JLabel third_1 = new JLabel("3");
+		third_1.setFont(new Font("굴림", Font.PLAIN, 15));
+		third_1.setBounds(180, 141, 128, 27);
+		panel_3.add(third_1);
+		
+		JLabel four_1 = new JLabel("4");
+		four_1.setFont(new Font("굴림", Font.PLAIN, 15));
+		four_1.setBounds(180, 178, 128, 27);
+		panel_3.add(four_1);
+		
+		JLabel five_1 = new JLabel("5");
+		five_1.setFont(new Font("굴림", Font.PLAIN, 15));
+		five_1.setBounds(180, 215, 128, 27);
+		panel_3.add(five_1);
 
 		JButton btndate = new JButton("일 별");
 		btndate.addActionListener(new ActionListener() {
