@@ -19,7 +19,7 @@ public class InventoryPlus extends JFrame {
 	private JPanel contentPane;
 	private OrderRepo order;
 
-	public InventoryPlus(Ingredient ingredient) {
+	public InventoryPlus(final Ingredient ingredient) {
 		order = new OrderRepo();
 		setBounds(100, 100, 600, 300);
 		contentPane = new JPanel();
@@ -60,7 +60,7 @@ public class InventoryPlus extends JFrame {
 		contentPane.add(little);
 		
 		
-		JComboBox comboBox = new JComboBox();
+		final JComboBox comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new Integer[] {10, 20, 30, 40, 50, 60, 100}));
 		comboBox.setBounds(346, 51, 169, 55);
 		contentPane.add(comboBox);

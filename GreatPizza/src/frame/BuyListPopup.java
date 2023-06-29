@@ -122,7 +122,7 @@ public class BuyListPopup extends JFrame {
         rdbtns = new JRadioButton[menus.size()];
         group = new ButtonGroup();
         for (int i = 0; i < menus.size(); i++) {
-            DetailOrder menu = menus.get(i);
+            final DetailOrder menu = menus.get(i);
 
             rdbtns[i] = new JRadioButton(menu.getMenu());
             rdbtns[i].setFont(new Font("굴림", Font.BOLD, 20));

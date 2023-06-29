@@ -160,8 +160,8 @@ public class PosRepo {
 		return totalCost;
 	}
 
-	public int InsertSide(String type, String name, String price) {
-		String sql = "INSERT INTO menu (Menu_id,Menu_name,price) VALUES (?,?,?)";
+	public int InsertSide(String type, String name, String size, String price) {
+		String sql = "INSERT INTO menu (Menu_id,Menu_name,size,price) VALUES (?,?,?,?)";
 		try {
 			conn = DBUtil.getConnection();
 			stmt = conn.prepareStatement(sql);
@@ -170,8 +170,11 @@ public class PosRepo {
 
 			stmt.setString(1, menuId);
 			stmt.setString(2, name);
-			stmt.setString(3, price);
+			stmt.setString(3, size);
+			stmt.setString(4, price);
 //				stmt.setString(4, priceSupply);
+
+			System.out.println("메뉴에 사이드가 추가 됐다!");
 			return stmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -195,7 +198,7 @@ public class PosRepo {
 			stmt.setString(1, menuId);
 			stmt.setString(2, menuName);
 			stmt.setString(3, price);
-
+			System.out.println("메뉴에 음료가 추가 됐다!");
 			return stmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -208,20 +211,20 @@ public class PosRepo {
 	}
 
 	// 피자는 메뉴 용 하나, 레시피용 하나가 필요합니다. 주의 하세요
-	public int InsertPizzaMenu(String type, String name, String size,String price) {
+	public int InsertPizzaMenu(String type, String name, String size, String price) {
 		String sql = "INSERT INTO menu (Menu_id,Menu_name,size,price) VALUES (?,?,?,?)";
 		try {
 			conn = DBUtil.getConnection();
 			stmt = conn.prepareStatement(sql);
 
-			String menuId = type + "_" + name;
 			String menuName = name + size;
+			String menuId = type + "_" + menuName;
 
 			stmt.setString(1, menuId);
 			stmt.setString(2, menuName);
 			stmt.setString(3, size);
 			stmt.setString(4, price);
-
+			System.out.println("메뉴에 피자가 추가 됐다!");
 			return stmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -232,13 +235,13 @@ public class PosRepo {
 		}
 		return 0;
 	}
-	
-	// 피자는 메뉴 용 하나, 레시피용 하나가 필요합니다. 주의 하세요
-	public void InsertPizzaRecipe(String type, String name, String size, List<String> topping, String sauce, String edge,
-			String price) {
-		String sql = "INSERT INTO menu (Menu_id,Menu_name,price,image) VALUES (?,?,?,?)";
-	}
 
+	// 피자는 메뉴 용 하나, 레시피용 하나가 필요합니다. 주의 하세요
+	public int InsertPizzaRecipe() {
+		String sql = "INSERT INTO menu (Menu_id,inventory_ID,count) VALUES (?,?,?)";
+
+		return 0;
+	}
 
 	public static void main(String[] args) {
 		PosRepo pr = new PosRepo();

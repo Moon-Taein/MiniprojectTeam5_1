@@ -94,7 +94,7 @@ public class InventoryList extends JPanel {
 		l1_3.setBounds(50, 173, 112, 24);
 		pnlPlus.add(l1_3);
 		
-		JComboBox comboBox = new JComboBox();
+		final JComboBox comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"소스", "토핑", "엣지"}));
 		comboBox.setBounds(378, 44, 112, 21);
 		pnlPlus.add(comboBox);
@@ -160,7 +160,7 @@ public class InventoryList extends JPanel {
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		
 		for(int i = 0; i < ingredients.size(); i++) {
-			Ingredient ingredient = ingredients.get(i);
+			final Ingredient ingredient = ingredients.get(i);
 			JPanel pnl1 = new JPanel();
 			panel.add(pnl1);
 			pnl1.setLayout(null);

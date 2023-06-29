@@ -43,6 +43,11 @@ public class MenuPopup extends JFrame {
 	private JRadioButton rb;
 	private PosRepo pr = new PosRepo();
 	private int countCb = 0;
+	private JLabel topping_5;
+	private JLabel topping_4;
+	private JLabel topping_3;
+	private JLabel topping_2;
+	private JLabel topping_1;
 
 	public MenuPopup() {
 		pr = new PosRepo();
@@ -79,7 +84,7 @@ public class MenuPopup extends JFrame {
 		getContentPane().add(panel_5);
 		panel_5.setLayout(null);
 
-		JPanel panel_6 = new JPanel();
+		final JPanel panel_6 = new JPanel();
 		panel_6.setBackground(Color.LIGHT_GRAY);
 		panel_6.setBounds(0, 0, 265, 272);
 		panel_5.add(panel_6);
@@ -90,7 +95,7 @@ public class MenuPopup extends JFrame {
 		lblNewLabel_6.setBounds(51, 94, 169, 65);
 		panel_6.add(lblNewLabel_6);
 
-		JComboBox comboBox_1_1 = new JComboBox();
+		final JComboBox comboBox_1_1 = new JComboBox();
 
 		comboBox_1_1.setBounds(84, 10, 155, 30);
 		comboBox_1_1.setEnabled(false);
@@ -103,7 +108,7 @@ public class MenuPopup extends JFrame {
 		final JComboBox comboBox = new JComboBox();
 		comboBox.setEnabled(false);
 
-		JComboBox comboBox_1 = new JComboBox();
+		final JComboBox comboBox_1 = new JComboBox();
 		comboBox_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String type = (String) comboBox_1.getSelectedItem();
@@ -111,7 +116,6 @@ public class MenuPopup extends JFrame {
 				if (type.equals("피자")) {
 					comboBox.setEnabled(true);
 					panel_6.setVisible(false);
-//					btnNewButton_1.setVisible(true);
 					comboBox_1_1.setEnabled(true);
 					comboBox_1_1.removeAllItems();
 					comboBox_1_1.addItem("M");
@@ -119,14 +123,12 @@ public class MenuPopup extends JFrame {
 				} else if (type.equals("음료")) {
 					comboBox.setEnabled(false);
 					panel_6.setVisible(true);
-//					btnNewButton_1.setVisible(false);
 					comboBox_1_1.setEnabled(true);
 					comboBox_1_1.removeAllItems();
 					comboBox_1_1.addItem("500ML");
 					comboBox_1_1.addItem("1.25L");
 				} else {
 					comboBox.setEnabled(false);
-//					btnNewButton_1.setVisible(false);
 					panel_6.setVisible(true);
 					comboBox_1_1.setEnabled(false);
 				}
@@ -237,43 +239,43 @@ public class MenuPopup extends JFrame {
 		lblNewLabel_4_8.setBounds(56, 283, 60, 20);
 		panel_5.add(lblNewLabel_4_8);
 
-		JLabel edge = new JLabel("없 음");
+		final JLabel edge = new JLabel("없 음");
 		edge.setSize(new Dimension(0, 20));
 		edge.setHorizontalAlignment(SwingConstants.CENTER);
 		edge.setBounds(81, 40, 170, 20);
 		panel_5.add(edge);
 
-		JLabel sauce = new JLabel("없 음");
+		final JLabel sauce = new JLabel("없 음");
 		sauce.setSize(new Dimension(0, 20));
 		sauce.setHorizontalAlignment(SwingConstants.CENTER);
 		sauce.setBounds(81, 70, 170, 20);
 		panel_5.add(sauce);
 
-		JLabel topping_1 = new JLabel("없 음");
+		topping_1 = new JLabel("없 음");
 		topping_1.setSize(new Dimension(0, 20));
 		topping_1.setHorizontalAlignment(SwingConstants.CENTER);
 		topping_1.setBounds(81, 100, 170, 20);
 		panel_5.add(topping_1);
 
-		JLabel topping_2 = new JLabel("없 음");
+		topping_2 = new JLabel("없 음");
 		topping_2.setSize(new Dimension(0, 20));
 		topping_2.setHorizontalAlignment(SwingConstants.CENTER);
 		topping_2.setBounds(81, 138, 170, 20);
 		panel_5.add(topping_2);
 
-		JLabel topping_3 = new JLabel("없 음");
+		topping_3 = new JLabel("없 음");
 		topping_3.setSize(new Dimension(0, 20));
 		topping_3.setHorizontalAlignment(SwingConstants.CENTER);
 		topping_3.setBounds(81, 176, 170, 20);
 		panel_5.add(topping_3);
 
-		JLabel topping_4 = new JLabel("없 음");
+		topping_4 = new JLabel("없 음");
 		topping_4.setSize(new Dimension(0, 20));
 		topping_4.setHorizontalAlignment(SwingConstants.CENTER);
 		topping_4.setBounds(81, 214, 170, 20);
 		panel_5.add(topping_4);
 
-		JLabel topping_5 = new JLabel("없 음");
+		topping_5 = new JLabel("없 음");
 		topping_5.setSize(new Dimension(0, 20));
 		topping_5.setHorizontalAlignment(SwingConstants.CENTER);
 		topping_5.setBounds(81, 252, 170, 20);
@@ -284,7 +286,7 @@ public class MenuPopup extends JFrame {
 		lblNewLabel_5.setBounds(12, 313, 241, 137);
 		panel_5.add(lblNewLabel_5);
 
-		JLabel pizzaSize = new JLabel("없 음");
+		final JLabel pizzaSize = new JLabel("없 음");
 		pizzaSize.setSize(new Dimension(0, 20));
 		pizzaSize.setHorizontalAlignment(SwingConstants.CENTER);
 		pizzaSize.setBounds(81, 10, 170, 20);
@@ -306,15 +308,11 @@ public class MenuPopup extends JFrame {
 				countCb = 0;
 
 				if (selectType.equals("토핑")) {
-					topping_1.setText("없음");
-					topping_2.setText("없음");
-					topping_3.setText("없음");
-					topping_4.setText("없음");
-					topping_5.setText("없음");
+					addMenuReset();
 				}
 
 				List<Ingredient> list = pr.ingredientID(selectType);
-				for (Ingredient ig : list) {
+				for (final Ingredient ig : list) {
 
 					JPanel igPanel = new JPanel();
 					JLabel igLabel = new JLabel(ig.getId());
@@ -363,21 +361,42 @@ public class MenuPopup extends JFrame {
 			}
 		});
 
+		// 메뉴 추가
 		JButton btnNewButton = new JButton("메 뉴 추 가");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				selectType = comboBox_1.getSelectedItem().toString();
 				selectSize = comboBox_1_1.getSelectedItem().toString();
+				
+				// 가격
 				String price = String.valueOf(hopedPrice.getText());
+				// 작성한 이름
 				String name = String.valueOf(menuName.getText());
-
+				// 입력된 소스
+				String selectSauce = sauce.getText();
+				String selectEdge = edge.getText();
+				
+				if(name != null || price != null) {
 				if (selectType.equals("피자")) {
 					pr.InsertPizzaMenu(selectType, name, selectSize, price);
+//					pr.InsertPizzaRecipe(name, name, name, null, name, name, price);
+					addMenuReset();
+					menuName.setText(" ");
+					hopedPrice.setText(" ");
 				} else if (selectType.equals("음료")) {
 					pr.InsertDrink(selectType, name, selectSize, price);
+					addMenuReset();
+					menuName.setText(" ");
+					hopedPrice.setText(" ");
 				} else if (selectType.equals("사이드")) {
-					
+					pr.InsertSide(selectType, name, selectSize, price);
+					addMenuReset();
+					menuName.setText(" ");
+					hopedPrice.setText(" ");
 				}
+			}else {
+				System.out.println(" 입력은 하고 하는거냐! ");
+			}
 			}
 		});
 
@@ -391,5 +410,14 @@ public class MenuPopup extends JFrame {
 		getContentPane().add(comboBox);
 
 		setVisible(true);
+	}
+
+	public void addMenuReset() {
+		topping_1.setText("없음");
+		topping_2.setText("없음");
+		topping_3.setText("없음");
+		topping_4.setText("없음");
+		topping_5.setText("없음");
+
 	}
 }

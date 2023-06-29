@@ -118,7 +118,7 @@ public class FinancialList extends JPanel {
 		add(panel_2);
 		panel_2.setLayout(null);
 		
-		JLabel lblNewLabel_3 = new JLabel("금 액");
+		final JLabel lblNewLabel_3 = new JLabel("금 액");
 		lblNewLabel_3.setBounds(216, 10, 221, 59);
 		panel_2.add(lblNewLabel_3);
 
