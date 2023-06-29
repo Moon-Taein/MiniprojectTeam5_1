@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.AbstractMap.SimpleEntry;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -30,7 +31,8 @@ public class SalesList extends JPanel {
 		order = new OrderRepo();
 		LocalDate today = LocalDate.now();
 	    String day = today.format(DateTimeFormatter.ofPattern("yyyy-M-d"));
-		Map<String, Integer> bests = order.bestMenu(String.valueOf(today.getYear()));
+		Map<Integer, List<String>> bestMonth = order.bestMonth(String.valueOf(today.getYear()));
+		Map<Integer, List<String>> bests = order.bestMenu();
 		
 		setSize(new Dimension(650, 900));
 		setLayout(null);
@@ -87,27 +89,27 @@ public class SalesList extends JPanel {
 		bestMenu.setBounds(179, 5, 128, 47);
 		panel_2.add(bestMenu);
 		
-		JLabel first = new JLabel("1.");
+		JLabel first = new JLabel("1. " + bests.get(1).get(0) + "위 " + bests.get(1).get(1));
 		first.setFont(new Font("굴림", Font.PLAIN, 15));
 		first.setBounds(179, 62, 128, 27);
 		panel_2.add(first);
 		
-		JLabel second = new JLabel("2.");
+		JLabel second = new JLabel("2. " + bests.get(2).get(0) + "위 " + bests.get(2).get(1));
 		second.setFont(new Font("굴림", Font.PLAIN, 15));
 		second.setBounds(179, 99, 128, 27);
 		panel_2.add(second);
 		
-		JLabel third = new JLabel("3");
+		JLabel third = new JLabel("3. " + bests.get(3).get(0) + "위 " + bests.get(3).get(1));
 		third.setFont(new Font("굴림", Font.PLAIN, 15));
 		third.setBounds(179, 136, 128, 27);
 		panel_2.add(third);
 		
-		JLabel four = new JLabel("4");
+		JLabel four = new JLabel("4. " + bests.get(4).get(0) + "위 " + bests.get(4).get(1));
 		four.setFont(new Font("굴림", Font.PLAIN, 15));
 		four.setBounds(179, 173, 128, 27);
 		panel_2.add(four);
 		
-		JLabel five = new JLabel("5");
+		JLabel five = new JLabel("5. " + bests.get(5).get(0) + "위 " + bests.get(5).get(1));
 		five.setFont(new Font("굴림", Font.PLAIN, 15));
 		five.setBounds(179, 210, 128, 27);
 		panel_2.add(five);
@@ -123,27 +125,27 @@ public class SalesList extends JPanel {
 		month.setBounds(180, 10, 128, 47);
 		panel_3.add(month);
 		
-		JLabel first_1 = new JLabel("1.");
+		JLabel first_1 = new JLabel("1. " + bestMonth.get(1).get(0)+ "월 " + bestMonth.get(1).get(1));
 		first_1.setFont(new Font("굴림", Font.PLAIN, 15));
 		first_1.setBounds(180, 67, 128, 27);
 		panel_3.add(first_1);
 		
-		JLabel second_1 = new JLabel("2.");
+		JLabel second_1 = new JLabel("2. " + bestMonth.get(2).get(0)+ "월 " + bestMonth.get(2).get(1));
 		second_1.setFont(new Font("굴림", Font.PLAIN, 15));
 		second_1.setBounds(180, 104, 128, 27);
 		panel_3.add(second_1);
 		
-		JLabel third_1 = new JLabel("3");
+		JLabel third_1 = new JLabel("3. " + bestMonth.get(3).get(0)+ "월 " + bestMonth.get(3).get(1));
 		third_1.setFont(new Font("굴림", Font.PLAIN, 15));
 		third_1.setBounds(180, 141, 128, 27);
 		panel_3.add(third_1);
 		
-		JLabel four_1 = new JLabel("4");
+		JLabel four_1 = new JLabel("4. " + bestMonth.get(4).get(0)+ "월 " + bestMonth.get(4).get(1));
 		four_1.setFont(new Font("굴림", Font.PLAIN, 15));
 		four_1.setBounds(180, 178, 128, 27);
 		panel_3.add(four_1);
 		
-		JLabel five_1 = new JLabel("5");
+		JLabel five_1 = new JLabel("5. " + bestMonth.get(5).get(0)+ "월 " + bestMonth.get(5).get(1));
 		five_1.setFont(new Font("굴림", Font.PLAIN, 15));
 		five_1.setBounds(180, 215, 128, 27);
 		panel_3.add(five_1);
