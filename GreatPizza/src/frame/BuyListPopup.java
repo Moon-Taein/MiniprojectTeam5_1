@@ -31,9 +31,11 @@ public class BuyListPopup extends JFrame {
     private ButtonGroup group;
     private JRadioButton[] rdbtns;
     private int no;
+    private boolean isCan;
 
     public BuyListPopup(int no) {
     	this.no = no;
+    	isCan = true;
         order = new OrderRepo();
         menus = order.getDetailOrders(no);
         initialize();
@@ -78,8 +80,10 @@ public class BuyListPopup extends JFrame {
         JButton btncancel = new JButton("주문 취소");
         btncancel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-            	order.updateMainOrder("취소", no);
-                setVisible(false);
+            	if (!isCan) {
+	            	order.updateMainOrder("취소", no);
+	                setVisible(false);
+            	}
             }
         });
         btncancel.setFont(new Font("굴림", Font.BOLD, 25));
@@ -89,8 +93,11 @@ public class BuyListPopup extends JFrame {
         JButton btn = new JButton("피자 제작 완료");
         btn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-            	order.updateMainOrder("확인", no);
-                setVisible(false);
+            	if (isCan) {
+            		updateIngredients();
+            		order.updateMainOrder("확인", no);
+            		setVisible(false);
+            	}
             }
         });
         btn.setFont(new Font("굴림", Font.BOLD, 25));
@@ -118,46 +125,29 @@ public class BuyListPopup extends JFrame {
             rdbtns[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent arg0) {
-                    String selectedMenu = ((JRadioButton) arg0.getSource()).getText();
                     inven.removeAll();
                     inven.repaint();
-                    setTexts(selectedMenu);
+                    setTexts(menu);
                     inven.revalidate();
                 }
             });
             group.add(rdbtns[i]);
             menulist.add(rdbtns[i]);
         }
-        
-        for(int i = 0; i <menus.size(); i++) {
-        	rdbtns[i].setSelected(true);
-        	setTexts(rdbtns[i].getText());
-        	inven.removeAll();
-        	inven.repaint();
+        for (JRadioButton rdbtn : rdbtns) {
+        	rdbtn.doClick();
+        	
         }
-        
+        inven.removeAll();
+        inven.repaint();
         rdbtns[0].setSelected(true);
-        setTexts(rdbtns[0].getText());
+        setTexts(menus.get(0));
     }
 
-    public void setTexts(String menu) {
-        List<Ingredient> ingredients = order.getIngredients(menu);
-        Ingredient ingred = order.getIngredient(menu);
-
+    public void setTexts(DetailOrder menu) {
         boolean isLackIngredient = false;
 
-        if (ingred != null) {
-            JLabel lbl = new JLabel(ingred.getName() + " - " + ingred.getCurrentCount());
-            lbl.setFont(new Font("굴림", Font.BOLD, 20));
-            inven.add(lbl);
-
-            if (isLack(ingred)) {
-                lbl.setForeground(Color.RED);
-                isLackIngredient = true;
-            }
-        }
-
-        for (Ingredient ingredient : ingredients) {
+        for (Ingredient ingredient : menu.getIngredients()) {
             JLabel lbl = new JLabel(ingredient.getName() + " - " + ingredient.getCurrentCount());
             lbl.setFont(new Font("굴림", Font.BOLD, 20));
             inven.add(lbl);
@@ -167,11 +157,22 @@ public class BuyListPopup extends JFrame {
                 isLackIngredient = true;
             }
         }
+        for (Ingredient ingredient : menu.getAddIngredients()) {
+            JLabel lbl = new JLabel("(추가재료) " + ingredient.getName() + " - " + ingredient.getCurrentCount());
+            lbl.setFont(new Font("굴림", Font.BOLD, 20));
+            inven.add(lbl);
 
+            if (isLack(ingredient)) {
+                lbl.setForeground(Color.RED);
+                isLackIngredient = true;
+            }
+        } 
+        
         if (isLackIngredient) {
             for (JRadioButton rdbtn : rdbtns) {
                 if (rdbtn.isSelected()) {
                     rdbtn.setForeground(Color.RED);
+                    isCan = false;
                 }
             }
         }
@@ -187,5 +188,16 @@ public class BuyListPopup extends JFrame {
             return isLack(ingredient);
         }
         return false;
+    }
+    
+    public void updateIngredients() {
+    	for (DetailOrder menu : menus) {
+    		for (Ingredient ing : menu.getIngredients()) {
+    			order.minusIngredient(ing.getId());
+    		}
+    		for (Ingredient ing : menu.getAddIngredients()) {
+    			order.minusIngredient(ing.getId());
+    		}
+    	}
     }
 }

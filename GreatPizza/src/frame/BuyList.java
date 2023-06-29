@@ -59,7 +59,7 @@ public class BuyList extends JPanel {
 		prices = new JLabel[4];
 		checks = new JButton[4];
 
-		mainOrders = order.getMainOrders();
+		mainOrders = order.getMainOrders("미확인");
 		size = Math.min(mainOrders.size(), 4);
 
 		for (int i = 0; i < size; i++) {
