@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
-import java.awt.LayoutManager;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -17,7 +16,6 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
-import java.awt.Component;
 
 public class HomeFrame extends JFrame {
 
@@ -55,7 +53,7 @@ public class HomeFrame extends JFrame {
 		contentPane.setLayout(null);
 
 		JPanel panel = new JPanel();
-		panel.setBackground(maincolor);
+		panel.setBackground(blackcolor);
 		panel.setBounds(0, 0, 142, 900);
 		contentPane.add(panel);
 		panel.setLayout(null);
@@ -83,33 +81,33 @@ public class HomeFrame extends JFrame {
 		panel.add(inventorybtn);
 
 		cards = new JPanel(new CardLayout());
-		cards.setBackground(Color.GRAY);
+		cards.setBackground(graycolor);
 		cards.setBounds(145, 0, 755, 861);
 		contentPane.add(cards, BorderLayout.CENTER);
 
 		BuyList buyList = new BuyList();
 		buyList.setLayout(null);
-		buyList.setBackground(maincolor);
+		buyList.setBackground(blackcolor);
 		cards.add(buyList, "buyList");
 
 		SalesList salesList = new SalesList();
-		salesList.setBackground(maincolor);
+		salesList.setBackground(blackcolor);
 		salesList.setLayout(null);
 		cards.add(salesList, "salesList");
 
 		FinancialList financialList = new FinancialList();
 		financialList.setLayout(null);
-		financialList.setBackground(maincolor);
+		financialList.setBackground(blackcolor);
 		cards.add(financialList, "financialList");
 
 		MenuList menuList = new MenuList();
 		menuList.setLayout(null);
-		menuList.setBackground(maincolor);
+		menuList.setBackground(blackcolor);
 		cards.add(menuList, "menuList");
 
 		InventoryList inventoryList = new InventoryList();
 		inventoryList.setLayout(null);
-		inventoryList.setBackground(maincolor);
+		inventoryList.setBackground(blackcolor);
 		cards.add(inventoryList, "inventoryList");
 		cardLayout = (CardLayout) cards.getLayout();
 
