@@ -18,6 +18,7 @@ import repo.PosRepo;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -51,12 +52,15 @@ public class MenuPopup extends JFrame {
 	private JLabel topping_1;
 	private JLabel edge;
 	private JLabel sauce;
+	private ImageIcon image;
+	private JLabel lblNewLabel_5;
+	private String imagePath;
 
 	public MenuPopup(MenuList menulist) {
 		pr = new PosRepo();
 		getContentPane().setBackground(Color.PINK);
 		setBackground(Color.PINK);
-		setSize(new Dimension(652, 567));
+		setSize(new Dimension(652, 613));
 		getContentPane().setLayout(null);
 
 		JPanel panel = new JPanel();
@@ -83,7 +87,7 @@ public class MenuPopup extends JFrame {
 
 		JPanel panel_5 = new JPanel();
 		panel_5.setBackground(Color.WHITE);
-		panel_5.setBounds(359, 10, 265, 460);
+		panel_5.setBounds(359, 10, 265, 508);
 		getContentPane().add(panel_5);
 		panel_5.setLayout(null);
 
@@ -94,7 +98,14 @@ public class MenuPopup extends JFrame {
 		panel_1.add(comboBox_1_1);
 
 		JButton btnNewButton_1 = new JButton("추가");
-		btnNewButton_1.setBounds(155, 259, 82, 23);
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ImagePlus ip = new ImagePlus();
+				ip.imagePlusFrame(MenuPopup.this);
+
+			}
+		});
+		btnNewButton_1.setBounds(153, 254, 82, 23);
 		panel_5.add(btnNewButton_1);
 		final JComboBox comboBox = new JComboBox();
 		comboBox.setEnabled(false);
@@ -224,7 +235,7 @@ public class MenuPopup extends JFrame {
 		JLabel lblNewLabel_4_8 = new JLabel("이 미 지");
 		lblNewLabel_4_8.setSize(new Dimension(60, 20));
 		lblNewLabel_4_8.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_4_8.setBounds(57, 260, 60, 20);
+		lblNewLabel_4_8.setBounds(55, 255, 60, 20);
 		panel_5.add(lblNewLabel_4_8);
 
 		edge = new JLabel("없 음");
@@ -269,9 +280,9 @@ public class MenuPopup extends JFrame {
 		topping_5.setBounds(81, 224, 109, 25);
 		panel_5.add(topping_5);
 
-		JLabel lblNewLabel_5 = new JLabel("이 미 지 출 력");
+		lblNewLabel_5 = new JLabel("이 미 지 출 력");
 		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_5.setBounds(12, 287, 241, 163);
+		lblNewLabel_5.setBounds(26, 283, 215, 215);
 		panel_5.add(lblNewLabel_5);
 
 		final JLabel pizzaSize = new JLabel("없 음");
@@ -439,18 +450,18 @@ public class MenuPopup extends JFrame {
 
 				if (name != null || price != null) {
 					if (selectType.equals("피자")) {
-						pr.InsertPizzaMenu(selectType, name, selectSize, price);
+						pr.InsertPizzaMenu(selectType, name, selectSize, price, imagePath);
 						pr.InsertPizzaRecipe(selectType, name, selectSize, price, list);
 						addMenuReset();
 						menuName.setText(" ");
 						hopedPrice.setText(" ");
 					} else if (selectType.equals("음료")) {
-						pr.InsertDrink(selectType, name, selectSize, price);
+						pr.InsertDrink(selectType, name, selectSize, price,imagePath);
 						addMenuReset();
 						menuName.setText(" ");
 						hopedPrice.setText(" ");
 					} else if (selectType.equals("사이드")) {
-						pr.InsertSide(selectType, name, price);
+						pr.InsertSide(selectType, name, price,imagePath);
 						addMenuReset();
 						menuName.setText(" ");
 						hopedPrice.setText(" ");
@@ -466,7 +477,7 @@ public class MenuPopup extends JFrame {
 		});
 
 		btnNewButton.setBackground(new Color(255, 222, 173));
-		btnNewButton.setBounds(396, 480, 186, 38);
+		btnNewButton.setBounds(395, 526, 186, 38);
 		getContentPane().add(btnNewButton);
 		comboBox.setToolTipText("분 류\r\n");
 		comboBox.setModel(new DefaultComboBoxModel(new String[] { "엣지", "소스", "토핑" }));
@@ -483,6 +494,12 @@ public class MenuPopup extends JFrame {
 		topping_5.setText("없음");
 		edge.setText("없음");
 		sauce.setText("없음");
-
+	}
+	
+	public void addImage(String path) {
+		image = new ImageIcon(imagePath);
+		imagePath = path;
+		lblNewLabel_5.setIcon(image);
+		lblNewLabel_5.setText("");
 	}
 }
