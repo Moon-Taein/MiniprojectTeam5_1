@@ -12,7 +12,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import img.RoundButton;
-import img.imageIcon;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -25,7 +24,6 @@ public class HomeFrame extends JFrame {
 	private JPanel contentPane;
 	private JPanel cards;
 	private CardLayout cardLayout;
-	private imageIcon icon;
 	private JLabel lbl;
 
 	public static void main(String[] args) {
@@ -42,7 +40,6 @@ public class HomeFrame extends JFrame {
 	}
 
 	public HomeFrame() {
-		icon = new imageIcon();
 		setLocationRelativeTo(null);
 		setUndecorated(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
