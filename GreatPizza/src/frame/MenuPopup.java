@@ -295,7 +295,7 @@ public class MenuPopup extends JFrame {
 		JButton btnNewButton_2 = new JButton("취 소");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				pizzaSize.setText("없음");
+				pizzaSize.setText("없 음");
 			}
 		});
 		btnNewButton_2.setBounds(188, 10, 65, 25);
@@ -304,7 +304,7 @@ public class MenuPopup extends JFrame {
 		JButton btnNewButton_2_1 = new JButton("취 소");
 		btnNewButton_2_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				edge.setText("없음");
+				edge.setText("없 음");
 			}
 		});
 		btnNewButton_2_1.setBounds(188, 40, 65, 25);
@@ -313,7 +313,7 @@ public class MenuPopup extends JFrame {
 		JButton btnNewButton_2_2 = new JButton("취 소");
 		btnNewButton_2_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				sauce.setText("없음");
+				sauce.setText("없 음");
 			}
 		});
 		btnNewButton_2_2.setBounds(188, 71, 65, 25);
@@ -322,7 +322,7 @@ public class MenuPopup extends JFrame {
 		JButton btnNewButton_2_3 = new JButton("취 소");
 		btnNewButton_2_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				topping_1.setText("없음");
+				topping_1.setText("없 음");
 			}
 		});
 		btnNewButton_2_3.setBounds(188, 101, 65, 25);
@@ -331,7 +331,7 @@ public class MenuPopup extends JFrame {
 		JButton btnNewButton_2_4 = new JButton("취 소");
 		btnNewButton_2_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				topping_2.setText("없음");
+				topping_2.setText("없 음");
 			}
 		});
 		btnNewButton_2_4.setBounds(188, 131, 65, 25);
@@ -340,7 +340,7 @@ public class MenuPopup extends JFrame {
 		JButton btnNewButton_2_4_1 = new JButton("취 소");
 		btnNewButton_2_4_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				topping_3.setText("없음");
+				topping_3.setText("없 음");
 			}
 		});
 		btnNewButton_2_4_1.setBounds(188, 161, 65, 25);
@@ -349,7 +349,7 @@ public class MenuPopup extends JFrame {
 		JButton btnNewButton_2_4_2 = new JButton("취 소");
 		btnNewButton_2_4_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				topping_4.setText("없음");
+				topping_4.setText("없 음");
 			}
 		});
 		btnNewButton_2_4_2.setBounds(188, 192, 65, 25);
@@ -358,7 +358,7 @@ public class MenuPopup extends JFrame {
 		JButton btnNewButton_2_4_3 = new JButton("취 소");
 		btnNewButton_2_4_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				topping_5.setText("없음");
+				topping_5.setText("없 음");
 			}
 		});
 		btnNewButton_2_4_3.setBounds(188, 221, 65, 25);
@@ -443,11 +443,20 @@ public class MenuPopup extends JFrame {
 				String selectEdge = edge.getText();
 
 				list = new ArrayList<>();
+				
+				
 				list.add(topping_1.getText());
 				list.add(topping_2.getText());
 				list.add(topping_3.getText());
 				list.add(topping_4.getText());
 				list.add(topping_5.getText());
+				
+				for(String s : list) {
+					System.out.println(s);
+					if(s.equals("없 음")) {
+						list.remove(s);
+					}
+				}
 
 				if (name != null || price != null) {
 					if (selectType.equals("피자")) {
@@ -488,13 +497,13 @@ public class MenuPopup extends JFrame {
 	}
 
 	public void addMenuReset() {
-		topping_1.setText("없음");
-		topping_2.setText("없음");
-		topping_3.setText("없음");
-		topping_4.setText("없음");
-		topping_5.setText("없음");
-		edge.setText("없음");
-		sauce.setText("없음");
+		topping_1.setText("없 음");
+		topping_2.setText("없 음");
+		topping_3.setText("없 음");
+		topping_4.setText("없 음");
+		topping_5.setText("없 음");
+		edge.setText("없 음");
+		sauce.setText("없 음");
 	}
 	
 	public void addImage(byte[] bytes) {

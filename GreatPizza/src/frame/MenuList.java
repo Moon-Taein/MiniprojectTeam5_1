@@ -68,7 +68,7 @@ public class MenuList extends JPanel {
 		for (Menu m : list) {
 
 			JPanel innerPanel = new JPanel();
-			innerPanel.setLayout(new GridLayout(1, 3, 30, 120)); // (행, 열, 글자사이 가로 간격, 격자사이 수직 간격)
+			innerPanel.setLayout(new GridLayout(1, 3, 0, 50)); // (행, 열, 글자사이 가로 간격, 격자사이 수직 간격)
 			innerPanel.setBorder(new EmptyBorder(15, 5, 15, 5)); // (위로 간격, 왼쪽 ,아래, 우측) 레이아웃과의 간격
 			innerPanel.setBackground(blackcolor);
 			innerPanel.setOpaque(true);
@@ -76,21 +76,21 @@ public class MenuList extends JPanel {
 			JLabel nameLabel = new JLabel(m.getMenuName());
 			nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
 			nameLabel.setOpaque(false);
-			nameLabel.setFont(new Font("굴림", Font.PLAIN, 18));
+			nameLabel.setFont(new Font("굴림", Font.PLAIN, 15));
 			nameLabel.setBackground(blackcolor);
 			nameLabel.setForeground(mintcolor);
 
 			JLabel typeLabel = new JLabel(m.getType());
 			typeLabel.setHorizontalAlignment(SwingConstants.CENTER);
 			typeLabel.setOpaque(true);
-			typeLabel.setFont(new Font("굴림", Font.PLAIN, 18));
+			typeLabel.setFont(new Font("굴림", Font.PLAIN, 15));
 			typeLabel.setBackground(blackcolor);
 			typeLabel.setForeground(mintcolor);
 
 			JLabel priceLabel = new JLabel(String.valueOf(m.getPrice()));
 			priceLabel.setHorizontalAlignment(SwingConstants.CENTER);
 			priceLabel.setOpaque(true);
-			priceLabel.setFont(new Font("굴림", Font.PLAIN, 18));
+			priceLabel.setFont(new Font("굴림", Font.PLAIN, 15));
 			priceLabel.setBackground(blackcolor);
 			priceLabel.setForeground(mintcolor);
 
@@ -99,7 +99,9 @@ public class MenuList extends JPanel {
 			innerPanel.add(typeLabel);
 			innerPanel.add(priceLabel);
 			
-
+			
+			innerPanel.revalidate();
+			innerPanel.repaint();
 			scrollablePanel.add(innerPanel);
 			scrollablePanel.setOpaque(false);
 			scrollablePanel.revalidate();
@@ -112,6 +114,8 @@ public class MenuList extends JPanel {
 		scrollPane.setPreferredSize(new Dimension(550, 635));
 		scrollPane.setBackground(blackcolor);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.revalidate();
+		scrollPane.repaint();
 		panel.add(scrollPane);
 
 		// JFrame에 JScrollPane 추가
