@@ -49,7 +49,7 @@ public class InventoryList extends JPanel {
 		pnlinven.setLayout(null);
 		
 		JPanel pnlPlus = new JPanel();
-		pnlPlus.setBounds(68, 502, 550, 250);
+		pnlPlus.setBounds(68, 502, 600, 250);
 		add(pnlPlus);
 		pnlPlus.setLayout(null);
 		
@@ -95,7 +95,7 @@ public class InventoryList extends JPanel {
 		
 		final JComboBox comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"소스", "토핑", "엣지"}));
-		comboBox.setBounds(378, 44, 112, 21);
+		comboBox.setBounds(174, 13, 112, 21);
 		pnlPlus.add(comboBox);
 		
 		JButton btninput = new JButton("재료추가");
@@ -111,11 +111,23 @@ public class InventoryList extends JPanel {
 				revalidate();
 			}
 		});
-		btninput.setBounds(393, 173, 97, 23);
+		btninput.setBounds(252, 217, 97, 23);
 		pnlPlus.add(btninput);
 		
-		JButton btnNewButton = new JButton("새로고침");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton image = new JButton("이미지");
+		image.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		image.setBounds(436, 12, 97, 23);
+		pnlPlus.add(image);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(388, 44, 200, 163);
+		pnlPlus.add(panel_1);
+		
+		JButton reset = new JButton("새로고침");
+		reset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				removeAll();
 				repaint();
@@ -123,8 +135,8 @@ public class InventoryList extends JPanel {
 				revalidate();
 			}
 		});
-		btnNewButton.setBounds(270, 803, 97, 23);
-		add(btnNewButton);
+		reset.setBounds(320, 762, 97, 23);
+		add(reset);
 		JPanel pnltitle = new JPanel();
 		pnltitle.setBackground(Color.LIGHT_GRAY);
 		pnltitle.setBounds(0, 44, 600, 1);
