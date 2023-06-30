@@ -166,7 +166,7 @@ public class PosRepo {
 		return totalCost;
 	}
 
-	public int InsertSide(String type, String name, String price, String path) {
+	public int InsertSide(String type, String name, String price, byte[] bytes) {
 		ip = new InputImage();
 
 		String sql = "INSERT INTO menu (Menu_id,Menu_name,price,image) VALUES (?,?,?,?)";
@@ -180,6 +180,7 @@ public class PosRepo {
 			stmt.setString(1, menuId);
 			stmt.setString(2, name);
 			stmt.setString(3, price);
+			stmt.setBytes(4, bytes);
 
 			System.out.println("메뉴에 사이드가 추가 됐다!");
 			return stmt.executeUpdate();
@@ -193,7 +194,7 @@ public class PosRepo {
 		return 0;
 	}
 
-	public int InsertDrink(String type, String name, String size, String price, String path) {
+	public int InsertDrink(String type, String name, String size, String price, byte[] bytes) {
 		ip = new InputImage();
 		String sql = "INSERT INTO menu (Menu_id,Menu_name,price,image) VALUES (?,?,?,?)";
 		try {
@@ -206,6 +207,7 @@ public class PosRepo {
 			stmt.setString(1, menuId);
 			stmt.setString(2, menuName);
 			stmt.setString(3, price);
+			stmt.setBytes(4, bytes);
 			System.out.println("메뉴에 음료가 추가 됐다!");
 			return stmt.executeUpdate();
 		} catch (SQLException e) {
@@ -219,8 +221,9 @@ public class PosRepo {
 	}
 
 	// 피자는 메뉴 용 하나, 레시피용 하나가 필요합니다. 주의 하세요
-	public int InsertPizzaMenu(String type, String name, String size, String price, String path) {
+	public int InsertPizzaMenu(String type, String name, String size, String price, byte[] bytes) {
 		ip = new InputImage();
+		byte[] Bigbyte = ip.getBytes();
 
 		String sql = "INSERT INTO menu (Menu_id,Menu_name,size,price,image,image_big) VALUES (?,?,?,?,?,?)";
 		try {
@@ -234,6 +237,8 @@ public class PosRepo {
 			stmt.setString(2, menuName);
 			stmt.setString(3, size);
 			stmt.setString(4, price);
+			stmt.setBytes(5, bytes);
+			stmt.setBytes(6, Bigbyte);
 			System.out.println("메뉴에 피자가 추가 됐다!");
 			return stmt.executeUpdate();
 		} catch (SQLException e) {

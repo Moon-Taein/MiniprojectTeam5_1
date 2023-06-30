@@ -55,6 +55,7 @@ public class MenuPopup extends JFrame {
 	private ImageIcon image;
 	private JLabel lblNewLabel_5;
 	private String imagePath;
+	private byte[] sBytes;
 
 	public MenuPopup(MenuList menulist) {
 		pr = new PosRepo();
@@ -450,18 +451,18 @@ public class MenuPopup extends JFrame {
 
 				if (name != null || price != null) {
 					if (selectType.equals("피자")) {
-						pr.InsertPizzaMenu(selectType, name, selectSize, price, imagePath);
+						pr.InsertPizzaMenu(selectType, name, selectSize, price, sBytes);
 						pr.InsertPizzaRecipe(selectType, name, selectSize, price, list);
 						addMenuReset();
 						menuName.setText(" ");
 						hopedPrice.setText(" ");
 					} else if (selectType.equals("음료")) {
-						pr.InsertDrink(selectType, name, selectSize, price,imagePath);
+						pr.InsertDrink(selectType, name, selectSize, price,sBytes);
 						addMenuReset();
 						menuName.setText(" ");
 						hopedPrice.setText(" ");
 					} else if (selectType.equals("사이드")) {
-						pr.InsertSide(selectType, name, price,imagePath);
+						pr.InsertSide(selectType, name, price,sBytes);
 						addMenuReset();
 						menuName.setText(" ");
 						hopedPrice.setText(" ");
@@ -497,6 +498,7 @@ public class MenuPopup extends JFrame {
 	}
 	
 	public void addImage(byte[] bytes) {
+		sBytes = bytes;
 		image = new ImageIcon(bytes);
 		lblNewLabel_5.setIcon(null);
 		lblNewLabel_5.setIcon(image);

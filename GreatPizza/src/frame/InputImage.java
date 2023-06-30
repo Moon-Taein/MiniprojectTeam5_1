@@ -24,6 +24,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class InputImage {
 
+	private static byte[] bigBytes;
+
 	// 파일의 확장자를 반환하는 메서드
 	private static String getFileExtension(String selectedFile) {
 		String extension = "";
@@ -101,7 +103,7 @@ public class InputImage {
 
 			// 변경할 사이즈 지정
 			int newWidth = 180; // 새로운 너비
-			int newHeight = 140; // 새로운 높이
+			int newHeight = 150; // 새로운 높이
 
 			// 이미지 크기 변경
 			BufferedImage resizedImage = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
@@ -136,10 +138,58 @@ public class InputImage {
 		}
 		return null;
 	}
+	
+	// 빅사이즈로 리사이징 해주는 놈
+	private static String ImageResizeBig(String imagePath) {
+
+		try {
+			// 이미지 파일 로드
+			BufferedImage originalImage = ImageIO.read(new File(imagePath));// 입력 이미지 파일 경로
+
+			// 변경할 사이즈 지정
+			int newWidth = 410; // 새로운 너비
+			int newHeight = 380; // 새로운 높이
+
+			// 이미지 크기 변경
+			BufferedImage resizedImage = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
+
+			// Graphics2D 객체를 사용하여 변경된 이미지 그리기
+			Graphics2D graphics2D = resizedImage.createGraphics();
+			graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+			graphics2D.drawImage(originalImage, 0, 0, newWidth, newHeight, null);
+			graphics2D.dispose();
+
+			// 변경된 이미지를 저장할 BufferedImage 생성
+			BufferedImage resizedBufferedImage = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_RGB);
+
+			// 투명한 배경으로 그래픽 컨텍스트 생성
+			Graphics2D transparentGraphics = resizedBufferedImage.createGraphics();
+			transparentGraphics.setComposite(AlphaComposite.Clear);
+			transparentGraphics.fillRect(0, 0, newWidth, newHeight);
+			transparentGraphics.setComposite(AlphaComposite.Src);
+			transparentGraphics.drawImage(resizedImage, 0, 0, null);
+			transparentGraphics.dispose();
+
+			// 이미지를 PNG 파일로 저장
+			String outputPath = "resized_Big_image.png"; // 저장할 이미지 파일 경로
+			File outputFile = new File(outputPath);
+			ImageIO.write(resizedBufferedImage, "png", outputFile);
+
+			return outputPath;
+
+		} catch (IOException e) {
+			e.printStackTrace();
+
+		}
+		return null;
+	}
 
 	public static void inputIMAGE(MenuPopup menupopup) {
 		JFrame frame = new JFrame();
 		JFileChooser fileChooser = new JFileChooser();
+		
+		String userHome = System.getProperty("user.home");
+	    fileChooser.setCurrentDirectory(new File(userHome + "/Desktop"));
 
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("이미지 파일", "jpg", "jpeg", "png", "gif");
 		fileChooser.setFileFilter(filter);
@@ -155,13 +205,15 @@ public class InputImage {
 			if (isFileSizeValid(filePath) && isImageDimensionsValid(filePath) && isImageExtension(extension)) {
 				// 파일 제약 조건을 만족하는 경우
 				// 파일 경로를 출력하거나 원하는 처리를 수행
-				System.out.println("선택된 파일 경로: " + filePath);
+//				System.out.println("선택된 파일 경로: " + filePath);
+				
 				String newfilePath = ImageResizeExample(filePath);
+				String twofilePath = ImageResizeBig(filePath);
 				byte[] fileBytes = fileToBytes(newfilePath);
-				
+				bigBytes = fileToBytes(twofilePath);
 				menupopup.addImage(fileBytes);
-				
-				
+
+
 				// 추가적인 파일 처리 작업 수행
 			} else {
 				// 파일 제약 조건을 만족하지 않는 경우
@@ -173,5 +225,9 @@ public class InputImage {
 				// ...
 			}
 		}
+	}
+
+	public byte[] getBytes() {
+		return bigBytes;
 	}
 }
