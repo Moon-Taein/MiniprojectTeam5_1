@@ -499,6 +499,7 @@ public class MenuPopup extends JFrame {
 	public void addImage(String path) {
 		image = new ImageIcon(imagePath);
 		imagePath = path;
+		lblNewLabel_5.setIcon(null);
 		lblNewLabel_5.setIcon(image);
 		lblNewLabel_5.setText("");
 	}

@@ -233,33 +233,6 @@ public class ImagePlus {
 			// 파일 확장자 확인
 			String extension = getFileExtension(filePath);
 
-			if (isFileSizeValid(filePath) && isImageDimensionsValid(filePath) && isImageExtension(extension)) {
-
-				// 파일 제약 조건을 만족하는 경우
-				
-				// 파일 경로를 출력하거나 원하는 처리를 수행
-
-				System.out.println("선택된 파일 경로: " + filePath);
-				String newfilePath = ImageResizeExample(filePath);
-//				String newfilePathBig = ImageResizeExampleBig(filePath);
-
-				byte[] fileBytes = fileToBytes(newfilePath);
-//				byte[] bigFileBytes = bigFileToBytes(newfilePath);
-				System.out.println(fileBytes.toString());
-				String newfile = "D:\\file.txt";
-				saveBytesToFile(fileBytes, newfile);
-
-				// 추가적인 파일 처리 작업 수행
-				// ...
-			} else {
-				// 파일 제약 조건을 만족하지 않는 경우
-				System.out.println("선택된 파일은 제약 조건을 만족하지 않습니다.");
-				System.out.println(isFileSizeValid(filePath));
-				System.out.println(isImageDimensionsValid(filePath));
-				System.out.println(!isImageExtension(extension));
-				// 필요한 처리를 수행하거나 에러 메시지를 표시
-				// ...
-			}
 			String path = outputPath;
 			menupopup.addImage(path);
 		}
