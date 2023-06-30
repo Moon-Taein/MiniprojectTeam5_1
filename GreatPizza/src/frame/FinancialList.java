@@ -36,12 +36,12 @@ public class FinancialList extends JPanel {
 	public FinancialList() {
 		final PosRepo pr = new PosRepo();
 		setLocation(-259, -115);
-		setSize(new Dimension(650, 900));
+		setSize(new Dimension(750, 800));
 		setLayout(null);
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(Color.PINK);
-		panel_1.setBounds(50, 122, 549, 45);
+		panel_1.setBounds(51, 100, 549, 45);
 		add(panel_1);
 		panel_1.setLayout(null);
 
@@ -61,7 +61,7 @@ public class FinancialList extends JPanel {
 		panel_1.add(lblNewLabel_2_2);
 
 		JPanel panel = new JPanel();
-		panel.setBounds(50, 162, 549, 590);
+		panel.setBounds(51, 140, 549, 590);
 		add(panel);
 
 		scrollablePanel = new JPanel();
@@ -81,7 +81,7 @@ public class FinancialList extends JPanel {
 		defaultCreate();
 
 		final JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(51, 85, 79, 34);
+		comboBox.setBounds(52, 63, 79, 34);
 		add(comboBox);
 
 		// 콤보박스 디폴트 값 설정해주기
@@ -90,7 +90,7 @@ public class FinancialList extends JPanel {
 		}
 
 		final JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(142, 85, 58, 34);
+		comboBox_1.setBounds(143, 63, 58, 34);
 		add(comboBox_1);
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -109,12 +109,12 @@ public class FinancialList extends JPanel {
 		}
 
 		JButton btnNewButton = new JButton("\uD655 \uC778");
-		btnNewButton.setBounds(212, 85, 66, 34);
+		btnNewButton.setBounds(213, 63, 66, 34);
 		add(btnNewButton);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(Color.WHITE);
-		panel_2.setBounds(50, 762, 549, 79);
+		panel_2.setBounds(51, 740, 549, 79);
 		add(panel_2);
 		panel_2.setLayout(null);
 		
@@ -142,7 +142,7 @@ public class FinancialList extends JPanel {
 				for (Account ac : list) {
 					// 패널 내부의 패널 생성
 					JPanel innerPanel = new JPanel();
-					innerPanel.setLayout(new GridLayout(1, 3, 100, 10)); // 가로로 3개의 컴포넌트 배치
+					innerPanel.setLayout(new GridLayout(1, 3, 50, 10)); // 가로로 3개의 컴포넌트 배치
 					innerPanel.setBorder(new EmptyBorder(10, 50, 0, 50)); // 패널 간격 설정
 					innerPanel.setBackground(Color.WHITE);
 
@@ -183,12 +183,12 @@ public class FinancialList extends JPanel {
 
 		JLabel lblNewLabel = new JLabel("년도");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(51, 46, 79, 34);
+		lblNewLabel.setBounds(52, 24, 79, 34);
 		add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("월");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(142, 46, 58, 34);
+		lblNewLabel_1.setBounds(143, 24, 58, 34);
 		add(lblNewLabel_1);
 
 	}

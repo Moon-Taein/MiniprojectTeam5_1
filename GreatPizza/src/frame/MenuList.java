@@ -15,12 +15,14 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import img.RoundButton;
 import repo.Menu;
 import repo.PosRepo;
 
 import java.awt.Color;
 import javax.swing.ScrollPaneConstants;
 import java.awt.Font;
+import javax.swing.ImageIcon;
 
 public class MenuList extends JPanel {
 	private JPanel scrollablePanel;
@@ -33,6 +35,18 @@ public class MenuList extends JPanel {
 	public void createMenuList() {
 		setSize(new Dimension(750, 800));
 		setLayout(null);
+		
+				RoundButton btnNewButton = new RoundButton("ADD MENU");
+				btnNewButton.setOpaque(false);
+				btnNewButton.setHorizontalTextPosition(SwingConstants.CENTER);
+				btnNewButton.setIcon(new ImageIcon(MenuList.class.getResource("/img/메뉴추가.png")));
+				btnNewButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						MenuPopup menuPopup = new MenuPopup(MenuList.this);
+					}
+				});
+				btnNewButton.setBounds(227, 739, 278, 54);
+				add(btnNewButton);
 
 		JPanel panel = new JPanel(); // 스크롤 패인 담을 패널
 		panel.setBackground(Color.decode("#171821"));
@@ -58,21 +72,25 @@ public class MenuList extends JPanel {
 			nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
 			nameLabel.setOpaque(true);
 			nameLabel.setFont(new Font("굴림", Font.PLAIN, 18));
+			nameLabel.setBackground(Color.decode("#171821"));
 
 			JLabel typeLabel = new JLabel(m.getType());
 			typeLabel.setHorizontalAlignment(SwingConstants.CENTER);
 			typeLabel.setOpaque(true);
 			typeLabel.setFont(new Font("굴림", Font.PLAIN, 18));
+			typeLabel.setBackground(Color.decode("#171821"));
 
 			JLabel priceLabel = new JLabel(String.valueOf(m.getPrice()));
 			priceLabel.setHorizontalAlignment(SwingConstants.CENTER);
 			priceLabel.setOpaque(true);
 			priceLabel.setFont(new Font("굴림", Font.PLAIN, 18));
+			priceLabel.setBackground(Color.decode("#171821"));
 
 			// Add the labels to the inner panel
 			innerPanel.add(nameLabel);
 			innerPanel.add(typeLabel);
 			innerPanel.add(priceLabel);
+			innerPanel.setBackground(Color.decode("#171821"));
 
 			scrollablePanel.add(innerPanel);
 			scrollablePanel.revalidate();
@@ -90,18 +108,9 @@ public class MenuList extends JPanel {
 		// JFrame에 JScrollPane 추가
 		add(panel);
 
-		JButton btnNewButton = new JButton("메 뉴 추 가");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				MenuPopup menuPopup = new MenuPopup(MenuList.this);
-			}
-		});
-		btnNewButton.setBounds(511, 739, 139, 34);
-		add(btnNewButton);
-
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(Color.decode("#171821"));
-		panel_1.setBounds(100, 30, 459, 56);
+		panel_1.setBounds(100, 30, 531, 56);
 		add(panel_1);
 		panel_1.setLayout(null);
 
@@ -109,21 +118,21 @@ public class MenuList extends JPanel {
 		lblNewLabel.setBackground(Color.decode("#171821"));
 		lblNewLabel.setOpaque(true);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(12, 10, 134, 36);
+		lblNewLabel.setBounds(27, 10, 134, 36);
 		panel_1.add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("분 류");
 		lblNewLabel_1.setBackground(Color.decode("#171821"));
 		lblNewLabel_1.setOpaque(true);
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(158, 10, 134, 36);
+		lblNewLabel_1.setBounds(195, 10, 134, 36);
 		panel_1.add(lblNewLabel_1);
 
 		JLabel lblNewLabel_2 = new JLabel("금 액");
 		lblNewLabel_2.setBackground(Color.decode("#171821"));
 		lblNewLabel_2.setOpaque(true);
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2.setBounds(304, 10, 141, 36);
+		lblNewLabel_2.setBounds(362, 10, 141, 36);
 		panel_1.add(lblNewLabel_2);
 
 	}
