@@ -2,10 +2,10 @@ package frame;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.plaf.basic.BasicScrollBarUI;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -36,21 +36,20 @@ public class InventoryList extends JPanel {
 
 	public InventoryList() {
 		order = new OrderRepo();
-		
 		setting();
 	}
 	
 	public void setting() {
-		setBounds(0, 0, 650, 900);
+		setBounds(0, 0, 750, 800);
 		setLayout(null);
 		
 		pnlinven = new JPanel();
-		pnlinven.setBounds(49, 55, 550, 450);
+		pnlinven.setBounds(68, 42, 600, 450);
 		add(pnlinven);
 		pnlinven.setLayout(null);
 		
 		JPanel pnlPlus = new JPanel();
-		pnlPlus.setBounds(49, 543, 550, 250);
+		pnlPlus.setBounds(68, 502, 550, 250);
 		add(pnlPlus);
 		pnlPlus.setLayout(null);
 		
@@ -128,29 +127,29 @@ public class InventoryList extends JPanel {
 		add(btnNewButton);
 		JPanel pnltitle = new JPanel();
 		pnltitle.setBackground(Color.LIGHT_GRAY);
-		pnltitle.setBounds(0, 0, 550, 45);
+		pnltitle.setBounds(0, 44, 600, 1);
 		pnlinven.add(pnltitle);
 		pnltitle.setLayout(null);
 		
-		JLabel lblname = new JLabel("이름");
-		lblname.setFont(new Font("맑은 고딕", Font.BOLD, 23));
-		lblname.setBounds(54, 10, 67, 25);
-		pnltitle.add(lblname);
-		
-		lbltype = new JLabel("분류");
-		lbltype.setFont(new Font("맑은 고딕", Font.BOLD, 23));
-		lbltype.setBounds(176, 10, 67, 25);
-		pnltitle.add(lbltype);
-		
 		JLabel lblnow = new JLabel("현재재고");
+		lblnow.setBounds(316, 9, 112, 25);
+		pnlinven.add(lblnow);
 		lblnow.setFont(new Font("맑은 고딕", Font.BOLD, 23));
-		lblnow.setBounds(295, 10, 112, 25);
-		pnltitle.add(lblnow);
 		
 		JLabel lblprice = new JLabel("구매");
+		lblprice.setBounds(494, 9, 54, 25);
+		pnlinven.add(lblprice);
 		lblprice.setFont(new Font("맑은 고딕", Font.BOLD, 23));
-		lblprice.setBounds(450, 10, 67, 25);
-		pnltitle.add(lblprice);
+		
+		lbltype = new JLabel("분류");
+		lbltype.setBounds(192, 9, 67, 25);
+		pnlinven.add(lbltype);
+		lbltype.setFont(new Font("맑은 고딕", Font.BOLD, 23));
+		
+		JLabel lblname = new JLabel("이름");
+		lblname.setBounds(48, 9, 67, 25);
+		pnlinven.add(lblname);
+		lblname.setFont(new Font("맑은 고딕", Font.BOLD, 23));
 		
 		List<Ingredient> ingredients = order.getIngredients();
 		JPanel panel = new JPanel();
@@ -195,8 +194,10 @@ public class InventoryList extends JPanel {
 				}
 			});
 			pnl1.add(btnbuy);
-			scrollPane.setBounds(0, 45, 550, 405);
+			scrollPane.setBounds(0, 45, 600, 405);
+			scrollPane.setBorder(null);
 			pnlinven.add(scrollPane);
 		}		
 	}
 }
+
