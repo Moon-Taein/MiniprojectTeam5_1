@@ -26,21 +26,23 @@ public class MenuList extends JPanel {
 	private JPanel scrollablePanel;
 
 	public MenuList() {
+		setBackground(Color.BLACK);
 		createMenuList();
 	}
 
 	public void createMenuList() {
-		setSize(new Dimension(650, 900));
+		setSize(new Dimension(750, 800));
 		setLayout(null);
 
 		JPanel panel = new JPanel(); // 스크롤 패인 담을 패널
+		panel.setBackground(Color.decode("#171821"));
 		panel.setSize(new Dimension(550, 750));
-		panel.setBounds(52, 126, 550, 642);
+		panel.setBounds(100, 87, 550, 642);
 		add(panel);
 
 		scrollablePanel = new JPanel();
 		scrollablePanel.setSize(new Dimension(550, 550));
-		scrollablePanel.setBackground(Color.WHITE);
+		scrollablePanel.setBackground(Color.decode("#171821"));
 		scrollablePanel.setLayout(new BoxLayout(scrollablePanel, BoxLayout.Y_AXIS));
 
 		// 패널 내부의 패널 생성
@@ -81,7 +83,7 @@ public class MenuList extends JPanel {
 		JScrollPane scrollPane = new JScrollPane(scrollablePanel);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setPreferredSize(new Dimension(550, 635));
-		scrollPane.setBackground(Color.WHITE);
+		scrollPane.setBackground(Color.decode("#171821"));
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		panel.add(scrollPane);
 
@@ -94,30 +96,31 @@ public class MenuList extends JPanel {
 				MenuPopup menuPopup = new MenuPopup(MenuList.this);
 			}
 		});
-		btnNewButton.setBounds(238, 783, 168, 56);
+		btnNewButton.setBounds(511, 739, 139, 34);
 		add(btnNewButton);
 
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(52, 69, 459, 56);
+		panel_1.setBackground(Color.decode("#171821"));
+		panel_1.setBounds(100, 30, 459, 56);
 		add(panel_1);
 		panel_1.setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("이 름");
-		lblNewLabel.setBackground(Color.WHITE);
+		lblNewLabel.setBackground(Color.decode("#171821"));
 		lblNewLabel.setOpaque(true);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(12, 10, 134, 36);
 		panel_1.add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("분 류");
-		lblNewLabel_1.setBackground(Color.WHITE);
+		lblNewLabel_1.setBackground(Color.decode("#171821"));
 		lblNewLabel_1.setOpaque(true);
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setBounds(158, 10, 134, 36);
 		panel_1.add(lblNewLabel_1);
 
 		JLabel lblNewLabel_2 = new JLabel("금 액");
-		lblNewLabel_2.setBackground(Color.WHITE);
+		lblNewLabel_2.setBackground(Color.decode("#171821"));
 		lblNewLabel_2.setOpaque(true);
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_2.setBounds(304, 10, 141, 36);

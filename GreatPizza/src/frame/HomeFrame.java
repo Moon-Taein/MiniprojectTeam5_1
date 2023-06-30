@@ -86,27 +86,27 @@ public class HomeFrame extends JFrame {
 
 		BuyList buyList = new BuyList();
 		buyList.setLayout(null);
-		buyList.setBackground(Color.BLACK);
+		buyList.setBackground(Color.decode("#171821"));
 		cards.add(buyList, "buyList");
 
 		SalesList salesList = new SalesList();
-		salesList.setBackground(Color.WHITE);
+		salesList.setBackground(Color.decode("#171821"));
 		salesList.setLayout(null);
 		cards.add(salesList, "salesList");
 
 		FinancialList financialList = new FinancialList();
 		financialList.setLayout(null);
-		financialList.setBackground(Color.WHITE);
+		financialList.setBackground(Color.decode("#171821"));
 		cards.add(financialList, "financialList");
 
 		MenuList menuList = new MenuList();
 		menuList.setLayout(null);
-		menuList.setBackground(Color.WHITE);
+		menuList.setBackground(Color.decode("#171821"));
 		cards.add(menuList, "menuList");
 
 		InventoryList inventoryList = new InventoryList();
 		inventoryList.setLayout(null);
-		inventoryList.setBackground(Color.WHITE);
+		inventoryList.setBackground(Color.decode("#171821"));
 		cards.add(inventoryList, "inventoryList");
 		cardLayout = (CardLayout) cards.getLayout();
 
