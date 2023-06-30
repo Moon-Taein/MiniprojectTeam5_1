@@ -32,11 +32,11 @@ public class SalesList extends JPanel {
 		Map<Integer, List<String>> bestMonth = order.bestMonth(String.valueOf(today.getYear()));
 		Map<Integer, List<String>> bests = order.bestMenu();
 		
-		setSize(new Dimension(650, 900));
+		setSize(new Dimension(750, 800));
 		setLayout(null);
 
 		cards = new JPanel();
-		cards.setBounds(0, 85, 650, 815);
+		cards.setBounds(0, 85, 750, 815);
 		add(cards);
 		cards.setLayout(new CardLayout(0, 0));
 
@@ -46,29 +46,29 @@ public class SalesList extends JPanel {
 		datepage.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(69, 71, 510, 262);
+		panel.setBounds(421, 69, 274, 262);
 		datepage.add(panel);
 		panel.setLayout(null);
 		
 		todaytotal = new JLabel("오늘의 매출");
 		todaytotal.setFont(new Font("굴림", Font.BOLD, 25));
-		todaytotal.setBounds(183, 28, 134, 37);
+		todaytotal.setBounds(70, 28, 134, 37);
 		panel.add(todaytotal);
 		
 		JLabel total = new JLabel(order.todaySales(day));
 		total.setHorizontalAlignment(SwingConstants.CENTER);
 		total.setFont(new Font("굴림", Font.BOLD, 20));
-		total.setBounds(90, 75, 326, 47);
+		total.setBounds(0, 75, 281, 47);
 		panel.add(total);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(69, 356, 510, 394);
+		panel_1.setBounds(66, 341, 629, 306);
 		datepage.add(panel_1);
 		panel_1.setLayout(null);
 		
 		JLabel week = new JLabel("요일별 매출");
 		week.setHorizontalAlignment(SwingConstants.CENTER);
-		week.setBounds(189, 23, 128, 33);
+		week.setBounds(252, 22, 128, 33);
 		panel_1.add(week);
 
 		JPanel monthpage = new JPanel();
@@ -77,25 +77,25 @@ public class SalesList extends JPanel {
 		monthpage.setLayout(null);
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(76, 82, 485, 289);
+		panel_2.setBounds(76, 82, 584, 289);
 		monthpage.add(panel_2);
 		panel_2.setLayout(null);
 		
 		JLabel bestMenu = new JLabel("많이팔린메뉴");
 		bestMenu.setFont(new Font("굴림", Font.PLAIN, 20));
 		bestMenu.setHorizontalAlignment(SwingConstants.CENTER);
-		bestMenu.setBounds(180, 5, 128, 47);
+		bestMenu.setBounds(230, 10, 128, 47);
 		panel_2.add(bestMenu);
 		
 		JPanel panel_3 = new JPanel();
-		panel_3.setBounds(76, 400, 485, 370);
+		panel_3.setBounds(76, 381, 584, 274);
 		monthpage.add(panel_3);
 		panel_3.setLayout(null);
 		
 		JLabel month = new JLabel("월매출 순위");
 		month.setHorizontalAlignment(SwingConstants.CENTER);
 		month.setFont(new Font("굴림", Font.PLAIN, 20));
-		month.setBounds(180, 10, 128, 47);
+		month.setBounds(227, 10, 128, 47);
 		panel_3.add(month);
 
 		for (int i = 1; i <= 5; i++) {

@@ -35,13 +35,12 @@ public class FinancialList extends JPanel {
 
 	public FinancialList() {
 		final PosRepo pr = new PosRepo();
-		setLocation(-259, -115);
 		setSize(new Dimension(750, 800));
 		setLayout(null);
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(Color.PINK);
-		panel_1.setBounds(51, 100, 549, 45);
+		panel_1.setBounds(110, 65, 549, 45);
 		add(panel_1);
 		panel_1.setLayout(null);
 
@@ -61,7 +60,8 @@ public class FinancialList extends JPanel {
 		panel_1.add(lblNewLabel_2_2);
 
 		JPanel panel = new JPanel();
-		panel.setBounds(51, 140, 549, 590);
+		panel.setBackground( Color.decode("#171821"));
+		panel.setBounds(50, 108, 670, 590);
 		add(panel);
 
 		scrollablePanel = new JPanel();
@@ -81,7 +81,7 @@ public class FinancialList extends JPanel {
 		defaultCreate();
 
 		final JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(52, 63, 79, 34);
+		comboBox.setBounds(110, 29, 79, 34);
 		add(comboBox);
 
 		// 콤보박스 디폴트 값 설정해주기
@@ -90,7 +90,7 @@ public class FinancialList extends JPanel {
 		}
 
 		final JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(143, 63, 58, 34);
+		comboBox_1.setBounds(266, 29, 58, 34);
 		add(comboBox_1);
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -109,23 +109,23 @@ public class FinancialList extends JPanel {
 		}
 
 		JButton btnNewButton = new JButton("\uD655 \uC778");
-		btnNewButton.setBounds(213, 63, 66, 34);
+		btnNewButton.setBounds(394, 29, 66, 34);
 		add(btnNewButton);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(Color.WHITE);
-		panel_2.setBounds(51, 740, 549, 79);
+		panel_2.setBounds(110, 698, 549, 79);
 		add(panel_2);
 		panel_2.setLayout(null);
-		
-		final JLabel lblNewLabel_3 = new JLabel("금 액");
-		lblNewLabel_3.setBounds(216, 10, 221, 59);
-		panel_2.add(lblNewLabel_3);
 
 		JLabel lblNewLabel_4 = new JLabel("총 액 :");
 		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_4.setBounds(83, 10, 121, 59);
 		panel_2.add(lblNewLabel_4);
+		
+		final JLabel lblNewLabel_3 = new JLabel("금 액");
+		lblNewLabel_3.setBounds(244, 10, 221, 59);
+		panel_2.add(lblNewLabel_3);
 		
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -183,12 +183,12 @@ public class FinancialList extends JPanel {
 
 		JLabel lblNewLabel = new JLabel("년도");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(52, 24, 79, 34);
+		lblNewLabel.setBounds(188, 29, 79, 34);
 		add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("월");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(143, 24, 58, 34);
+		lblNewLabel_1.setBounds(324, 29, 58, 34);
 		add(lblNewLabel_1);
 
 	}

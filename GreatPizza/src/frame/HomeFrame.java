@@ -54,7 +54,7 @@ public class HomeFrame extends JFrame {
 
 		JPanel panel = new JPanel();
 		panel.setBackground(blackcolor);
-		panel.setBounds(0, 0, 142, 900);
+		panel.setBounds(0, 0, 150, 900);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
@@ -82,7 +82,7 @@ public class HomeFrame extends JFrame {
 
 		cards = new JPanel(new CardLayout());
 		cards.setBackground(graycolor);
-		cards.setBounds(145, 0, 755, 861);
+		cards.setBounds(152, 0, 748, 861);
 		contentPane.add(cards, BorderLayout.CENTER);
 
 		BuyList buyList = new BuyList();
