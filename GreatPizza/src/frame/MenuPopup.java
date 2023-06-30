@@ -52,7 +52,7 @@ public class MenuPopup extends JFrame {
 	private JLabel edge;
 	private JLabel sauce;
 
-	public MenuPopup() {
+	public MenuPopup(MenuList menulist) {
 		pr = new PosRepo();
 		getContentPane().setBackground(Color.PINK);
 		setBackground(Color.PINK);
@@ -87,17 +87,6 @@ public class MenuPopup extends JFrame {
 		getContentPane().add(panel_5);
 		panel_5.setLayout(null);
 
-		final JPanel panel_6 = new JPanel();
-		panel_6.setBackground(Color.LIGHT_GRAY);
-		panel_6.setBounds(0, 0, 265, 272);
-		panel_5.add(panel_6);
-		panel_6.setLayout(null);
-
-		JLabel lblNewLabel_6 = new JLabel("피자 클릭 시 오픈");
-		lblNewLabel_6.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_6.setBounds(51, 94, 169, 65);
-		panel_6.add(lblNewLabel_6);
-
 		final JComboBox comboBox_1_1 = new JComboBox();
 
 		comboBox_1_1.setBounds(84, 10, 155, 30);
@@ -105,9 +94,8 @@ public class MenuPopup extends JFrame {
 		panel_1.add(comboBox_1_1);
 
 		JButton btnNewButton_1 = new JButton("추가");
-		btnNewButton_1.setBounds(154, 282, 82, 23);
+		btnNewButton_1.setBounds(155, 259, 82, 23);
 		panel_5.add(btnNewButton_1);
-//		btnNewButton_1.setVisible(false);
 		final JComboBox comboBox = new JComboBox();
 		comboBox.setEnabled(false);
 
@@ -118,21 +106,18 @@ public class MenuPopup extends JFrame {
 
 				if (type.equals("피자")) {
 					comboBox.setEnabled(true);
-					panel_6.setVisible(false);
 					comboBox_1_1.setEnabled(true);
 					comboBox_1_1.removeAllItems();
 					comboBox_1_1.addItem("M");
 					comboBox_1_1.addItem("L");
 				} else if (type.equals("음료")) {
 					comboBox.setEnabled(false);
-					panel_6.setVisible(true);
 					comboBox_1_1.setEnabled(true);
 					comboBox_1_1.removeAllItems();
 					comboBox_1_1.addItem("500ML");
 					comboBox_1_1.addItem("1.25L");
 				} else {
 					comboBox.setEnabled(false);
-					panel_6.setVisible(true);
 					comboBox_1_1.setEnabled(false);
 				}
 			}
@@ -191,109 +176,181 @@ public class MenuPopup extends JFrame {
 
 		JLabel lblNewLabel_4 = new JLabel("사 이 즈");
 		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_4.setBounds(12, 10, 60, 20);
+		lblNewLabel_4.setBounds(12, 11, 60, 25);
 		panel_5.add(lblNewLabel_4);
 
 		JLabel lblNewLabel_4_1 = new JLabel("엣지");
 		lblNewLabel_4_1.setSize(new Dimension(60, 20));
 		lblNewLabel_4_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_4_1.setBounds(12, 40, 60, 20);
+		lblNewLabel_4_1.setBounds(12, 41, 60, 25);
 		panel_5.add(lblNewLabel_4_1);
 
 		JLabel lblNewLabel_4_2 = new JLabel("소 스");
 		lblNewLabel_4_2.setSize(new Dimension(60, 20));
 		lblNewLabel_4_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_4_2.setBounds(12, 70, 60, 20);
+		lblNewLabel_4_2.setBounds(12, 71, 60, 25);
 		panel_5.add(lblNewLabel_4_2);
 
 		JLabel lblNewLabel_4_3 = new JLabel("토 핑");
 		lblNewLabel_4_3.setSize(new Dimension(60, 20));
 		lblNewLabel_4_3.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_4_3.setBounds(12, 100, 60, 20);
+		lblNewLabel_4_3.setBounds(12, 102, 60, 25);
 		panel_5.add(lblNewLabel_4_3);
 
 		JLabel lblNewLabel_4_4 = new JLabel("토 핑");
 		lblNewLabel_4_4.setSize(new Dimension(60, 20));
 		lblNewLabel_4_4.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_4_4.setBounds(12, 138, 60, 20);
+		lblNewLabel_4_4.setBounds(12, 132, 60, 25);
 		panel_5.add(lblNewLabel_4_4);
 
 		JLabel lblNewLabel_4_5 = new JLabel("토 핑");
 		lblNewLabel_4_5.setSize(new Dimension(60, 20));
 		lblNewLabel_4_5.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_4_5.setBounds(12, 176, 60, 20);
+		lblNewLabel_4_5.setBounds(12, 162, 60, 25);
 		panel_5.add(lblNewLabel_4_5);
 
 		JLabel lblNewLabel_4_6 = new JLabel("토 핑");
 		lblNewLabel_4_6.setSize(new Dimension(60, 20));
 		lblNewLabel_4_6.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_4_6.setBounds(12, 214, 60, 20);
+		lblNewLabel_4_6.setBounds(12, 193, 60, 25);
 		panel_5.add(lblNewLabel_4_6);
 
 		JLabel lblNewLabel_4_7 = new JLabel("토 핑");
 		lblNewLabel_4_7.setSize(new Dimension(60, 20));
 		lblNewLabel_4_7.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_4_7.setBounds(12, 252, 60, 20);
+		lblNewLabel_4_7.setBounds(12, 224, 60, 25);
 		panel_5.add(lblNewLabel_4_7);
 
 		JLabel lblNewLabel_4_8 = new JLabel("이 미 지");
 		lblNewLabel_4_8.setSize(new Dimension(60, 20));
 		lblNewLabel_4_8.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_4_8.setBounds(56, 283, 60, 20);
+		lblNewLabel_4_8.setBounds(57, 260, 60, 20);
 		panel_5.add(lblNewLabel_4_8);
 
 		edge = new JLabel("없 음");
 		edge.setSize(new Dimension(0, 20));
 		edge.setHorizontalAlignment(SwingConstants.CENTER);
-		edge.setBounds(81, 40, 170, 20);
+		edge.setBounds(81, 41, 109, 25);
 		panel_5.add(edge);
 
 		sauce = new JLabel("없 음");
 		sauce.setSize(new Dimension(0, 20));
 		sauce.setHorizontalAlignment(SwingConstants.CENTER);
-		sauce.setBounds(81, 70, 170, 20);
+		sauce.setBounds(81, 71, 109, 25);
 		panel_5.add(sauce);
 
 		topping_1 = new JLabel("없 음");
 		topping_1.setSize(new Dimension(0, 20));
 		topping_1.setHorizontalAlignment(SwingConstants.CENTER);
-		topping_1.setBounds(81, 100, 170, 20);
+		topping_1.setBounds(81, 102, 109, 25);
 		panel_5.add(topping_1);
 
 		topping_2 = new JLabel("없 음");
 		topping_2.setSize(new Dimension(0, 20));
 		topping_2.setHorizontalAlignment(SwingConstants.CENTER);
-		topping_2.setBounds(81, 138, 170, 20);
+		topping_2.setBounds(81, 132, 109, 25);
 		panel_5.add(topping_2);
 
 		topping_3 = new JLabel("없 음");
 		topping_3.setSize(new Dimension(0, 20));
 		topping_3.setHorizontalAlignment(SwingConstants.CENTER);
-		topping_3.setBounds(81, 176, 170, 20);
+		topping_3.setBounds(81, 162, 109, 25);
 		panel_5.add(topping_3);
 
 		topping_4 = new JLabel("없 음");
 		topping_4.setSize(new Dimension(0, 20));
 		topping_4.setHorizontalAlignment(SwingConstants.CENTER);
-		topping_4.setBounds(81, 214, 170, 20);
+		topping_4.setBounds(81, 193, 109, 25);
 		panel_5.add(topping_4);
 
 		topping_5 = new JLabel("없 음");
 		topping_5.setSize(new Dimension(0, 20));
 		topping_5.setHorizontalAlignment(SwingConstants.CENTER);
-		topping_5.setBounds(81, 252, 170, 20);
+		topping_5.setBounds(81, 224, 109, 25);
 		panel_5.add(topping_5);
 
 		JLabel lblNewLabel_5 = new JLabel("이 미 지 출 력");
 		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_5.setBounds(12, 313, 241, 137);
+		lblNewLabel_5.setBounds(12, 287, 241, 163);
 		panel_5.add(lblNewLabel_5);
 
 		final JLabel pizzaSize = new JLabel("없 음");
 		pizzaSize.setSize(new Dimension(0, 20));
 		pizzaSize.setHorizontalAlignment(SwingConstants.CENTER);
-		pizzaSize.setBounds(81, 10, 170, 20);
+		pizzaSize.setBounds(81, 11, 109, 25);
 		panel_5.add(pizzaSize);
+
+		JButton btnNewButton_2 = new JButton("취 소");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				pizzaSize.setText("없음");
+			}
+		});
+		btnNewButton_2.setBounds(188, 10, 65, 25);
+		panel_5.add(btnNewButton_2);
+
+		JButton btnNewButton_2_1 = new JButton("취 소");
+		btnNewButton_2_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				edge.setText("없음");
+			}
+		});
+		btnNewButton_2_1.setBounds(188, 40, 65, 25);
+		panel_5.add(btnNewButton_2_1);
+
+		JButton btnNewButton_2_2 = new JButton("취 소");
+		btnNewButton_2_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				sauce.setText("없음");
+			}
+		});
+		btnNewButton_2_2.setBounds(188, 71, 65, 25);
+		panel_5.add(btnNewButton_2_2);
+
+		JButton btnNewButton_2_3 = new JButton("취 소");
+		btnNewButton_2_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				topping_1.setText("없음");
+			}
+		});
+		btnNewButton_2_3.setBounds(188, 101, 65, 25);
+		panel_5.add(btnNewButton_2_3);
+
+		JButton btnNewButton_2_4 = new JButton("취 소");
+		btnNewButton_2_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				topping_2.setText("없음");
+			}
+		});
+		btnNewButton_2_4.setBounds(188, 131, 65, 25);
+		panel_5.add(btnNewButton_2_4);
+
+		JButton btnNewButton_2_4_1 = new JButton("취 소");
+		btnNewButton_2_4_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				topping_3.setText("없음");
+			}
+		});
+		btnNewButton_2_4_1.setBounds(188, 161, 65, 25);
+		panel_5.add(btnNewButton_2_4_1);
+
+		JButton btnNewButton_2_4_2 = new JButton("취 소");
+		btnNewButton_2_4_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				topping_4.setText("없음");
+			}
+		});
+		btnNewButton_2_4_2.setBounds(188, 192, 65, 25);
+		panel_5.add(btnNewButton_2_4_2);
+
+		JButton btnNewButton_2_4_3 = new JButton("취 소");
+		btnNewButton_2_4_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				topping_5.setText("없음");
+			}
+		});
+		btnNewButton_2_4_3.setBounds(188, 221, 65, 25);
+		panel_5.add(btnNewButton_2_4_3);
 
 		comboBox_1_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -310,9 +367,6 @@ public class MenuPopup extends JFrame {
 				scrollablePanel.removeAll();
 				countCb = 0;
 
-				if (selectType.equals("토핑")) {
-					addMenuReset();
-				}
 				List<Ingredient> list = pr.ingredientID(selectType);
 				for (final Ingredient ig : list) {
 					JPanel igPanel = new JPanel();
@@ -382,7 +436,7 @@ public class MenuPopup extends JFrame {
 				list.add(topping_3.getText());
 				list.add(topping_4.getText());
 				list.add(topping_5.getText());
-				
+
 				if (name != null || price != null) {
 					if (selectType.equals("피자")) {
 						pr.InsertPizzaMenu(selectType, name, selectSize, price);
@@ -404,6 +458,10 @@ public class MenuPopup extends JFrame {
 				} else {
 					System.out.println(" 입력은 하고 하는거냐! ");
 				}
+				menulist.removeAll();
+				menulist.repaint();
+				menulist.revalidate();
+				menulist.createMenuList();
 			}
 		});
 

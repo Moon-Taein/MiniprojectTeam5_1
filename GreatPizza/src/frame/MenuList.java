@@ -23,7 +23,13 @@ import javax.swing.ScrollPaneConstants;
 import java.awt.Font;
 
 public class MenuList extends JPanel {
+	private JPanel scrollablePanel;
+
 	public MenuList() {
+		createMenuList();
+	}
+
+	public void createMenuList() {
 		setSize(new Dimension(650, 900));
 		setLayout(null);
 
@@ -32,8 +38,7 @@ public class MenuList extends JPanel {
 		panel.setBounds(52, 126, 550, 642);
 		add(panel);
 
-		// 스크롤 가능한 패널 생성
-		JPanel scrollablePanel = new JPanel();
+		scrollablePanel = new JPanel();
 		scrollablePanel.setSize(new Dimension(550, 550));
 		scrollablePanel.setBackground(Color.WHITE);
 		scrollablePanel.setLayout(new BoxLayout(scrollablePanel, BoxLayout.Y_AXIS));
@@ -86,7 +91,7 @@ public class MenuList extends JPanel {
 		JButton btnNewButton = new JButton("메 뉴 추 가");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new MenuPopup();
+				MenuPopup menuPopup = new MenuPopup(MenuList.this);
 			}
 		});
 		btnNewButton.setBounds(238, 783, 168, 56);
@@ -117,5 +122,7 @@ public class MenuList extends JPanel {
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_2.setBounds(304, 10, 141, 36);
 		panel_1.add(lblNewLabel_2);
+
 	}
+
 }
