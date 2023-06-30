@@ -5,8 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class PosRepo {
@@ -239,7 +242,11 @@ public class PosRepo {
 	// 피자는 메뉴 용 하나, 레시피용 하나가 필요합니다. 주의 하세요
 	public int InsertPizzaRecipe(String type, String name, String size, String price, List<String> list) {
 
+		List<String> ingredientList = new ArrayList<>();
+		List<Integer> ingredientCount = new ArrayList<>();
+
 		String sql = "INSERT INTO recipe (Menu_id,inventory_id,count) VALUES (?,?,?)";
+
 		try {
 			conn = DBUtil.getConnection();
 			stmt = conn.prepareStatement(sql);
@@ -249,14 +256,32 @@ public class PosRepo {
 			String douSize = "도우_" + size;
 			list.add(douSize);
 
-			for (String s : list) {
+			// ArrayList 준비
+			System.out.println("원본 : " + list); // [A, B, C, A, B, A]
+
+			// ArrayList 원소 빈도수를 Map에 저장
+			Map<String, Integer> map = new HashMap<String, Integer>();
+			for (String str : list) {
+				Integer count = map.get(str);
+				if (count == null) {
+					map.put(str, 1);
+				} else {
+					map.put(str, count + 1);
+				}
+			}
+
+			// // Map 출력
+			for (String key : map.keySet()) {
+				ingredientList.add(key);
+				ingredientCount.add(map.get(key));
 				stmt.setString(1, menuId);
-				System.out.println(s);
-				stmt.setString(2, s);
-				stmt.setInt(3, 1);
+				stmt.setString(2, key);
+				stmt.setInt(3, Integer.valueOf(map.get(key)));
 				stmt.executeUpdate();
 			}
+
 			return 1;
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -269,6 +294,7 @@ public class PosRepo {
 
 	public static void main(String[] args) {
 		PosRepo pr = new PosRepo();
+
 	}
 
 }

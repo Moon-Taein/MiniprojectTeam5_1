@@ -382,7 +382,7 @@ public class MenuPopup extends JFrame {
 				list.add(topping_3.getText());
 				list.add(topping_4.getText());
 				list.add(topping_5.getText());
-
+				
 				if (name != null || price != null) {
 					if (selectType.equals("피자")) {
 						pr.InsertPizzaMenu(selectType, name, selectSize, price);
