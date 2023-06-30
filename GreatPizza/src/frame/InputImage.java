@@ -22,10 +22,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-public class ImagePlus {
-
-	private static String outputPath;
-	private static String outputPathBig;
+public class InputImage {
 
 	// 파일의 확장자를 반환하는 메서드
 	private static String getFileExtension(String selectedFile) {
@@ -44,38 +41,7 @@ public class ImagePlus {
 		// 원하는 이미지 확장자를 추가로 확인할 수 있습니다.
 	}
 
-	public static byte[] fileToBytes(String filePath) {
-		byte[] bytes = null;
-
-		try {
-			File file = new File(filePath);
-			FileInputStream fis = new FileInputStream(file);
-			BufferedInputStream bis = new BufferedInputStream(fis);
-
-			ByteArrayOutputStream bos = new ByteArrayOutputStream();
-
-			int bufferSize = 1024;
-			byte[] buffer = new byte[bufferSize];
-			int bytesRead;
-
-			while ((bytesRead = bis.read(buffer, 0, bufferSize)) != -1) {
-				bos.write(buffer, 0, bytesRead);
-			}
-
-			bis.close();
-			fis.close();
-
-			bytes = bos.toByteArray();
-			bos.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		return bytes;
-
-	}
-	
-	public static byte[] bigFileToBytes(String filePath) {
+	private static byte[] fileToBytes(String filePath) {
 		byte[] bytes = null;
 
 		try {
@@ -127,49 +93,6 @@ public class ImagePlus {
 		return true;
 	}
 
-	private static String ImageResizeExampleBig(String imagePath) {
-
-		try {
-			// 이미지 파일 로드
-			BufferedImage originalImage = ImageIO.read(new File(imagePath));// 입력 이미지 파일 경로
-
-			// 변경할 사이즈 지정
-			int newWidth = 410; // 새로운 너비
-			int newHeight = 380; // 새로운 높이
-
-			// 이미지 크기 변경
-			BufferedImage resizedImage = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
-
-			// Graphics2D 객체를 사용하여 변경된 이미지 그리기
-			Graphics2D graphics2D = resizedImage.createGraphics();
-			graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-			graphics2D.drawImage(originalImage, 0, 0, newWidth, newHeight, null);
-			graphics2D.dispose();
-
-			// 변경된 이미지를 저장할 BufferedImage 생성
-			BufferedImage resizedBufferedImage = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_RGB);
-
-			// 투명한 배경으로 그래픽 컨텍스트 생성
-			Graphics2D transparentGraphics = resizedBufferedImage.createGraphics();
-			transparentGraphics.setComposite(AlphaComposite.Clear);
-			transparentGraphics.fillRect(0, 0, newWidth, newHeight);
-			transparentGraphics.setComposite(AlphaComposite.Src);
-			transparentGraphics.drawImage(resizedImage, 0, 0, null);
-			transparentGraphics.dispose();
-
-			outputPathBig = "D:\\resized_Big_image.png";
-			File outputFile = new File(outputPath);
-			ImageIO.write(resizedBufferedImage, "png", outputFile);
-
-			return outputPathBig;
-
-		} catch (IOException e) {
-			e.printStackTrace();
-
-		}
-		return null;
-	}
-	
 	private static String ImageResizeExample(String imagePath) {
 
 		try {
@@ -178,7 +101,7 @@ public class ImagePlus {
 
 			// 변경할 사이즈 지정
 			int newWidth = 180; // 새로운 너비
-			int newHeight = 150; // 새로운 높이
+			int newHeight = 140; // 새로운 높이
 
 			// 이미지 크기 변경
 			BufferedImage resizedImage = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
@@ -200,7 +123,8 @@ public class ImagePlus {
 			transparentGraphics.drawImage(resizedImage, 0, 0, null);
 			transparentGraphics.dispose();
 
-			outputPath = "D:\\resized_image.png";
+			// 이미지를 PNG 파일로 저장
+			String outputPath = "resized_image.png"; // 저장할 이미지 파일 경로
 			File outputFile = new File(outputPath);
 			ImageIO.write(resizedBufferedImage, "png", outputFile);
 
@@ -213,17 +137,12 @@ public class ImagePlus {
 		return null;
 	}
 
-	public static void imagePlusFrame(MenuPopup menupopup) {
+	public static void inputIMAGE(MenuPopup menupopup) {
 		JFrame frame = new JFrame();
 		JFileChooser fileChooser = new JFileChooser();
 
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("이미지 파일", "jpg", "jpeg", "png", "gif");
 		fileChooser.setFileFilter(filter);
-
-		// 바탕 화면 경로 설정
-		String desktopPath = System.getProperty("user.home") + "/Desktop";
-		File desktopDirectory = new File(desktopPath);
-		fileChooser.setCurrentDirectory(desktopDirectory);
 
 		int returnValue = fileChooser.showOpenDialog(frame);
 		if (returnValue == JFileChooser.APPROVE_OPTION) {
@@ -233,22 +152,26 @@ public class ImagePlus {
 			// 파일 확장자 확인
 			String extension = getFileExtension(filePath);
 
-			String path = outputPath;
-			menupopup.addImage(path);
-		}
-
-
-		// 바탕 화면에 프레임이 표시되도록 설정
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(500, 500); // 프레임의 크기 설정
-		frame.setLocationRelativeTo(null); // 화면 중앙에 위치하도록 설정
-	}
-
-	private static void saveBytesToFile(byte[] bytes, String filePath) {
-		try (FileOutputStream fos = new FileOutputStream(new File(filePath))) {
-			fos.write(bytes);
-		} catch (IOException e) {
-			e.printStackTrace();
+			if (isFileSizeValid(filePath) && isImageDimensionsValid(filePath) && isImageExtension(extension)) {
+				// 파일 제약 조건을 만족하는 경우
+				// 파일 경로를 출력하거나 원하는 처리를 수행
+				System.out.println("선택된 파일 경로: " + filePath);
+				String newfilePath = ImageResizeExample(filePath);
+				byte[] fileBytes = fileToBytes(newfilePath);
+				
+				menupopup.addImage(fileBytes);
+				
+				
+				// 추가적인 파일 처리 작업 수행
+			} else {
+				// 파일 제약 조건을 만족하지 않는 경우
+				System.out.println("선택된 파일은 제약 조건을 만족하지 않습니다.");
+				System.out.println(isFileSizeValid(filePath));
+				System.out.println(isImageDimensionsValid(filePath));
+				System.out.println(!isImageExtension(extension));
+				// 필요한 처리를 수행하거나 에러 메시지를 표시
+				// ...
+			}
 		}
 	}
 }

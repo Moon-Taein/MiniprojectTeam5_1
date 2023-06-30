@@ -100,8 +100,8 @@ public class MenuPopup extends JFrame {
 		JButton btnNewButton_1 = new JButton("추가");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ImagePlus ip = new ImagePlus();
-				ip.imagePlusFrame(MenuPopup.this);
+				InputImage ip = new InputImage();
+				ip.inputIMAGE(MenuPopup.this);
 
 			}
 		});
@@ -496,9 +496,8 @@ public class MenuPopup extends JFrame {
 		sauce.setText("없음");
 	}
 	
-	public void addImage(String path) {
-		image = new ImageIcon(imagePath);
-		imagePath = path;
+	public void addImage(byte[] bytes) {
+		image = new ImageIcon(bytes);
 		lblNewLabel_5.setIcon(null);
 		lblNewLabel_5.setIcon(image);
 		lblNewLabel_5.setText("");
