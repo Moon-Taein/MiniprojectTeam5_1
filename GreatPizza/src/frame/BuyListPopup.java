@@ -97,6 +97,7 @@ public class BuyListPopup extends JFrame {
             	if (isCan) {
             		updateIngredients();
             		order.plusAccount(mainOrder.getTotalprice(), mainOrder.getDate());
+            		order.updateAsset(mainOrder.getDate());
             		order.updateMainOrder("확인", no);
             		setVisible(false);
             	}

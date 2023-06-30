@@ -29,6 +29,8 @@ public class SalesList extends JPanel {
 		order = new OrderRepo();
 		LocalDate today = LocalDate.now();
 	    String day = today.format(DateTimeFormatter.ofPattern("yyyy-M-d"));
+	    order.plusDay(day);
+	    
 		Map<Integer, List<String>> bestMonth = order.bestMonth(String.valueOf(today.getYear()));
 		Map<Integer, List<String>> bests = order.bestMenu();
 		
@@ -55,7 +57,7 @@ public class SalesList extends JPanel {
 		todaytotal.setBounds(70, 28, 134, 37);
 		panel.add(todaytotal);
 		
-		JLabel total = new JLabel(order.todaySales(day));
+		JLabel total = new JLabel(order.todaySales(day) + "원");
 		total.setHorizontalAlignment(SwingConstants.CENTER);
 		total.setFont(new Font("굴림", Font.BOLD, 20));
 		total.setBounds(0, 75, 281, 47);
@@ -100,18 +102,18 @@ public class SalesList extends JPanel {
 
 		for (int i = 1; i <= 5; i++) {
 			if (bests.get(i) != null) {
-				JLabel first = new JLabel(i + ". " + bests.get(i).get(0) + "위 " + bests.get(i).get(1));
+				JLabel first = new JLabel(i + "위 " + bests.get(i).get(0) + " " + bests.get(i).get(1)+ "개");
 				first.setFont(new Font("굴림", Font.PLAIN, 15));
-				first.setBounds(180, 60 + 30*(i-1), 128, 27);
+				first.setBounds(180, 60 + 30*(i-1), 300, 27);
 				panel_2.add(first);
 			}
 		}
 		
 		for (int i = 1; i <= 5; i++) {
 			if (bestMonth.get(i) != null) {
-				JLabel first = new JLabel(i + ". " + bestMonth.get(i).get(0) + "월 " + bestMonth.get(i).get(1));
+				JLabel first = new JLabel(i + "위 " + bestMonth.get(i).get(0) + "월 " + bestMonth.get(i).get(1)+ "원");
 				first.setFont(new Font("굴림", Font.PLAIN, 15));
-				first.setBounds(180, 60 + 30*(i-1), 128, 27);
+				first.setBounds(180, 60 + 30*(i-1), 300, 27);
 				panel_3.add(first);
 			}
 		}

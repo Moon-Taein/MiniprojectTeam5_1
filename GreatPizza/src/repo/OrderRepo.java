@@ -285,6 +285,24 @@ public class OrderRepo {
 		return 0;
 	}
 	
+	public int plusDay(String date) {
+		String sql = "INSERT account (date, purchase, sales) VALUES (?, 0, 0); ";
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, date);
+			return stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		return 0;
+	}
+	
 	public int plusAccount(int sales, String date) {
 		String sql = "UPDATE account SET sales = sales + ? WHERE date = ?";
 		
@@ -295,6 +313,28 @@ public class OrderRepo {
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, sales);
 			stmt.setString(2, date);
+			return stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		return 0;
+	}
+	public int updateAsset(String date) {
+		String[] dates = date.split("-");
+		System.out.println(dates[1].toString());
+		String sql = "UPDATE asset SET money = (SELECT sum(total_price) from mainorder WHERE 주문날짜 like ?) WHERE month = ?;";
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+			String month = dates[0] + "-" + dates[1] + "%"; 
+			stmt.setString(1, month);
+			stmt.setInt(2, Integer.valueOf(dates[1]));
 			return stmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
