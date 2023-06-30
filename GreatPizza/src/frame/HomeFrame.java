@@ -25,6 +25,9 @@ public class HomeFrame extends JFrame {
 	private JPanel cards;
 	private CardLayout cardLayout;
 	private JLabel lbl;
+	public static final Color blackcolor = Color.decode("#171821");
+	public static final Color graycolor = Color.decode("#21222D");
+	public static final Color mintcolor = Color.decode("#A9DFD8");
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -52,7 +55,7 @@ public class HomeFrame extends JFrame {
 		contentPane.setLayout(null);
 
 		JPanel panel = new JPanel();
-		panel.setBackground(Color.BLACK);
+		panel.setBackground(maincolor);
 		panel.setBounds(0, 0, 142, 900);
 		contentPane.add(panel);
 		panel.setLayout(null);
@@ -86,27 +89,27 @@ public class HomeFrame extends JFrame {
 
 		BuyList buyList = new BuyList();
 		buyList.setLayout(null);
-		buyList.setBackground(Color.decode("#171821"));
+		buyList.setBackground(maincolor);
 		cards.add(buyList, "buyList");
 
 		SalesList salesList = new SalesList();
-		salesList.setBackground(Color.decode("#171821"));
+		salesList.setBackground(maincolor);
 		salesList.setLayout(null);
 		cards.add(salesList, "salesList");
 
 		FinancialList financialList = new FinancialList();
 		financialList.setLayout(null);
-		financialList.setBackground(Color.decode("#171821"));
+		financialList.setBackground(maincolor);
 		cards.add(financialList, "financialList");
 
 		MenuList menuList = new MenuList();
 		menuList.setLayout(null);
-		menuList.setBackground(Color.decode("#171821"));
+		menuList.setBackground(maincolor);
 		cards.add(menuList, "menuList");
 
 		InventoryList inventoryList = new InventoryList();
 		inventoryList.setLayout(null);
-		inventoryList.setBackground(Color.decode("#171821"));
+		inventoryList.setBackground(maincolor);
 		cards.add(inventoryList, "inventoryList");
 		cardLayout = (CardLayout) cards.getLayout();
 
