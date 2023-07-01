@@ -22,6 +22,7 @@ public class DetailOrder {
 		this.count = count;
 		setIngredients();
 	}
+	
 	public void setIngredients() {
 		order = new OrderRepo();
 		ingredients = new ArrayList<>();
@@ -32,6 +33,7 @@ public class DetailOrder {
 		addIngredients.addAll(order.getIngredients(no));
 		ingredients.removeIf(Objects::isNull);
 	}
+	
 	public List<Ingredient> getIngredients() {
 		return ingredients;
 	}

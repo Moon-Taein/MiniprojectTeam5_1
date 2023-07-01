@@ -286,19 +286,21 @@ public class OrderRepo {
 	}
 	
 	public int plusDay(String date) {
-		String sql = "INSERT account (date, purchase, sales) VALUES (?, 0, 0); ";
-		Connection conn = null;
-		PreparedStatement stmt = null;
-		try {
-			conn = DBUtil.getConnection();
-			stmt = conn.prepareStatement(sql);
-			stmt.setString(1, date);
-			return stmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			DBUtil.close(stmt);
-			DBUtil.close(conn);
+		if (plusAccount(0, date) == 0) {
+			String sql = "INSERT account (date, purchase, sales) VALUES (?, 0, 0); ";
+			Connection conn = null;
+			PreparedStatement stmt = null;
+			try {
+				conn = DBUtil.getConnection();
+				stmt = conn.prepareStatement(sql);
+				stmt.setString(1, date);
+				return stmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				DBUtil.close(stmt);
+				DBUtil.close(conn);
+			}
 		}
 		return 0;
 	}
@@ -425,8 +427,9 @@ public class OrderRepo {
 	}
 	
 	public Map<Integer, List<String>> bestMenu() {
-		String sql = "SELECT menu, COUNT(*) AS menu_count\r\n"
-				+ "FROM detailorder GROUP BY menu ORDER BY menu_count DESC;";
+		String sql = "SELECT menu, SUM(menu_count) AS menu_count\r\n"
+				+ "FROM detailorder WHERE no IN (SELECT no FROM mainorder WHERE state = '확인')\r\n"
+				+ "GROUP BY menu ORDER BY menu_count DESC";
 		
 		Connection conn = null;
 		PreparedStatement stmt = null;

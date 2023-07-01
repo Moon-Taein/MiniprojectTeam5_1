@@ -32,10 +32,12 @@ public class BuyListPopup extends JFrame {
     private ButtonGroup group;
     private JRadioButton[] rdbtns;
     private MainOrder mainOrder;
+    private BuyList buyList;
     private int no;
     private boolean isCan;
 
-    public BuyListPopup(MainOrder currentOrder) {
+    public BuyListPopup(MainOrder currentOrder, BuyList buyList) {
+    	this.buyList = buyList;
     	this.mainOrder = currentOrder;
     	this.no = currentOrder.getNo();
     	isCan = true;
@@ -84,6 +86,9 @@ public class BuyListPopup extends JFrame {
         btncancel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
 	            order.updateMainOrder("취소", no);
+	            buyList.removeAll();
+        		buyList.repaint();
+        		buyList.initialize();
 	            setVisible(false);
             }
         });
@@ -99,6 +104,9 @@ public class BuyListPopup extends JFrame {
             		order.plusAccount(mainOrder.getTotalprice(), mainOrder.getDate());
             		order.updateAsset(mainOrder.getDate());
             		order.updateMainOrder("확인", no);
+            		buyList.removeAll();
+            		buyList.repaint();
+            		buyList.initialize();
             		setVisible(false);
             	}
             }

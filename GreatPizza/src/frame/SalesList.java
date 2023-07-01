@@ -26,6 +26,9 @@ public class SalesList extends JPanel {
 	private OrderRepo order;
 
 	public SalesList() {
+		initialize();
+	}
+	public void initialize() {
 		order = new OrderRepo();
 		LocalDate today = LocalDate.now();
 	    String day = today.format(DateTimeFormatter.ofPattern("yyyy-M-d"));
@@ -36,7 +39,8 @@ public class SalesList extends JPanel {
 		
 		setSize(new Dimension(750, 800));
 		setLayout(null);
-
+		setBackground(Color.BLACK);
+		
 		cards = new JPanel();
 		cards.setBounds(0, 85, 750, 815);
 		add(cards);

@@ -126,17 +126,6 @@ public class InventoryList extends JPanel {
 		panel_1.setBounds(388, 44, 200, 163);
 		pnlPlus.add(panel_1);
 		
-		JButton reset = new JButton("새로고침");
-		reset.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				removeAll();
-				repaint();
-				setting();
-				revalidate();
-			}
-		});
-		reset.setBounds(320, 762, 97, 23);
-		add(reset);
 		JPanel pnltitle = new JPanel();
 		pnltitle.setBackground(Color.LIGHT_GRAY);
 		pnltitle.setBounds(0, 44, 600, 1);
@@ -201,7 +190,7 @@ public class InventoryList extends JPanel {
 			btnbuy.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					InventoryPlus pop = new InventoryPlus(ingredient);
+					InventoryPlus pop = new InventoryPlus(ingredient, InventoryList.this);
 					pop.setVisible(true);
 				}
 			});

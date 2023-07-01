@@ -26,6 +26,7 @@ public class HomeFrame extends JFrame {
 	public static final Color blackcolor = Color.decode("#171821");
 	public static final Color graycolor = Color.decode("#21222D");
 	public static final Color mintcolor = Color.decode("#A9DFD8");
+	private SalesList salesList;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -90,9 +91,7 @@ public class HomeFrame extends JFrame {
 		buyList.setBackground(blackcolor);
 		cards.add(buyList, "buyList");
 
-		SalesList salesList = new SalesList();
-		salesList.setBackground(blackcolor);
-		salesList.setLayout(null);
+		salesList = new SalesList();
 		cards.add(salesList, "salesList");
 
 		FinancialList financialList = new FinancialList();
@@ -113,6 +112,9 @@ public class HomeFrame extends JFrame {
 
 		salesbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				salesList.removeAll();
+				salesList.repaint();
+				salesList.initialize();
 				cardLayout.show(cards, "salesList");
 			}
 		});

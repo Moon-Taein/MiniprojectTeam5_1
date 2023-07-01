@@ -17,9 +17,11 @@ import java.awt.event.ActionEvent;
 public class InventoryPlus extends JFrame {
 
 	private JPanel contentPane;
+	private InventoryList invenFrame;
 	private OrderRepo order;
 
-	public InventoryPlus(final Ingredient ingredient) {
+	public InventoryPlus(Ingredient ingredient, InventoryList invenFrame) {
+		this.invenFrame = invenFrame;
 		order = new OrderRepo();
 		setBounds(100, 100, 600, 300);
 		contentPane = new JPanel();
@@ -70,6 +72,9 @@ public class InventoryPlus extends JFrame {
 		    public void actionPerformed(ActionEvent arg0) {
 		        int plus = (Integer) comboBox.getSelectedItem();
 		        order.plusIngredient(plus, ingredient.getId());
+		        invenFrame.removeAll();
+		        invenFrame.repaint();
+		        invenFrame.setting();
 		        setVisible(false);
 		    }
 		});
