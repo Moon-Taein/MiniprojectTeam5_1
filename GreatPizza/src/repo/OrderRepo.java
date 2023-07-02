@@ -109,8 +109,8 @@ public class OrderRepo {
 			stmt = conn.prepareStatement(sql);
 			rs = stmt.executeQuery();
 			while (rs.next()) {
-				String id = rs.getString("inventory_id");
-				String name = rs.getString("inventory_name");
+				String id = rs.getString("ingredient_id");
+				String name = rs.getString("ingredient_name");
 				int priceRetail = rs.getInt("price_retail");
 				int priceSupply = rs.getInt("price_supply");
 				int lowerCount = rs.getInt("lower_limit_count");
@@ -129,8 +129,8 @@ public class OrderRepo {
 	}
 	
 	public List<Ingredient> getIngredients(String menu){
-		String sql = "SELECT * FROM ingredient WHERE inventory_id \r\n" + 
-				"IN (SELECT inventory_id FROM recipe WHERE menu_id = ?);";
+		String sql = "SELECT * FROM ingredient WHERE ingredient_id \r\n" + 
+				"IN (SELECT ingredient_id FROM recipe WHERE menu_id = ?);";
 		
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -142,8 +142,8 @@ public class OrderRepo {
 			stmt.setString(1, menu);
 			rs = stmt.executeQuery();
 			while (rs.next()) {
-				String id = rs.getString("inventory_id");
-				String name = rs.getString("inventory_name");
+				String id = rs.getString("ingredient_id");
+				String name = rs.getString("ingredient_name");
 				int priceRetail = rs.getInt("price_retail");
 				int priceSupply = rs.getInt("price_supply");
 				int lowerCount = rs.getInt("lower_limit_count");
@@ -162,7 +162,7 @@ public class OrderRepo {
 	}
 	
 	public Ingredient getIngredient(String menu) {
-		String sql = "SELECT * FROM ingredient WHERE inventory_id = ?";
+		String sql = "SELECT * FROM ingredient WHERE ingredient_id = ?";
 		
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -173,8 +173,8 @@ public class OrderRepo {
 			stmt.setString(1, menu);
 			rs = stmt.executeQuery();
 			while (rs.next()) {
-				String id = rs.getString("inventory_id");
-				String name = rs.getString("inventory_name");
+				String id = rs.getString("ingredient_id");
+				String name = rs.getString("ingredient_name");
 				int priceRetail = rs.getInt("price_retail");
 				int priceSupply = rs.getInt("price_supply");
 				int lowerCount = rs.getInt("lower_limit_count");
@@ -193,8 +193,8 @@ public class OrderRepo {
 	}
 	
 	public List<Ingredient> getIngredients(int no) {
-		String sql = "SELECT * FROM ingredient WHERE inventory_id \r\n" + 
-				"IN (SELECT inventory_id FROM addingredient WHERE detailorder_no = ?)";
+		String sql = "SELECT * FROM ingredient WHERE ingredient_id \r\n" + 
+				"IN (SELECT ingredient_id FROM addingredient WHERE detailorder_no = ?)";
 		
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -206,8 +206,8 @@ public class OrderRepo {
 			stmt.setInt(1, no);
 			rs = stmt.executeQuery();
 			while (rs.next()) {
-				String id = rs.getString("inventory_id");
-				String name = rs.getString("inventory_name");
+				String id = rs.getString("ingredient_id");
+				String name = rs.getString("ingredient_name");
 				int priceRetail = rs.getInt("price_retail");
 				int priceSupply = rs.getInt("price_supply");
 				int lowerCount = rs.getInt("lower_limit_count");
@@ -246,7 +246,7 @@ public class OrderRepo {
 	}
 	
 	public int minusIngredient(int count, String id) {
-		String sql = "UPDATE ingredient SET current_count = current_count - ? WHERE inventory_id = ?";
+		String sql = "UPDATE ingredient SET current_count = current_count - ? WHERE ingredient_id = ?";
 		
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -266,7 +266,7 @@ public class OrderRepo {
 	}
 	
 	public int plusIngredient(int number, String id) {
-		String sql = "UPDATE ingredient SET current_count = current_count + ? WHERE inventory_id = ?";
+		String sql = "UPDATE ingredient SET current_count = current_count + ? WHERE ingredient_id = ?";
 		
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -349,7 +349,7 @@ public class OrderRepo {
 	
 	public int insertIngredient(String name, String priceRetail, String priceSupply, String lowerCount, String type) {
 		String sql = "INSERT INTO ingredient \r\n" + 
-				"(inventory_id, inventory_name, price_retail, price_supply, lower_limit_count, current_count)\r\n" + 
+				"(ingredient_id, ingredient_name, price_retail, price_supply, lower_limit_count, current_count)\r\n" + 
 				"VALUES (?, ?, ?, ?, ?, 0)";
 		String id = type + "_" + name;
 		Connection conn = null;

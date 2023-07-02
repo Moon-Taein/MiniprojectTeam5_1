@@ -28,6 +28,7 @@ public class SalesList extends JPanel {
 	public SalesList() {
 		initialize();
 	}
+	
 	public void initialize() {
 		order = new OrderRepo();
 		LocalDate today = LocalDate.now();
