@@ -14,13 +14,13 @@ import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class InventoryPlus extends JFrame {
+public class IngredientBuy extends JFrame {
 
 	private JPanel contentPane;
-	private InventoryList invenFrame;
+	private IngredientList invenFrame;
 	private OrderRepo order;
 
-	public InventoryPlus(Ingredient ingredient, InventoryList invenFrame) {
+	public IngredientBuy(Ingredient ingredient, IngredientList invenFrame) {
 		this.invenFrame = invenFrame;
 		order = new OrderRepo();
 		setBounds(100, 100, 600, 300);

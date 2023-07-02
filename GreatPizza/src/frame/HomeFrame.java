@@ -104,10 +104,10 @@ public class HomeFrame extends JFrame {
 		menuList.setBackground(blackcolor);
 		cards.add(menuList, "menuList");
 
-		InventoryList inventoryList = new InventoryList();
-		inventoryList.setLayout(null);
-		inventoryList.setBackground(blackcolor);
-		cards.add(inventoryList, "inventoryList");
+		IngredientList ingredientList = new IngredientList();
+		ingredientList.setLayout(null);
+		ingredientList.setBackground(blackcolor);
+		cards.add(ingredientList, "ingredientList");
 		cardLayout = (CardLayout) cards.getLayout();
 
 		salesbtn.addActionListener(new ActionListener() {
@@ -141,7 +141,7 @@ public class HomeFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 //				InventoryPopup pop = new InventoryPopup();
 //				pop.setVisible(true);
-				cardLayout.show(cards, "inventoryList");
+				cardLayout.show(cards, "ingredientList");
 			}
 		});
 		

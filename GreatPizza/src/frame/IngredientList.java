@@ -25,7 +25,7 @@ import javax.swing.JTextField;
 import java.awt.Component;
 import javax.swing.DefaultComboBoxModel;
 
-public class InventoryList extends JPanel {
+public class IngredientList extends JPanel {
 	private JLabel lbltype;
 	private JTextField name;
 	private JTextField priceRetail;
@@ -34,7 +34,7 @@ public class InventoryList extends JPanel {
 	private OrderRepo order;
 	private JPanel pnlinven;
 
-	public InventoryList() {
+	public IngredientList() {
 		order = new OrderRepo();
 		setting();
 	}
@@ -190,7 +190,7 @@ public class InventoryList extends JPanel {
 			btnbuy.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					InventoryPlus pop = new InventoryPlus(ingredient, InventoryList.this);
+					IngredientBuy pop = new IngredientBuy(ingredient, IngredientList.this);
 					pop.setVisible(true);
 				}
 			});
