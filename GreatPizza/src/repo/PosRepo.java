@@ -281,7 +281,6 @@ public class PosRepo {
 					map.put(str, count + 1);
 				}
 			}
-
 			// // Map 출력
 			for (String key : map.keySet()) {
 				ingredientList.add(key);
