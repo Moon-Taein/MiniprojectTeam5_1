@@ -1,4 +1,5 @@
 package frame;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
@@ -19,6 +20,10 @@ public class FinancialList2 extends JFrame {
 		setTitle("Calendar App");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
+		JPanel pnl = new JPanel();
+		pnl.setBounds(0, 0, 750, 800);
+		add(pnl);
+
 		pr = new PosRepo();
 
 		// 연도 콤보박스 생성
@@ -36,10 +41,11 @@ public class FinancialList2 extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				selectYear = yearComboBox.getSelectedItem().toString();
 				monthComboBox.removeAllItems();
-
+				
 				for (Integer i : pr.month(Integer.valueOf(selectYear))) {
 					monthComboBox.addItem(i);
 				}
+				System.out.println(pr.month(Integer.valueOf(selectYear)));
 			}
 		});
 
@@ -73,8 +79,7 @@ public class FinancialList2 extends JFrame {
 		setVisible(true);
 	}
 
-	
-		// 여기 하는중
+	// 여기 하는중
 	private void updateCalendar() {
 		int year = (int) yearComboBox.getSelectedItem();
 		int month = (int) monthComboBox.getSelectedItem();
