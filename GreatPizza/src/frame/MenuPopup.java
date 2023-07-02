@@ -57,6 +57,9 @@ public class MenuPopup extends JFrame {
 	private String imagePath;
 	private byte[] sBytes;
 	private JButton btnNewButton;
+	public static final Color blackcolor = Color.decode("#171821");
+	public static final Color graycolor = Color.decode("#21222D");
+	public static final Color mintcolor = Color.decode("#A9DFD8");
 
 // 메뉴 추가
 
@@ -65,66 +68,11 @@ public class MenuPopup extends JFrame {
 		getContentPane().setBackground(Color.PINK);
 		setBackground(Color.PINK);
 		setSize(new Dimension(652, 613));
+		setLocationRelativeTo(null);
+		setUndecorated(true);
 		getContentPane().setLayout(null);
 		final JComboBox comboBox = new JComboBox();
 		comboBox.setEnabled(false);
-		
-				comboBox.addActionListener(new ActionListener() {
-					private JButton btn;
-		
-					public void actionPerformed(ActionEvent arg0) {
-						selectType = comboBox.getSelectedItem().toString();
-						scrollablePanel.removeAll();
-						countCb = 0;
-		
-						List<Ingredient> list = pr.ingredientID(selectType);
-						for (final Ingredient ig : list) {
-							JPanel igPanel = new JPanel();
-							JLabel igLabel = new JLabel(ig.getId());
-							btn = new JButton("선택");
-							igLabel.setHorizontalAlignment(SwingConstants.LEFT);
-							igLabel.setOpaque(true);
-							igPanel.add(igLabel);
-							igPanel.add(btn);
-							igPanel.revalidate();
-		
-							btn.addActionListener(new ActionListener() {
-								@Override
-								public void actionPerformed(ActionEvent e) {
-									if (countCb < 5 && selectType.equals("토핑")) {
-										if (countCb == 0 && selectType.equals("토핑")) {
-											topping_1.setText(ig.getId());
-											countCb++;
-										} else if (countCb == 1 && selectType.equals("토핑")) {
-											topping_2.setText(ig.getId());
-											countCb++;
-										} else if (countCb == 2 && selectType.equals("토핑")) {
-											topping_3.setText(ig.getId());
-											countCb++;
-										} else if (countCb == 3 && selectType.equals("토핑")) {
-											topping_4.setText(ig.getId());
-											countCb++;
-										} else if (countCb == 4 && selectType.equals("토핑")) {
-											topping_5.setText(ig.getId());
-											countCb++;
-										}
-									} else if (selectType.equals("소스")) {
-										sauce.setText(ig.getId());
-									} else if (selectType.equals("엣지")) {
-										edge.setText(ig.getId());
-									}
-								}
-							});
-							scrollablePanel.add(igPanel);
-						}
-						scrollablePanel.revalidate();
-						scrollablePanel.repaint();
-					}
-				});
-				comboBox.setToolTipText("분 류\r\n");
-				comboBox.setModel(new DefaultComboBoxModel(new String[] { "엣지", "소스", "토핑" }));
-				comboBox.setBounds(155, 318, 113, 43);
-				getContentPane().add(comboBox);
 
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(255, 228, 225));
@@ -135,6 +83,7 @@ public class MenuPopup extends JFrame {
 		JLabel lblNewLabel = new JLabel("분 류");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(12, 10, 60, 30);
+		lblNewLabel.setForeground(mintcolor);
 		panel.add(lblNewLabel);
 
 		JPanel panel_1 = new JPanel();
@@ -146,6 +95,7 @@ public class MenuPopup extends JFrame {
 		JLabel lblNewLabel_1 = new JLabel("사 이 즈");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setBounds(12, 10, 60, 30);
+		lblNewLabel_1.setForeground(mintcolor);
 		panel_1.add(lblNewLabel_1);
 
 		JPanel panel_5 = new JPanel();
@@ -169,6 +119,7 @@ public class MenuPopup extends JFrame {
 			}
 		});
 		btnNewButton_1.setBounds(153, 254, 82, 23);
+		btnNewButton_1.setForeground(mintcolor);
 		panel_5.add(btnNewButton_1);
 
 		final JComboBox comboBox_1 = new JComboBox();
@@ -194,7 +145,7 @@ public class MenuPopup extends JFrame {
 				}
 			}
 		});
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] { "피자", "사이드", "음료" }));
+		comboBox_1.setModel(new DefaultComboBoxModel(new String[] { " ", "피자", "사이드", "음료" }));
 		comboBox_1.setBackground(Color.WHITE);
 		comboBox_1.setBounds(84, 10, 155, 30);
 		panel.add(comboBox_1);
@@ -207,6 +158,7 @@ public class MenuPopup extends JFrame {
 
 		JLabel lblNewLabel_2 = new JLabel("메뉴이름");
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2.setForeground(mintcolor);
 		lblNewLabel_2.setBounds(12, 10, 60, 30);
 		panel_2.add(lblNewLabel_2);
 
@@ -224,6 +176,7 @@ public class MenuPopup extends JFrame {
 
 		JLabel lblNewLabel_3 = new JLabel("희망가격");
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_3.setForeground(mintcolor);
 		lblNewLabel_3.setBounds(12, 10, 60, 30);
 		panel_3.add(lblNewLabel_3);
 
@@ -241,6 +194,63 @@ public class MenuPopup extends JFrame {
 		final JPanel scrollablePanel = new JPanel();
 		scrollablePanel.setLayout(new BoxLayout(scrollablePanel, BoxLayout.Y_AXIS));
 
+		comboBox.addActionListener(new ActionListener() {
+			private JButton btn;
+
+			public void actionPerformed(ActionEvent arg0) {
+				selectType = comboBox.getSelectedItem().toString();
+				scrollablePanel.removeAll();
+				countCb = 0;
+
+				List<Ingredient> list = pr.ingredientID(selectType);
+				for (final Ingredient ig : list) {
+					JPanel igPanel = new JPanel();
+					JLabel igLabel = new JLabel(ig.getId());
+					btn = new JButton("선택");
+					igLabel.setHorizontalAlignment(SwingConstants.LEFT);
+					igLabel.setOpaque(true);
+					igPanel.add(igLabel);
+					igPanel.add(btn);
+					igPanel.revalidate();
+
+					btn.addActionListener(new ActionListener() {
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							if (countCb < 5 && selectType.equals("토핑")) {
+								if (countCb == 0 && selectType.equals("토핑")) {
+									topping_1.setText(ig.getId());
+									countCb++;
+								} else if (countCb == 1 && selectType.equals("토핑")) {
+									topping_2.setText(ig.getId());
+									countCb++;
+								} else if (countCb == 2 && selectType.equals("토핑")) {
+									topping_3.setText(ig.getId());
+									countCb++;
+								} else if (countCb == 3 && selectType.equals("토핑")) {
+									topping_4.setText(ig.getId());
+									countCb++;
+								} else if (countCb == 4 && selectType.equals("토핑")) {
+									topping_5.setText(ig.getId());
+									countCb++;
+								}
+							} else if (selectType.equals("소스")) {
+								sauce.setText(ig.getId());
+							} else if (selectType.equals("엣지")) {
+								edge.setText(ig.getId());
+							}
+						}
+					});
+					scrollablePanel.add(igPanel);
+				}
+				scrollablePanel.revalidate();
+				scrollablePanel.repaint();
+			}
+		});
+		comboBox.setToolTipText("분 류\r\n");
+		comboBox.setModel(new DefaultComboBoxModel(new String[] { "엣지", "소스", "토핑" }));
+		comboBox.setBounds(154, 312, 113, 43);
+		getContentPane().add(comboBox);
+
 		JScrollPane jsp = new JScrollPane(scrollablePanel);
 		jsp.setPreferredSize(new Dimension(250, 198));
 		jsp.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -248,18 +258,21 @@ public class MenuPopup extends JFrame {
 
 		JLabel lblNewLabel_4 = new JLabel("사 이 즈");
 		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_4.setForeground(mintcolor);
 		lblNewLabel_4.setBounds(12, 11, 60, 25);
 		panel_5.add(lblNewLabel_4);
 
 		JLabel lblNewLabel_4_1 = new JLabel("엣지");
 		lblNewLabel_4_1.setSize(new Dimension(60, 20));
 		lblNewLabel_4_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_4_1.setForeground(mintcolor);
 		lblNewLabel_4_1.setBounds(12, 41, 60, 25);
 		panel_5.add(lblNewLabel_4_1);
 
 		JLabel lblNewLabel_4_2 = new JLabel("소 스");
 		lblNewLabel_4_2.setSize(new Dimension(60, 20));
 		lblNewLabel_4_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_4_2.setForeground(mintcolor);
 		lblNewLabel_4_2.setBounds(12, 71, 60, 25);
 		panel_5.add(lblNewLabel_4_2);
 
@@ -267,35 +280,41 @@ public class MenuPopup extends JFrame {
 		lblNewLabel_4_3.setSize(new Dimension(60, 20));
 		lblNewLabel_4_3.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_4_3.setBounds(12, 102, 60, 25);
+		lblNewLabel_4_3.setForeground(mintcolor);
 		panel_5.add(lblNewLabel_4_3);
 
 		JLabel lblNewLabel_4_4 = new JLabel("토 핑");
 		lblNewLabel_4_4.setSize(new Dimension(60, 20));
 		lblNewLabel_4_4.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_4_4.setBounds(12, 132, 60, 25);
+		lblNewLabel_4_4.setForeground(mintcolor);
 		panel_5.add(lblNewLabel_4_4);
 
 		JLabel lblNewLabel_4_5 = new JLabel("토 핑");
 		lblNewLabel_4_5.setSize(new Dimension(60, 20));
 		lblNewLabel_4_5.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_4_5.setBounds(12, 162, 60, 25);
+		lblNewLabel_4_5.setForeground(mintcolor);
 		panel_5.add(lblNewLabel_4_5);
 
 		JLabel lblNewLabel_4_6 = new JLabel("토 핑");
 		lblNewLabel_4_6.setSize(new Dimension(60, 20));
 		lblNewLabel_4_6.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_4_6.setBounds(12, 193, 60, 25);
+		lblNewLabel_4_6.setForeground(mintcolor);
 		panel_5.add(lblNewLabel_4_6);
 
 		JLabel lblNewLabel_4_7 = new JLabel("토 핑");
 		lblNewLabel_4_7.setSize(new Dimension(60, 20));
 		lblNewLabel_4_7.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_4_7.setBounds(12, 224, 60, 25);
+		lblNewLabel_4_7.setForeground(mintcolor);
 		panel_5.add(lblNewLabel_4_7);
 
 		JLabel lblNewLabel_4_8 = new JLabel("이 미 지");
 		lblNewLabel_4_8.setSize(new Dimension(60, 20));
 		lblNewLabel_4_8.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_4_8.setForeground(mintcolor);
 		lblNewLabel_4_8.setBounds(55, 255, 60, 20);
 		panel_5.add(lblNewLabel_4_8);
 
@@ -344,6 +363,7 @@ public class MenuPopup extends JFrame {
 		lblNewLabel_5 = new JLabel("이 미 지 출 력");
 		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_5.setBounds(26, 283, 215, 215);
+		lblNewLabel_5.setForeground(mintcolor);
 		panel_5.add(lblNewLabel_5);
 
 		final JLabel pizzaSize = new JLabel("없 음");
@@ -353,6 +373,7 @@ public class MenuPopup extends JFrame {
 		panel_5.add(pizzaSize);
 
 		JButton btnNewButton_2 = new JButton("취 소");
+		btnNewButton_2.setForeground(mintcolor);
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				pizzaSize.setText("없 음");
@@ -362,6 +383,7 @@ public class MenuPopup extends JFrame {
 		panel_5.add(btnNewButton_2);
 
 		JButton btnNewButton_2_1 = new JButton("취 소");
+		btnNewButton_2_1.setForeground(mintcolor);
 		btnNewButton_2_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				edge.setText("없 음");
@@ -371,6 +393,7 @@ public class MenuPopup extends JFrame {
 		panel_5.add(btnNewButton_2_1);
 
 		JButton btnNewButton_2_2 = new JButton("취 소");
+		btnNewButton_2_2.setForeground(mintcolor);
 		btnNewButton_2_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				sauce.setText("없 음");
@@ -380,6 +403,7 @@ public class MenuPopup extends JFrame {
 		panel_5.add(btnNewButton_2_2);
 
 		JButton btnNewButton_2_3 = new JButton("취 소");
+		btnNewButton_2_3.setForeground(mintcolor);
 		btnNewButton_2_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				topping_1.setText("없 음");
@@ -389,6 +413,7 @@ public class MenuPopup extends JFrame {
 		panel_5.add(btnNewButton_2_3);
 
 		JButton btnNewButton_2_4 = new JButton("취 소");
+		btnNewButton_2_4.setForeground(mintcolor);
 		btnNewButton_2_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				topping_2.setText("없 음");
@@ -398,6 +423,7 @@ public class MenuPopup extends JFrame {
 		panel_5.add(btnNewButton_2_4);
 
 		JButton btnNewButton_2_4_1 = new JButton("취 소");
+		btnNewButton_2_4_1.setForeground(mintcolor);
 		btnNewButton_2_4_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				topping_3.setText("없 음");
@@ -407,6 +433,7 @@ public class MenuPopup extends JFrame {
 		panel_5.add(btnNewButton_2_4_1);
 
 		JButton btnNewButton_2_4_2 = new JButton("취 소");
+		btnNewButton_2_4_2.setForeground(mintcolor);
 		btnNewButton_2_4_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				topping_4.setText("없 음");
@@ -416,6 +443,7 @@ public class MenuPopup extends JFrame {
 		panel_5.add(btnNewButton_2_4_2);
 
 		JButton btnNewButton_2_4_3 = new JButton("취 소");
+		btnNewButton_2_4_3.setForeground(mintcolor);
 		btnNewButton_2_4_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				topping_5.setText("없 음");
@@ -431,9 +459,8 @@ public class MenuPopup extends JFrame {
 			}
 		});
 
-
-
 		btnNewButton = new JButton("메 뉴 추 가");
+		btnNewButton.setForeground(mintcolor);
 		btnNewButton.addActionListener(new ActionListener() {
 			private List<String> list;
 
@@ -492,18 +519,19 @@ public class MenuPopup extends JFrame {
 				menulist.createMenuList();
 			}
 		});
-		
+
 		// 메뉴를 추가하는 행위를 제한하기 위한 불가능상태조정
 		btnNewButton.setEnabled(false);
 
 		btnNewButton.setBackground(new Color(255, 222, 173));
 		btnNewButton.setBounds(395, 526, 186, 38);
 		getContentPane().add(btnNewButton);
-		
+
 		JButton btnNewButton_3 = new JButton("확 정");
+		btnNewButton_3.setForeground(mintcolor);
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(!menuName.getText().equals("") && !hopedPrice.getText().equals("")) {
+				if (!menuName.getText().equals("") && !hopedPrice.getText().equals("")) {
 					btnNewButton.setEnabled(true);
 					menuName.setEnabled(false);
 					hopedPrice.setEnabled(false);
@@ -512,8 +540,9 @@ public class MenuPopup extends JFrame {
 		});
 		btnNewButton_3.setBounds(201, 243, 67, 28);
 		getContentPane().add(btnNewButton_3);
-		
+
 		JButton btnNewButton_3_1 = new JButton("수 정");
+		btnNewButton_3_1.setForeground(mintcolor);
 		btnNewButton_3_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnNewButton.setEnabled(false);

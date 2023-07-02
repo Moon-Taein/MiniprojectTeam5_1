@@ -53,14 +53,14 @@ public class PosRepo {
 	public List<Ingredient> ingredientID(String type) {
 		listIg = new ArrayList<>();
 
-		String sql = "select inventory_id from ingredient where inventory_id like '" + type + "%'";
+		String sql = "select ingredient_id from ingredient where ingredient_id like '" + type + "%'";
 		try {
 			conn = DBUtil.getConnection();
 			stmt = conn.prepareStatement(sql);
 			rs = stmt.executeQuery();
 
 			while (rs.next()) {
-				String id = rs.getString("inventory_id");
+				String id = rs.getString("ingredient_id");
 				listIg.add(new Ingredient(id));
 			}
 
@@ -257,7 +257,7 @@ public class PosRepo {
 		List<String> ingredientList = new ArrayList<>();
 		List<Integer> ingredientCount = new ArrayList<>();
 
-		String sql = "INSERT INTO recipe (Menu_id,inventory_id,count) VALUES (?,?,?)";
+		String sql = "INSERT INTO recipe (Menu_id,ingredient_id,count) VALUES (?,?,?)";
 
 		try {
 			conn = DBUtil.getConnection();
