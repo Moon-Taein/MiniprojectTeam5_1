@@ -4,6 +4,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
+import img.RoundButton;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JLabel;
@@ -24,15 +26,18 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.JTextField;
 import java.awt.Component;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 
 public class IngredientList extends JPanel {
 	private JLabel lbltype;
-	private JTextField name;
-	private JTextField priceRetail;
-	private JTextField priceSupply;
-	private JTextField lowerCount;
 	private OrderRepo order;
 	private JPanel pnlinven;
+	private JLabel background;
+	private JTextField textField;
+	public Color blackcolor = Color.decode("#171821");
+	public Color graycolor = Color.decode("#21222D");
+	public Color mintcolor = Color.decode("#A9DFD8");
+	private JPanel panel_1;
 
 	public IngredientList() {
 		order = new OrderRepo();
@@ -43,114 +48,28 @@ public class IngredientList extends JPanel {
 		setBounds(0, 0, 750, 800);
 		setLayout(null);
 		
+		ImageIcon frame = new ImageIcon("GreatPizza/img//ingredient.png");
+		background = new JLabel(frame);
+		background.setBounds(0, 0, 750, 800);
+		add(background);
+		
 		pnlinven = new JPanel();
-		pnlinven.setBounds(68, 42, 600, 450);
-		add(pnlinven);
+		pnlinven.setBounds(80, 172, 590, 490);
+		background.add(pnlinven);
 		pnlinven.setLayout(null);
 		
-		JPanel pnlPlus = new JPanel();
-		pnlPlus.setBounds(68, 502, 600, 250);
-		add(pnlPlus);
-		pnlPlus.setLayout(null);
-		
-		JLabel l1 = new JLabel("이름");
-		l1.setFont(new Font("굴림", Font.BOLD, 20));
-		l1.setBounds(50, 44, 80, 24);
-		pnlPlus.add(l1);
-		
-		name = new JTextField();
-		name.setBounds(174, 44, 160, 24);
-		pnlPlus.add(name);
-		name.setColumns(10);
-		
-		priceRetail = new JTextField();
-		priceRetail.setColumns(10);
-		priceRetail.setBounds(174, 86, 160, 24);
-		pnlPlus.add(priceRetail);
-		
-		JLabel l1_1 = new JLabel("소비자가");
-		l1_1.setFont(new Font("굴림", Font.BOLD, 20));
-		l1_1.setBounds(50, 86, 90, 24);
-		pnlPlus.add(l1_1);
-		
-		priceSupply = new JTextField();
-		priceSupply.setColumns(10);
-		priceSupply.setBounds(174, 130, 160, 24);
-		pnlPlus.add(priceSupply);
-		
-		JLabel l1_2 = new JLabel("공급가");
-		l1_2.setFont(new Font("굴림", Font.BOLD, 20));
-		l1_2.setBounds(50, 130, 90, 24);
-		pnlPlus.add(l1_2);
-		
-		lowerCount = new JTextField();
-		lowerCount.setColumns(10);
-		lowerCount.setBounds(174, 173, 160, 24);
-		pnlPlus.add(lowerCount);
-		
-		JLabel l1_3 = new JLabel("재료하한선");
-		l1_3.setFont(new Font("굴림", Font.BOLD, 20));
-		l1_3.setBounds(50, 173, 112, 24);
-		pnlPlus.add(l1_3);
-		
-		final JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"소스", "토핑", "엣지"}));
-		comboBox.setBounds(174, 13, 112, 21);
-		pnlPlus.add(comboBox);
-		
-		JButton btninput = new JButton("재료추가");
-		btninput.addActionListener(new ActionListener() {
+		RoundButton btnNewButton = new RoundButton("재료추가");
+		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String type = (String) comboBox.getSelectedItem();
-				order.insertIngredient(
-						name.getText(), priceRetail.getText(), priceSupply.getText(),
-						lowerCount.getText(), type);
-				removeAll();
-				repaint();
-				setting();
-				revalidate();
+				IngredientPlus plus = new IngredientPlus();
+				plus.setBounds(0, 460, 750, 284);
+				background.add(plus);
 			}
 		});
-		btninput.setBounds(252, 217, 97, 23);
-		pnlPlus.add(btninput);
-		
-		JButton image = new JButton("이미지");
-		image.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		image.setBounds(436, 12, 97, 23);
-		pnlPlus.add(image);
-		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(388, 44, 200, 163);
-		pnlPlus.add(panel_1);
-		
-		JPanel pnltitle = new JPanel();
-		pnltitle.setBackground(Color.LIGHT_GRAY);
-		pnltitle.setBounds(0, 44, 600, 1);
-		pnlinven.add(pnltitle);
-		pnltitle.setLayout(null);
-		
-		JLabel lblnow = new JLabel("현재재고");
-		lblnow.setBounds(316, 9, 112, 25);
-		pnlinven.add(lblnow);
-		lblnow.setFont(new Font("맑은 고딕", Font.BOLD, 23));
-		
-		JLabel lblprice = new JLabel("구매");
-		lblprice.setBounds(494, 9, 54, 25);
-		pnlinven.add(lblprice);
-		lblprice.setFont(new Font("맑은 고딕", Font.BOLD, 23));
-		
-		lbltype = new JLabel("분류");
-		lbltype.setBounds(192, 9, 67, 25);
-		pnlinven.add(lbltype);
-		lbltype.setFont(new Font("맑은 고딕", Font.BOLD, 23));
-		
-		JLabel lblname = new JLabel("이름");
-		lblname.setBounds(48, 9, 67, 25);
-		pnlinven.add(lblname);
-		lblname.setFont(new Font("맑은 고딕", Font.BOLD, 23));
+		btnNewButton.setOpaque(false);
+		btnNewButton.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnNewButton.setBounds(270, 670, 200, 50);
+		background.add(btnNewButton);
 		
 		List<Ingredient> ingredients = order.getIngredients();
 		JPanel panel = new JPanel();
@@ -165,27 +84,31 @@ public class IngredientList extends JPanel {
 			panel.add(pnl1);
 			pnl1.setLayout(null);
 			pnl1.setPreferredSize(new Dimension(500, 50));
+			pnl1.setBackground(graycolor);
 			
 			JLabel lbl1 = new JLabel(ingredient.getName());
 			lbl1.setHorizontalAlignment(SwingConstants.CENTER);
-			lbl1.setFont(new Font("굴림", Font.PLAIN, 19));
-			lbl1.setBounds(0, 0, 151, 30);
+			lbl1.setFont(new Font("굴림", Font.PLAIN, 15));
+			lbl1.setBounds(15, 0, 151, 30);
+			lbl1.setForeground(Color.WHITE);
 			pnl1.add(lbl1);
 			
 			JLabel lbl2 = new JLabel(ingredient.getType());
 			lbl2.setHorizontalAlignment(SwingConstants.CENTER);
-			lbl2.setFont(new Font("굴림", Font.PLAIN, 19));
-			lbl2.setBounds(154, 0, 97, 30);
+			lbl2.setFont(new Font("굴림", Font.PLAIN, 15));
+			lbl2.setBounds(175, 0, 97, 30);
+			lbl2.setForeground(Color.WHITE);
 			pnl1.add(lbl2);
 			
 			JLabel lbl3 = new JLabel(String.valueOf(ingredient.getCurrentCount()));
 			lbl3.setHorizontalAlignment(SwingConstants.CENTER);
-			lbl3.setFont(new Font("굴림", Font.PLAIN, 19));
-			lbl3.setBounds(288, 0, 103, 30);
+			lbl3.setFont(new Font("굴림", Font.PLAIN, 15));
+			lbl3.setBounds(305, 0, 103, 30);
+			lbl3.setForeground(Color.WHITE);
 			pnl1.add(lbl3);
 			
-			JButton btnbuy = new JButton("확인");
-			btnbuy.setBounds(433, 6, 80, 23);
+			RoundButton btnbuy = new RoundButton("확인");
+			btnbuy.setBounds(460, 6, 80, 23);
 			
 			btnbuy.addActionListener(new ActionListener() {
 				@Override
@@ -195,9 +118,17 @@ public class IngredientList extends JPanel {
 				}
 			});
 			pnl1.add(btnbuy);
-			scrollPane.setBounds(0, 45, 600, 405);
+			scrollPane.setSize(590, 490);
 			scrollPane.setBorder(null);
 			pnlinven.add(scrollPane);
+			
+			textField = new JTextField();
+			textField.setBounds(120, 60, 423, 44);
+			textField.setOpaque(false);
+			textField.setBorder(null);
+			textField.setForeground(Color.WHITE);
+			background.add(textField);
+			textField.setColumns(10);
 		}		
 	}
 }

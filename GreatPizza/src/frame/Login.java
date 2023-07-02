@@ -149,11 +149,9 @@ public class Login extends JFrame {
 		login.setBounds(300, 438, 300, 45);
 		contentPane.add(login);
 
-		JLabel lbl = new JLabel("오늘의 매출");
-		lbl.setForeground(Color.WHITE);
-		lbl.setHorizontalAlignment(SwingConstants.CENTER);
-		lbl.setFont(new Font("굴림", Font.BOLD, 30));
-		lbl.setBounds(365, 242, 165, 36);
+		ImageIcon logo = new ImageIcon("GreatPizza/img//logo.png");
+		JLabel lbl = new JLabel(logo);
+		lbl.setBounds(336, 165, 225, 142);
 		contentPane.add(lbl);
 
 		ImageIcon dot = new ImageIcon("GreatPizza/img//Dots.png");
