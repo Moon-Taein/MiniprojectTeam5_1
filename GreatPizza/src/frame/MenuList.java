@@ -122,7 +122,7 @@ public class MenuList extends JPanel {
 				MenuPopup menuPopup = new MenuPopup(MenuList.this);
 			}
 		});
-		btnNewButton.setBounds(228, 674, 278, 54);
+		btnNewButton.setBounds(270, 670, 200, 50);
 		
 		textField = new JTextField();
 		textField.setBounds(120, 60, 423, 44);

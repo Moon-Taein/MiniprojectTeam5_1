@@ -63,7 +63,7 @@ public class FinancialList extends JPanel {
 		panel.setBackground( Color.decode("#171821"));
 		panel.setBounds(50, 108, 670, 590);
 		add(panel);
-
+		
 		scrollablePanel = new JPanel();
 		scrollablePanel.setSize(new Dimension(550, 600));
 		scrollablePanel.setBackground(Color.WHITE);
