@@ -9,6 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import java.awt.Dimension;
@@ -16,14 +17,18 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
+import img.BorderButton;
+import repo.MainOrder;
 import repo.OrderRepo;
 
 public class SalesList extends JPanel {
 
 	private JPanel cards;
 	protected CardLayout cl_cards;
-	private JLabel todaytotal;
 	private OrderRepo order;
+	public Color blackcolor = Color.decode("#171821");
+	public Color graycolor = Color.decode("#21222D");
+	public Color mintcolor = Color.decode("#A9DFD8");
 
 	public SalesList() {
 		initialize();
@@ -38,108 +43,92 @@ public class SalesList extends JPanel {
 		Map<Integer, List<String>> bestMonth = order.bestMonth(String.valueOf(today.getYear()));
 		Map<Integer, List<String>> bests = order.bestMenu();
 		
-		setSize(new Dimension(750, 800));
+		setSize(750, 800);
 		setLayout(null);
-		setBackground(Color.BLACK);
+		setBackground(blackcolor);
 		
 		cards = new JPanel();
-		cards.setBounds(0, 85, 750, 815);
+		cards.setBounds(0, 0, 750, 900);
 		add(cards);
 		cards.setLayout(new CardLayout(0, 0));
 
 		JPanel datepage = new JPanel();
-		datepage.setBackground(Color.GRAY);
+		datepage.setBackground(blackcolor);
 		cards.add(datepage, "ccp1");
 		datepage.setLayout(null);
-		
-		JPanel panel = new JPanel();
-		panel.setBounds(421, 69, 274, 262);
-		datepage.add(panel);
-		panel.setLayout(null);
-		
-		todaytotal = new JLabel("오늘의 매출");
-		todaytotal.setFont(new Font("굴림", Font.BOLD, 25));
-		todaytotal.setBounds(70, 28, 134, 37);
-		panel.add(todaytotal);
-		
-		JLabel total = new JLabel(order.todaySales(day) + "원");
-		total.setHorizontalAlignment(SwingConstants.CENTER);
-		total.setFont(new Font("굴림", Font.BOLD, 20));
-		total.setBounds(0, 75, 281, 47);
-		panel.add(total);
-		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(66, 341, 629, 306);
-		datepage.add(panel_1);
-		panel_1.setLayout(null);
-		
-		JLabel week = new JLabel("요일별 매출");
-		week.setHorizontalAlignment(SwingConstants.CENTER);
-		week.setBounds(252, 22, 128, 33);
-		panel_1.add(week);
+
+		ImageIcon salesD = new ImageIcon("GreatPizza/img//salesD.png");
+		JLabel dateback = new JLabel(salesD);
+		dateback.setBounds(0, 0, 750, 845);
+		datepage.add(dateback);
 
 		JPanel monthpage = new JPanel();
-		monthpage.setBackground(Color.PINK);
+		monthpage.setBackground(blackcolor);
 		cards.add(monthpage, "ccp2");
 		monthpage.setLayout(null);
 		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(76, 82, 584, 289);
-		monthpage.add(panel_2);
-		panel_2.setLayout(null);
+		ImageIcon salesM = new ImageIcon("GreatPizza/img//salesM.png");
+		JLabel monthback = new JLabel(salesM);
+		monthback.setBounds(0, 0, 750, 845);
+		monthpage.add(monthback);
 		
-		JLabel bestMenu = new JLabel("많이팔린메뉴");
-		bestMenu.setFont(new Font("굴림", Font.PLAIN, 20));
-		bestMenu.setHorizontalAlignment(SwingConstants.CENTER);
-		bestMenu.setBounds(230, 10, 128, 47);
-		panel_2.add(bestMenu);
-		
-		JPanel panel_3 = new JPanel();
-		panel_3.setBounds(76, 381, 584, 274);
-		monthpage.add(panel_3);
-		panel_3.setLayout(null);
-		
-		JLabel month = new JLabel("월매출 순위");
-		month.setHorizontalAlignment(SwingConstants.CENTER);
-		month.setFont(new Font("굴림", Font.PLAIN, 20));
-		month.setBounds(227, 10, 128, 47);
-		panel_3.add(month);
-
-		for (int i = 1; i <= 5; i++) {
+		for (int i = 1; i <= 4; i++) {
 			if (bests.get(i) != null) {
-				JLabel first = new JLabel(i + "위 " + bests.get(i).get(0) + " " + bests.get(i).get(1)+ "개");
-				first.setFont(new Font("굴림", Font.PLAIN, 15));
-				first.setBounds(180, 60 + 30*(i-1), 300, 27);
-				panel_2.add(first);
+				JLabel first = new JLabel(bests.get(i).get(0));
+				first.setFont(new Font("굴림", Font.BOLD, 15));
+				first.setForeground(Color.WHITE);
+				first.setBounds(140, 186 + 45*(i-1), 300, 27);
+				monthback.add(first);
+				JLabel num = new JLabel(bests.get(i).get(1) + "개");
+				num.setFont(new Font("굴림", Font.BOLD, 12));
+				num.setForeground(Color.WHITE);
+				num.setBounds(620, 186 + 44*(i-1), 300, 27);
+				monthback.add(num);
 			}
 		}
 		
 		for (int i = 1; i <= 5; i++) {
 			if (bestMonth.get(i) != null) {
 				JLabel first = new JLabel(i + "위 " + bestMonth.get(i).get(0) + "월 " + bestMonth.get(i).get(1)+ "원");
-				first.setFont(new Font("굴림", Font.PLAIN, 15));
-				first.setBounds(180, 60 + 30*(i-1), 300, 27);
-				panel_3.add(first);
+				first.setFont(new Font("굴림", Font.BOLD, 15));
+				first.setForeground(Color.WHITE);
+				first.setBounds(180, 500 + 30*(i-1), 300, 27);
+				monthback.add(first);
 			}
 		}
 
-		JButton btndate = new JButton("일 별");
+		BorderButton btndate = new BorderButton("일별");
 		btndate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cl_cards.show(cards, "ccp1");
 			}
 		});
-		btndate.setBounds(0, 45, 130, 41);
-		add(btndate);
+		btndate.setBounds(30, 30, 40, 23);
+		monthback.add(btndate);
 		
-		JButton btnmonth = new JButton("월 별");
+		BorderButton btnmonth = new BorderButton("월별");
 		btnmonth.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cl_cards.show(cards, "ccp2");
 			}
 		});
-		btnmonth.setBounds(131, 45, 130, 41);
-		add(btnmonth);
+		btnmonth.setBounds(30, 30, 40, 23);
+		dateback.add(btnmonth);
+		
+		JLabel total = new JLabel(order.todaySales(day) + "원");
+		total.setForeground(mintcolor);
+		total.setBounds(435, 163, 100, 30);
+		total.setFont(new Font("굴림", Font.BOLD, 15));
+		total.setHorizontalAlignment(SwingConstants.CENTER);
+		dateback.add(total);
+		
+		List<MainOrder> finishs = order.getMainOrders("확인");
+		JLabel finish = new JLabel(String.valueOf(finishs.size())+"개의 주문 완료");
+		finish.setForeground(Color.WHITE);
+		finish.setBounds(112, 109, 150, 30);
+		finish.setFont(new Font("굴림", Font.BOLD, 15));
+		finish.setHorizontalAlignment(SwingConstants.CENTER);
+		dateback.add(finish);
 		
 		cl_cards = (CardLayout) cards.getLayout();
 	}

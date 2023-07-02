@@ -114,9 +114,6 @@ public class MenuList extends JPanel {
 		
 		RoundButton btnNewButton = new RoundButton("ADD MENU");
 		background.add(btnNewButton);
-		btnNewButton.setOpaque(false);
-		btnNewButton.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnNewButton.setIcon(new ImageIcon(MenuList.class.getResource("/img/메뉴추가.png")));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				MenuPopup menuPopup = new MenuPopup(MenuList.this);

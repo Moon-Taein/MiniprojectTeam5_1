@@ -36,8 +36,6 @@ public class IngredientList extends JPanel {
 	private JTextField textField;
 	public Color blackcolor = Color.decode("#171821");
 	public Color graycolor = Color.decode("#21222D");
-	public Color mintcolor = Color.decode("#A9DFD8");
-	private JPanel panel_1;
 
 	public IngredientList() {
 		order = new OrderRepo();
@@ -55,15 +53,15 @@ public class IngredientList extends JPanel {
 		
 		pnlinven = new JPanel();
 		pnlinven.setBounds(80, 172, 590, 490);
+		pnlinven.setOpaque(false);
 		background.add(pnlinven);
 		pnlinven.setLayout(null);
 		
 		RoundButton btnNewButton = new RoundButton("재료추가");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				IngredientPlus plus = new IngredientPlus();
-				plus.setBounds(0, 460, 750, 284);
-				background.add(plus);
+				IngredientPlus plus = new IngredientPlus(IngredientList.this);
+				plus.setVisible(true);
 			}
 		});
 		btnNewButton.setOpaque(false);
@@ -118,18 +116,24 @@ public class IngredientList extends JPanel {
 				}
 			});
 			pnl1.add(btnbuy);
-			scrollPane.setSize(590, 490);
-			scrollPane.setBorder(null);
-			pnlinven.add(scrollPane);
-			
-			textField = new JTextField();
-			textField.setBounds(120, 60, 423, 44);
-			textField.setOpaque(false);
-			textField.setBorder(null);
-			textField.setForeground(Color.WHITE);
-			background.add(textField);
-			textField.setColumns(10);
+			if (ingredient.getLowerLimitCount() > ingredient.getCurrentCount()) {
+//				lbl1.setForeground(Color.decode("#F2C8ED"));
+//				lbl2.setForeground(Color.decode("#F2C8ED"));
+//				lbl3.setForeground(Color.decode("#F2C8ED"));
+				btnbuy.setBackground(Color.decode("#F2C8ED"));
+			}
 		}		
+		scrollPane.setSize(590, 490);
+		scrollPane.setBorder(null);
+		pnlinven.add(scrollPane);
+		
+		textField = new JTextField();
+		textField.setBounds(120, 60, 423, 44);
+		textField.setOpaque(false);
+		textField.setBorder(null);
+		textField.setForeground(Color.WHITE);
+		background.add(textField);
+		textField.setColumns(10);
 	}
 }
 

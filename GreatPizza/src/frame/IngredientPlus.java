@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.border.LineBorder;
 
@@ -15,17 +16,17 @@ import repo.OrderRepo;
 import java.awt.Color;
 import javax.swing.DefaultComboBoxModel;
 
-public class IngredientPlus extends JPanel {
+public class IngredientPlus extends JFrame {
 	private JTextField name;
 	private JTextField priceRetail;
 	private JTextField priceSupply;
 	private JTextField lowerCount;
 	private OrderRepo order;
 
-	public IngredientPlus() {
+	public IngredientPlus(IngredientList ingredientList) {
 		order = new OrderRepo();
 		setLayout(null);
-		setSize(750, 300);
+		setSize(750, 350);
 		
 		JPanel pnlPlus = new JPanel();
 		pnlPlus.setSize(750, 300);
@@ -85,6 +86,10 @@ public class IngredientPlus extends JPanel {
 						name.getText(), priceRetail.getText(), priceSupply.getText(),
 						lowerCount.getText(), type);
 				setVisible(false);
+				ingredientList.removeAll();
+				ingredientList.repaint();
+				ingredientList.setting();
+				ingredientList.revalidate();
 			}
 		});
 		btninput.setBounds(386, 231, 200, 39);

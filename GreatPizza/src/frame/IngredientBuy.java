@@ -75,6 +75,7 @@ public class IngredientBuy extends JFrame {
 		        invenFrame.removeAll();
 		        invenFrame.repaint();
 		        invenFrame.setting();
+		        invenFrame.revalidate();
 		        setVisible(false);
 		    }
 		});

@@ -526,6 +526,7 @@ public class MenuPopup extends JFrame {
 				menulist.repaint();
 				menulist.revalidate();
 				menulist.createMenuList();
+				setVisible(false);
 			}
 		});
 
