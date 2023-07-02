@@ -69,7 +69,7 @@ public class MenuList extends JPanel {
 
 			JPanel innerPanel = new JPanel();
 			innerPanel.setLayout(new GridLayout(1, 3, 0, 50)); // (행, 열, 글자사이 가로 간격, 격자사이 수직 간격)
-			innerPanel.setBorder(new EmptyBorder(15, 5, 15, 5)); // (위로 간격, 왼쪽 ,아래, 우측) 레이아웃과의 간격
+			innerPanel.setBorder(new EmptyBorder(15, 15, 15, 15)); // (위로 간격, 왼쪽 ,아래, 우측) 레이아웃과의 간격
 			innerPanel.setBackground(blackcolor);
 			innerPanel.setOpaque(true);
 
