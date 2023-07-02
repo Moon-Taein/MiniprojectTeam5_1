@@ -62,22 +62,22 @@ public class Login extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 900, 800);
 		setLocationRelativeTo(null);
-		
+
 		contentPane = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                // JPanel의 배경을 둥근 사각형으로 그리기
-                Graphics2D g2 = (Graphics2D) g;
-                int arc = 30; // 둥근 모서리의 반지름
-                Shape roundedRect = new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), arc, arc);
-                g2.setPaint(blackcolor); // 배경색 설정
-                g2.fill(roundedRect);
-            }
-        };
+			@Override
+			protected void paintComponent(Graphics g) {
+				// JPanel의 배경을 둥근 사각형으로 그리기
+				Graphics2D g2 = (Graphics2D) g;
+				int arc = 30; // 둥근 모서리의 반지름
+				Shape roundedRect = new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), arc, arc);
+				g2.setPaint(blackcolor); // 배경색 설정
+				g2.fill(roundedRect);
+			}
+		};
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		id = new JTextField();
 		id.setBackground(blackcolor);
 		id.setText("아이디");
@@ -91,20 +91,24 @@ public class Login extends JFrame {
 					id.setText("");
 				}
 			}
+
 			@Override
-			public void keyPressed(KeyEvent e) { }
+			public void keyPressed(KeyEvent e) {
+			}
+
 			@Override
-			public void keyReleased(KeyEvent e) { }
+			public void keyReleased(KeyEvent e) {
+			}
 		});
 		contentPane.add(id);
-		
+
 		JLabel lblpw = new JLabel("비밀번호");
 		lblpw.setFont(new Font("돋움", Font.PLAIN, 12));
 		lblpw.setHorizontalAlignment(SwingConstants.CENTER);
 		lblpw.setForeground(Color.WHITE);
 		lblpw.setBounds(416, 382, 71, 36);
 		contentPane.add(lblpw);
-		
+
 		pw = new JPasswordField();
 		pw.setForeground(Color.WHITE);
 		pw.setBackground(blackcolor);
@@ -115,17 +119,25 @@ public class Login extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				lblpw.setVisible(false);
 			}
+
 			@Override
-			public void mousePressed(MouseEvent e) {}
+			public void mousePressed(MouseEvent e) {
+			}
+
 			@Override
-			public void mouseReleased(MouseEvent e) {}
+			public void mouseReleased(MouseEvent e) {
+			}
+
 			@Override
-			public void mouseEntered(MouseEvent e) {}
+			public void mouseEntered(MouseEvent e) {
+			}
+
 			@Override
-			public void mouseExited(MouseEvent e) {}
+			public void mouseExited(MouseEvent e) {
+			}
 		});
 		contentPane.add(pw);
-		
+
 		RoundButton login = new RoundButton("로그인");
 		login.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -136,14 +148,14 @@ public class Login extends JFrame {
 		login.setFont(new Font("굴림", Font.BOLD, 20));
 		login.setBounds(300, 438, 300, 45);
 		contentPane.add(login);
-		
+
 		JLabel lbl = new JLabel("오늘의 매출");
 		lbl.setForeground(Color.WHITE);
 		lbl.setHorizontalAlignment(SwingConstants.CENTER);
 		lbl.setFont(new Font("굴림", Font.BOLD, 30));
 		lbl.setBounds(365, 242, 165, 36);
 		contentPane.add(lbl);
-		
+
 		ImageIcon dot = new ImageIcon("GreatPizza/img//Dots.png");
 		JLabel dots = new JLabel(dot);
 		dots.setBounds(15, 25, 60, 30);
@@ -152,20 +164,26 @@ public class Login extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				dispose();
 			}
+
 			@Override
-			public void mousePressed(MouseEvent e) { }
+			public void mousePressed(MouseEvent e) {
+			}
+
 			@Override
-			public void mouseReleased(MouseEvent e) { }
+			public void mouseReleased(MouseEvent e) {
+			}
+
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				dots.setBounds(15, 22, 60, 30);
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				dots.setBounds(15, 25, 60, 30);
 			}
 		});
 		contentPane.add(dots);
-		
+
 	}
 }

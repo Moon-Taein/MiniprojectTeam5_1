@@ -479,17 +479,26 @@ public class MenuPopup extends JFrame {
 
 				list = new ArrayList<>();
 
-				list.add(topping_1.getText());
-				list.add(topping_2.getText());
-				list.add(topping_3.getText());
-				list.add(topping_4.getText());
-				list.add(topping_5.getText());
-
-				for (String s : list) {
-					System.out.println(s);
-					if (s.equals("없 음")) {
-						list.remove(s);
-					}
+				if (!selectSauce.equals("없 음")) {
+					list.add(selectSauce);
+				}
+				if (!selectEdge.equals("없 음")) {
+					list.add(selectEdge);
+				}
+				if (!topping_1.getText().equals("없 음")) {
+					list.add(topping_1.getText());
+				}
+				if (!topping_2.getText().equals("없 음")) {
+					list.add(topping_2.getText());
+				}
+				if (!topping_3.getText().equals("없 음")) {
+					list.add(topping_3.getText());
+				}
+				if (!topping_4.getText().equals("없 음")) {
+					list.add(topping_4.getText());
+				}
+				if (!topping_5.getText().equals("없 음")) {
+					list.add(topping_5.getText());
 				}
 
 				if (name != null || price != null) {
