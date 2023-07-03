@@ -52,7 +52,7 @@ public class MenuPopupTutorial extends JFrame {
 		contentPane.add(lblNewLabel);
 		setLocationRelativeTo(null);
 		setUndecorated(true);
-		setBackground(new Color(0, 0, 0, 50));
+		setBackground(new Color(0, 0, 0, 0));
 
 	}
 }
