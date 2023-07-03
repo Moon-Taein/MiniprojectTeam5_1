@@ -11,6 +11,7 @@ import javax.swing.JList;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import img.RoundButton;
 import repo.Ingredient;
 import repo.Menu;
 import repo.PosRepo;
@@ -458,9 +459,10 @@ public class MenuPopup extends JFrame {
 				pizzaSize.setText(item);
 			}
 		});
-
-		btnNewButton = new JButton("메 뉴 추 가");
-		btnNewButton.setForeground(mintcolor);
+		
+		RoundButton btnNewButton = new RoundButton("메 뉴 추 가");
+		btnNewButton.setBackground(mintcolor);
+		btnNewButton.setForeground(Color.white);
 		btnNewButton.addActionListener(new ActionListener() {
 			private List<String> list;
 
@@ -533,7 +535,7 @@ public class MenuPopup extends JFrame {
 		// 메뉴를 추가하는 행위를 제한하기 위한 불가능상태조정
 		btnNewButton.setEnabled(false);
 
-		btnNewButton.setBackground(new Color(255, 222, 173));
+		btnNewButton.setBackground(new Color(102, 205, 170));
 		btnNewButton.setBounds(395, 526, 186, 38);
 		getContentPane().add(btnNewButton);
 
