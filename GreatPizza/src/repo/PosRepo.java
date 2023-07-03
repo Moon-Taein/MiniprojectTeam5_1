@@ -629,6 +629,33 @@ public class PosRepo {
 		return 0;
 	}
 
-
+	public List<Menu> findmenus(String find){
+		String sql = "SELECT * FROM menu WHERE menu_id Like ?";
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		List<Menu> list = new ArrayList<>();
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+			String line = "%"+find+"%";
+			stmt.setString(1, line);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				String id = rs.getString("menu_id");
+				String name = rs.getString("menu_name");
+				int price = rs.getInt("price");
+				list.add(new Menu(id, name, price));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		return list;
+	}
 
 }

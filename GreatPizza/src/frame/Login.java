@@ -161,7 +161,6 @@ public class Login extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				dispose();
 			}
-
 			@Override
 			public void mousePressed(MouseEvent e) {
 			}

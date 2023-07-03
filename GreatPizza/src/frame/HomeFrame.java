@@ -132,6 +132,7 @@ public class HomeFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				cardLayout.show(cards, "dashboard");
+				dashboard.setting();
 			}
 		});
 
@@ -183,20 +184,16 @@ public class HomeFrame extends JFrame {
 				login.setVisible(true);
 				dispose();
 			}
-
 			@Override
 			public void mousePressed(MouseEvent e) {
 			}
-
 			@Override
 			public void mouseReleased(MouseEvent e) {
 			}
-
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				dots.setBounds(2, 22, 60, 30);
 			}
-
 			@Override
 			public void mouseExited(MouseEvent e) {
 				dots.setBounds(2, 25, 60, 30);
