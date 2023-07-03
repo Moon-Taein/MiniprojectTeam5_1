@@ -20,12 +20,18 @@ public class FinancialList extends JPanel {
 	private PosRepo pr;
 	private String selectYear;
 	private int month;
+	public static final Color blackcolor = Color.decode("#171821");
+	public static final Color graycolor = Color.decode("#21222D");
+	public static final Color mintcolor = Color.decode("#A9DFD8");
+	private JLabel lblNewLabel_4;
 
 	public FinancialList() {
 		pr = new PosRepo();
-
+		setBackground(blackcolor);
 		// 연도 콤보박스 생성
 		yearComboBox = new JComboBox<>();
+		yearComboBox.setBounds(0, 5, 83, 30);
+
 		int currentYear = YearMonth.now().getYear();
 		for (int i : pr.year()) {
 			yearComboBox.addItem(i);
@@ -33,6 +39,7 @@ public class FinancialList extends JPanel {
 
 		// 월 콤보박스 생성
 		monthComboBox = new JComboBox<>();
+		monthComboBox.setBounds(124, 5, 45, 30);
 
 		yearComboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -57,9 +64,11 @@ public class FinancialList extends JPanel {
 
 		// 패널에 콤보박스 추가
 		JPanel comboBoxPanel = new JPanel();
-		comboBoxPanel.setBounds(0, 100, 750, 40);
+		comboBoxPanel.setBounds(45, 100, 659, 40);
+		comboBoxPanel.setLayout(null);
 		comboBoxPanel.add(yearComboBox);
 		comboBoxPanel.add(monthComboBox);
+		comboBoxPanel.setBackground(blackcolor);
 
 		// 달력 테이블 생성
 		calendarTable = new JTable();
@@ -71,14 +80,54 @@ public class FinancialList extends JPanel {
 		// 프레임에 패널과 테이블 추가
 		add(comboBoxPanel);
 
+		JLabel lblNewLabel = new JLabel("년도");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(86, 5, 39, 30);
+		lblNewLabel.setForeground(Color.WHITE);
+		comboBoxPanel.add(lblNewLabel);
+
+		JLabel lblNewLabel_1 = new JLabel("월");
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setBounds(171, 5, 34, 30);
+		lblNewLabel_1.setForeground(Color.WHITE);
+		comboBoxPanel.add(lblNewLabel_1);
+
 		JPanel panel = new JPanel();
 		panel.setBounds(45, 0, 659, 100);
+		panel.setBackground(blackcolor);
 		add(panel);
+		panel.setLayout(null);
+
+		JLabel lblNewLabel_2 = new JLabel("월별 재정 관리");
+		lblNewLabel_2.setFont(new Font("굴림", Font.PLAIN, 18));
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2.setBounds(0, 59, 127, 41);
+		lblNewLabel_2.setForeground(Color.WHITE);
+		panel.add(lblNewLabel_2);
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(45, 665, 659, 100);
+		panel_1.setBounds(45, 648, 659, 100);
+		panel_1.setBackground(blackcolor);
 		add(panel_1);
+		panel_1.setLayout(null);
+
+		JLabel lblNewLabel_3 = new JLabel("총 액 : ");
+		lblNewLabel_3.setFont(new Font("굴림", Font.PLAIN, 19));
+		lblNewLabel_3.setForeground(Color.WHITE);
+		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_3.setBounds(177, 10, 125, 80);
+		panel_1.add(lblNewLabel_3);
+
+		lblNewLabel_4 = new JLabel("금 액");
+		lblNewLabel_4.setFont(new Font("굴림", Font.PLAIN, 19));
+		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_4.setBounds(265, 10, 148, 80);
+		lblNewLabel_4.setForeground(Color.white);
+		panel_1.add(lblNewLabel_4);
+		calendarTable.setBackground(graycolor);
 		JScrollPane scrollPane = new JScrollPane(calendarTable);
-		scrollPane.setBounds(45, 140, 659, 515);
+		scrollPane.setBounds(45, 140, 659, 505);
+		scrollPane.setBackground(graycolor);
+
 		add(scrollPane);
 
 	}
@@ -95,7 +144,10 @@ public class FinancialList extends JPanel {
 
 		String[] columnNames = { "일", "월", "화", "수", "목", "금", "토" };
 		Object[][] data = new Object[6][7];
-
+		
+		String cost = pr.cost(String.valueOf(month));
+		lblNewLabel_4.setText(cost);
+		
 		int day = 1;
 		for (int row = 0; row < 6; row++) {
 			for (int col = 0; col < 7; col++) {
@@ -107,11 +159,20 @@ public class FinancialList extends JPanel {
 					String date = year + "-" + month + "-" + day;
 
 					JPanel panel = new JPanel(new BorderLayout());
+					panel.setBackground(graycolor);
 					JPanel infoPanel = new JPanel(new GridLayout(2, 1));
 
 					JLabel dateLabel = new JLabel(String.valueOf(day));
-					JLabel purchaseLabel = new JLabel("매출: " + pr.getSales(date));
-					JLabel salesLabel = new JLabel("매입: " + pr.getPurchase(date));
+					JLabel purchaseLabel = new JLabel("" + pr.getSales(date));
+					JLabel salesLabel = new JLabel("" + pr.getPurchase(date));
+					
+
+					dateLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+					dateLabel.setForeground(Color.WHITE);
+					purchaseLabel.setForeground(mintcolor);
+					purchaseLabel.setHorizontalAlignment(SwingConstants.CENTER);
+					salesLabel.setForeground(Color.decode("#F2C8ED"));
+					salesLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
 					infoPanel.add(purchaseLabel);
 					infoPanel.add(salesLabel);
@@ -128,9 +189,11 @@ public class FinancialList extends JPanel {
 		}
 
 		model = new DefaultTableModel(data, columnNames);
+		
 		calendarTable.setModel(model);
 		calendarTable.setDefaultRenderer(Object.class, new PanelCellRenderer());
 		calendarTable.setSize(640, 640);
+		calendarTable.setBackground(graycolor);
 	}
 
 	class PanelCellRenderer implements TableCellRenderer {

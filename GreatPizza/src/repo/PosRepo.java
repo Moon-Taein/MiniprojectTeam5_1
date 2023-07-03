@@ -118,7 +118,6 @@ public class PosRepo {
 			DBUtil.close(stmt);
 			DBUtil.close(conn);
 		}
-		System.out.println(purchase);
 		return purchase;
 	}
 
