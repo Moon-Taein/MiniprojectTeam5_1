@@ -22,6 +22,7 @@ public class PosRepo {
 	private PreparedStatement stmt = null;
 	private ResultSet rs = null;
 	private InputImage ip;
+	private int day;
 
 	public List<Menu> menuIdPrice() {
 		list = new ArrayList<>();
@@ -95,6 +96,52 @@ public class PosRepo {
 			DBUtil.close(conn);
 		}
 		return listY;
+	}
+
+	public int getPurchase(String date) {
+		String sql = "select purchase from account where date = '" + date + "'";
+		int purchase = 0;
+
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+			rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				purchase = rs.getInt("purchase");
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		return purchase;
+	}
+
+	public int getSales(String date) {
+		String sql = "select sales from account where date = '" + date + "'";
+		int sales = 0;
+
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+			rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				sales = rs.getInt("sales");
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		return sales;
 	}
 
 	public List<Integer> month(Integer year) {
@@ -303,9 +350,285 @@ public class PosRepo {
 		return 0;
 	}
 
-	public static void main(String[] args) {
-		PosRepo pr = new PosRepo();
+	// 데이터베이스에서 오리지널 레시피 들고오기
+	public HashMap<String, Integer> originHash(String menuId) {
+		HashMap<String, Integer> recipe = new HashMap<>();
+		String ingredient_id = "";
+		int recipeCount;
+		String sql = "select * from recipe where menu_id = ?";
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, menuId);
+			rs = stmt.executeQuery();
 
+			while (rs.next()) {
+				ingredient_id = rs.getString("ingredient_id");
+				recipeCount = rs.getInt("count");
+				/*
+				 * String targetString1 = "도우_"; boolean contains1 =
+				 * ingredient_id.contains(targetString1);
+				 * 
+				 * if(!(contains1)) { }
+				 */
+				recipe.put(ingredient_id, recipeCount);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		return recipe;
 	}
+	// 수정된 레시피
+	public HashMap<String, Integer> setHash(List<String>setRecipe) {
+		HashMap<String, Integer> set = new HashMap<>();
+		for (String item : setRecipe) {
+			System.out.println(item);
+			set.put(item, set.getOrDefault(item, 0) + 1);
+        }
+		return set;
+	}
+	
+	public HashMap<String, Integer> addRecipe(HashMap<String, Integer>originHash,HashMap<String, Integer>setHash){
+	       for (Map.Entry<String, Integer> entry : setHash.entrySet()) {
+	            String key = entry.getKey();
+	            int setValue = entry.getValue();
+	            int originValue = originHash.getOrDefault(key, 0);
+
+	            int difference = setValue - originValue;
+	            if (difference != 0) {
+	            	
+	                setHash.put(key, difference);
+	            } else {
+	                setHash.remove(key);
+	            }
+	        }
+
+	        return setHash;
+	}
+	
+	public HashMap<String, Integer> removeRecipe(HashMap<String, Integer> originHash, HashMap<String, Integer> setHash){
+	    for (Map.Entry<String, Integer> entry : setHash.entrySet()) {
+            String key = entry.getKey();
+            int originValue = entry.getValue();
+            int setValue = originHash.getOrDefault(key, 0);
+
+            int difference =  originValue - setValue ;
+            if (difference != 0) {
+            	
+                originHash.put(key, difference);
+            } else {
+                originHash.remove(key);
+            }
+        }
+		return originHash;
+	}
+	
+
+	
+
+	public List<String> getToppingList(HashMap<String, Integer> hashMap, String menuId) {
+		List<String> toppoingList = new ArrayList<>();
+		HashMap<String, Integer> map = originHash(menuId);
+
+		for (Map.Entry<String, Integer> entry : map.entrySet()) {
+			String key = entry.getKey();
+			int value = entry.getValue();
+
+			for (int i = 0; i < value; i++) {
+				toppoingList.add(key);
+			}
+		}
+
+		return toppoingList;
+	}
+
+
+	public int updateSide(String type, String name, String price, byte[] bytes) {
+		ip = new InputImage();
+
+		String sql = "INSERT INTO menu (Menu_id,Menu_name,price,image) VALUES (?,?,?,?)";
+
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+
+			String menuId = type + "_" + name;
+
+			stmt.setString(1, menuId);
+			stmt.setString(2, name);
+			stmt.setString(3, price);
+			stmt.setBytes(4, bytes);
+
+			System.out.println("메뉴에 사이드가 추가 됐다!");
+			return stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		return 0;
+	}
+
+	public int updateDrink(String type, String name, String size, String price, byte[] bytes) {
+		ip = new InputImage();
+		String sql = "INSERT INTO menu (Menu_id,Menu_name,price,image) VALUES (?,?,?,?)";
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+
+			String menuId = type + "_" + name;
+			String menuName = name + size;
+
+			stmt.setString(1, menuId);
+			stmt.setString(2, menuName);
+			stmt.setString(3, price);
+			stmt.setBytes(4, bytes);
+			System.out.println("메뉴에 음료가 추가 됐다!");
+			return stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		return 0;
+	}
+	
+	public int deletePizzaRecipe(String type, String name, String size, List<String> removerecipe) {
+
+		String sql = "DELETE FROM recipe  WHERE menu_id = ? AND ingredient_id = ?";
+
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+
+			String menuName = name + size;
+			String menuId = type + "_" + menuName;
+
+			for (String str : removerecipe) {
+				stmt.setString(1, menuId);
+				stmt.setString(2, str);
+				stmt.executeUpdate();
+			}
+
+	
+			return 1;
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		return 0;
+	}
+
+
+	public int deletePizzaMenu(String originType, String originName, String originSize, String originPrice,
+			List<String> originList, String setPrice, List<String> setList) {
+
+		String sql = "DELETE FROM menu WHERE menu_id = ?";
+
+	
+			String menuName = originName + originSize;
+			String menuId = originType + "_" + menuName;
+
+
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, menuId);
+			stmt.executeUpdate();
+
+			return 1;
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		return 0;
+	}
+
+
+
+	public int dropPizzaRecipe(String origin) {
+
+		String sql = "DELETE FROM recipe WHERE menu_id = ?";
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, origin);
+			stmt.executeUpdate();
+			return 1;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		return 0;
+	}
+
+
+
+	public int dropPizzaMenu(String origin) {
+
+		String sql = "DELETE FROM menu WHERE menu_id = ?";
+
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, origin);
+			stmt.executeUpdate();
+
+			return 1;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		return 0;
+	}
+
+	public int drupMenu(String origin) {
+
+		String sql = "DELETE FROM menu WHERE menu_id = ?";
+
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, origin);
+			stmt.executeUpdate();
+
+			return 1;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		return 0;
+	}
+
+
 
 }

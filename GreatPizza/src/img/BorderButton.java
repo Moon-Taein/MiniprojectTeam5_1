@@ -10,35 +10,54 @@ import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.geom.Ellipse2D;
 
-import javax.swing.Action;
 import javax.swing.JButton;
-import javax.swing.JPanel;
 
-public class RoundButton extends JButton {
+public class BorderButton extends JButton {
+	
+	private Color firstColor = Color.decode("#A9DFD8");
+	private Color borderColor = Color.decode("#A9DFD8");
+	private Color hoverColor = Color.WHITE;
 
-	public RoundButton() {
+	public BorderButton() {
 		super();
 		decorate();
 	}
 
-	public RoundButton(String text) {
+	public BorderButton(String text) {
 		super(text);
 		decorate();
 	}
-
-	public RoundButton(Action action) {
-		super(action);
-		decorate();
+	
+	public void setBorderColor(Color border) {
+		firstColor = border;
+		borderColor = border;
+		setForeground(border);
+	}
+	public void setHoverColor(Color hover) {
+		hoverColor = hover;
 	}
 
 	protected void decorate() {
 		setBorderPainted(false);
 		setOpaque(false);
-		setBackground(Color.decode("#A9DFD8")); // 배경색 설정
 		setFont(new Font("맑은 고딕", Font.BOLD, 13));
-		setForeground(Color.BLACK);
+		setForeground(borderColor);
+		addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				borderColor = hoverColor;
+				setForeground(hoverColor);
+				repaint();
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				borderColor = firstColor;
+				setForeground(firstColor);
+				repaint();
+			}
+		});
 	}
 
 	@Override
@@ -50,15 +69,9 @@ public class RoundButton extends JButton {
 
 		graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-		if (getModel().isArmed()) {
-			graphics.setColor(getBackground().darker());
-		} else if (getModel().isRollover()) {
-			graphics.setColor(getBackground().brighter());
-		} else {
-			graphics.setColor(getBackground());
-		}
-
-		graphics.fillRoundRect(0, 0, width, height, 10, 10);
+		graphics.setColor(borderColor);
+		graphics.setStroke(new BasicStroke(2)); // 보더 굵기 설정
+		graphics.drawRoundRect(0, 0, width - 1, height - 1, 10, 10); // 보더 그리기
 
 		FontMetrics fontMetrics = graphics.getFontMetrics();
 		Rectangle stringBounds = fontMetrics.getStringBounds(this.getText(), graphics).getBounds();
@@ -74,6 +87,3 @@ public class RoundButton extends JButton {
 		super.paintComponent(g);
 	}
 }
-
-
-

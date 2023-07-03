@@ -4,16 +4,16 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 
 import img.RoundButton;
 
 import javax.swing.JTextField;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.KeyEventDispatcher;
+import java.awt.KeyboardFocusManager;
 import java.awt.Shape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,7 +25,6 @@ import java.awt.geom.RoundRectangle2D;
 
 import javax.swing.SwingConstants;
 import java.awt.Color;
-import javax.swing.JMenuBar;
 import javax.swing.JPasswordField;
 import javax.swing.ImageIcon;
 
@@ -76,8 +75,8 @@ public class Login extends JFrame {
 		};
 
 		setContentPane(contentPane);
+		contentPane.setBackground(blackcolor);
 		contentPane.setLayout(null);
-
 		id = new JTextField();
 		id.setBackground(blackcolor);
 		id.setText("아이디");
@@ -183,5 +182,16 @@ public class Login extends JFrame {
 		});
 		contentPane.add(dots);
 
+		KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
+			@Override
+			public boolean dispatchKeyEvent(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER && e.getID() == KeyEvent.KEY_RELEASED) {
+					login.doClick();
+					return true;
+				}
+				return false;
+			}
+		});
 	}
+
 }

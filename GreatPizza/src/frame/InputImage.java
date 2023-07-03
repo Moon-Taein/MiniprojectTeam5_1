@@ -226,6 +226,49 @@ public class InputImage {
 			}
 		}
 	}
+	
+	public static void reInputIMAGE(MenuResetPopup menuResetpopup) {
+		JFrame frame = new JFrame();
+		JFileChooser fileChooser = new JFileChooser();
+		
+		String userHome = System.getProperty("user.home");
+	    fileChooser.setCurrentDirectory(new File(userHome + "/Desktop"));
+
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("이미지 파일", "jpg", "jpeg", "png", "gif");
+		fileChooser.setFileFilter(filter);
+
+		int returnValue = fileChooser.showOpenDialog(frame);
+		if (returnValue == JFileChooser.APPROVE_OPTION) {
+			String filePath = fileChooser.getSelectedFile().getAbsolutePath();
+			// 선택된 파일에 대한 처리를 수행합니다.
+
+			// 파일 확장자 확인
+			String extension = getFileExtension(filePath);
+
+			if (isFileSizeValid(filePath) && isImageDimensionsValid(filePath) && isImageExtension(extension)) {
+				// 파일 제약 조건을 만족하는 경우
+				// 파일 경로를 출력하거나 원하는 처리를 수행
+//				System.out.println("선택된 파일 경로: " + filePath);
+				
+				String newfilePath = ImageResizeExample(filePath);
+				String twofilePath = ImageResizeBig(filePath);
+				byte[] fileBytes = fileToBytes(newfilePath);
+				bigBytes = fileToBytes(twofilePath);
+				menuResetpopup.addImage(fileBytes);
+
+
+				// 추가적인 파일 처리 작업 수행
+			} else {
+				// 파일 제약 조건을 만족하지 않는 경우
+				System.out.println("선택된 파일은 제약 조건을 만족하지 않습니다.");
+				System.out.println(isFileSizeValid(filePath));
+				System.out.println(isImageDimensionsValid(filePath));
+				System.out.println(!isImageExtension(extension));
+				// 필요한 처리를 수행하거나 에러 메시지를 표시
+				// ...
+			}
+		}
+	}
 
 	public byte[] getBytes() {
 		return bigBytes;

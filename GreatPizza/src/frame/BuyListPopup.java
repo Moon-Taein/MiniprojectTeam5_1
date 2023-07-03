@@ -1,6 +1,7 @@
 package frame;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -9,7 +10,7 @@ import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
-import javax.swing.JButton;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -18,6 +19,8 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 
+import img.BorderButton;
+import img.RoundButton;
 import repo.DetailOrder;
 import repo.Ingredient;
 import repo.MainOrder;
@@ -35,6 +38,8 @@ public class BuyListPopup extends JFrame {
     private BuyList buyList;
     private int no;
     private boolean isCan;
+	private JLabel back;
+	public Color graycolor = Color.decode("#21222D");
 
     public BuyListPopup(MainOrder currentOrder, BuyList buyList) {
     	this.buyList = buyList;
@@ -47,42 +52,44 @@ public class BuyListPopup extends JFrame {
     }
 
     public void initialize() {
-        setBounds(100, 100, 900, 800);
+        setBounds(0, 0, 700, 800);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-        setLocationRelativeTo(null);
         setContentPane(contentPane);
+        contentPane.setBackground(Color.decode("#171821"));
         contentPane.setLayout(null);
-
+        setUndecorated(true);
+        setLocation(660, 120);
+        
+        ImageIcon background = new ImageIcon("GreatPizza/img//영수증.png");
+        back = new JLabel(background);
+        back.setBounds(0, 0, 750, 800);
+        contentPane.add(back);
+        
         JPanel pane = new JPanel();
-        pane.setBounds(70, 57, 345, 577);
-        contentPane.add(pane);
+        pane.setBounds(82, 186, 291, 518);
+        back.add(pane);
         pane.setLayout(null);
 
         JPanel inventory = new JPanel();
-        inventory.setBounds(468, 57, 345, 464);
-        contentPane.add(inventory);
+        inventory.setBounds(470, 186, 200, 393);
+        back.add(inventory);
         inventory.setLayout(null);
-
-        JPanel title = new JPanel();
-        title.setBackground(Color.LIGHT_GRAY);
-        title.setBounds(0, 0, 345, 50);
-        inventory.add(title);
-
-        JLabel lblNewLabel = new JLabel("재료확인");
-        lblNewLabel.setFont(new Font("굴림", Font.BOLD, 25));
-        title.add(lblNewLabel);
 
         JScrollPane scrollPane2 = new JScrollPane();
         scrollPane2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        scrollPane2.setBounds(0, 50, 345, 414);
+        scrollPane2.setBounds(0, 0, 200, 393);
+        scrollPane2.setOpaque(false);
+        scrollPane2.getVerticalScrollBar().setPreferredSize(new Dimension(0, 200));
+        scrollPane2.setBorder(null);
         inventory.add(scrollPane2);
 
         inven = new JPanel();
+        inven.setBackground(graycolor);
         inven.setLayout(new BoxLayout(inven, BoxLayout.Y_AXIS));
         scrollPane2.setViewportView(inven);
 
-        JButton btncancel = new JButton("주문 취소");
+        BorderButton btncancel = new BorderButton("주문 취소");
         btncancel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
 	            order.updateMainOrder("취소", no);
@@ -93,10 +100,10 @@ public class BuyListPopup extends JFrame {
             }
         });
         btncancel.setFont(new Font("굴림", Font.BOLD, 25));
-        btncancel.setBounds(468, 560, 345, 50);
-        contentPane.add(btncancel);
+        btncancel.setBounds(384, 597, 283, 50);
+        back.add(btncancel);
 
-        JButton btn = new JButton("피자 제작 완료");
+        RoundButton btn = new RoundButton("피자 제작 완료");
         btn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
             	if (isCan) {
@@ -112,16 +119,21 @@ public class BuyListPopup extends JFrame {
             }
         });
         btn.setFont(new Font("굴림", Font.BOLD, 25));
-        btn.setBounds(468, 631, 345, 50);
-        contentPane.add(btn);
+        btn.setBounds(384, 657, 283, 50);
+        back.add(btn);
 
         menulist = new JPanel();
+        menulist.setBackground(graycolor);
         menulist.setLayout(new GridLayout(20, 1));
         JScrollPane scrollPane = new JScrollPane(menulist);
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        scrollPane.setBounds(0, 0, 345, 578);
+        scrollPane.setBounds(0, 0, 291, 518);
+        scrollPane.setOpaque(false);
+        scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(0, 200));
+        scrollPane.setBorder(null);
         pane.add(scrollPane);
-
+        pane.setOpaque(false);
+        
         settings();
     }
 
@@ -133,6 +145,8 @@ public class BuyListPopup extends JFrame {
 
             rdbtns[i] = new JRadioButton(menu.getMenu());
             rdbtns[i].setFont(new Font("굴림", Font.BOLD, 20));
+            rdbtns[i].setForeground(Color.WHITE);
+            rdbtns[i].setOpaque(false);
             rdbtns[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent arg0) {
@@ -150,7 +164,6 @@ public class BuyListPopup extends JFrame {
         }
         for (JRadioButton rdbtn : rdbtns) {
         	rdbtn.doClick();
-        	
         }
         inven.removeAll();
         inven.repaint();
@@ -164,6 +177,7 @@ public class BuyListPopup extends JFrame {
         for (Ingredient ingredient : menu.getIngredients()) {
             JLabel lbl = new JLabel(ingredient.getName() + " - " + ingredient.getCurrentCount());
             lbl.setFont(new Font("굴림", Font.BOLD, 20));
+            lbl.setForeground(Color.WHITE);
             inven.add(lbl);
 
             if (isLack(ingredient)) {
@@ -174,6 +188,7 @@ public class BuyListPopup extends JFrame {
         for (Ingredient ingredient : menu.getAddIngredients()) {
             JLabel lbl = new JLabel("(추가재료) " + ingredient.getName() + " - " + ingredient.getCurrentCount());
             lbl.setFont(new Font("굴림", Font.BOLD, 20));
+            lbl.setForeground(Color.WHITE);
             inven.add(lbl);
 
             if (isLack(ingredient)) {
