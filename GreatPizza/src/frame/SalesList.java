@@ -148,7 +148,6 @@ public class SalesList extends JPanel {
 		finish.setFont(new Font("굴림", Font.BOLD, 15));
 		dateback.add(finish);
 		
-		
 		cl_cards = (CardLayout) cards.getLayout();
 	}
 }

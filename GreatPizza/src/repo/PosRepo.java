@@ -399,6 +399,9 @@ public class PosRepo {
 		return toppoingList;
 	}
 
+
+	
+	
 	public int deletePizzaRecipe(String type, String name, String size, List<String> removerecipe) {
 
 		String sql = "DELETE FROM recipe  WHERE menu_id = ? AND ingredient_id = ?";
@@ -416,7 +419,9 @@ public class PosRepo {
 				stmt.executeUpdate();
 			}
 
+	
 			return 1;
+
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -428,22 +433,68 @@ public class PosRepo {
 		return 0;
 	}
 
-	public int dropPizzaRecipe(String reStr, String name, String size, List<String> removerecipe) {
 
-		String sql = "DELETE FROM recipe  WHERE menu_id = ? AND ingredient_id = ?";
+	public int deletePizzaMenu(String originType, String originName, String originSize, String originPrice,
+			List<String> originList, String setPrice, List<String> setList) {
+
+		String sql = "DELETE FROM menu WHERE menu_id = ?";
+
+	
+			String menuName = originName + originSize;
+			String menuId = originType + "_" + menuName;
+
 
 		try {
 			conn = DBUtil.getConnection();
 			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, menuId);
+			stmt.executeUpdate();
 
-			String menuName = name + size;
-			String menuId = reStr + "_" + menuName;
+			return 1;
 
-			for (String str : removerecipe) {
-				stmt.setString(1, menuId);
-				stmt.setString(2, str);
-				stmt.executeUpdate();
-			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		return 0;
+	}
+
+
+
+	public int dropPizzaRecipe(String origin) {
+
+		String sql = "DELETE FROM recipe WHERE menu_id = ?";
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, origin);
+			stmt.executeUpdate();
+			return 1;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		return 0;
+	}
+
+
+
+	public int dropPizzaMenu(String origin) {
+
+		String sql = "DELETE FROM menu WHERE menu_id = ?";
+
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, origin);
+			stmt.executeUpdate();
 
 			return 1;
 
@@ -457,41 +508,28 @@ public class PosRepo {
 		return 0;
 	}
 
-//	public int drupMenu(String type, String name, String size, String price, List<String> removerecipe) {
-//
-//	      String sql = "DELETE FROM menu WHERE menu_id = ?";
-//
-//	      try {
-//	         conn = DBUtil.getConnection();
-//	         stmt = conn.prepareStatement(sql);
-//	If(!(size.equals("없 음")){
-//	 String menuName = name + size;
-//
-//	String menuName = name;
-//
-//	         
-//	         String menuId = type + "_" + menuName;
-//
-//	         
-//	            stmt.setString(1, menuId);
-//	            stmt.executeUpdate();
-//	         
-//
-//	         return 1;
-//
-////	      } catch (SQLException e) {
-//	         e.printStackTrace();
-//	      } finally {
-//	         DBUtil.close(rs);
-//	         DBUtil.close(stmt);
-//	         DBUtil.close(conn);
-//	      }
-//	      return 0;
-//	   }
+	public int drupMenu(String origin) {
 
-	public static void main(String[] args) {
-		PosRepo pr = new PosRepo();
+		String sql = "DELETE FROM menu WHERE menu_id = ?";
 
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, origin);
+			stmt.executeUpdate();
+
+			return 1;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		return 0;
 	}
+
+
 
 }

@@ -4,15 +4,18 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
+import frame.MenuList.CustomScrollBarUI;
 import img.RoundButton;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -42,29 +45,30 @@ public class IngredientList extends JPanel {
 	private JTextField textField;
 	public Color blackcolor = Color.decode("#171821");
 	public Color graycolor = Color.decode("#21222D");
+	public static Color mintcolor = Color.decode("#A9DFD8");
 	private JPanel panel;
 	private JScrollPane scrollPane;
 
 	public IngredientList() {
 		initialize();
 	}
-	
+
 	public void initialize() {
 		order = new OrderRepo();
 		setBounds(0, 0, 750, 800);
 		setLayout(null);
-		
+
 		ImageIcon frame = new ImageIcon("GreatPizza/img//ingredient.png");
 		background = new JLabel(frame);
 		background.setBounds(0, 0, 750, 800);
 		add(background);
-		
+
 		pnlinven = new JPanel();
 		pnlinven.setBounds(80, 172, 590, 490);
 		pnlinven.setOpaque(false);
 		background.add(pnlinven);
 		pnlinven.setLayout(null);
-		
+
 		RoundButton btnNewButton = new RoundButton("재료추가");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -76,65 +80,65 @@ public class IngredientList extends JPanel {
 		btnNewButton.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnNewButton.setBounds(270, 670, 200, 50);
 		background.add(btnNewButton);
-		
+
 		List<Ingredient> ingredients = order.getIngredients();
 		setting(ingredients);
-		
+
 		textField = new JTextField();
 		textField.setBounds(120, 60, 423, 44);
 		textField.setOpaque(false);
 		textField.setBorder(null);
 		textField.setForeground(Color.WHITE);
 		textField.registerKeyboardAction(new ActionListener() {
-		    @Override
-		    public void actionPerformed(ActionEvent e) {
-		    	List<Ingredient> ingredients = order.findIngredients(textField.getText());
-		    	pnlinven.removeAll();
-		    	pnlinven.repaint();
-		    	pnlinven.revalidate();
-		    	setting(ingredients);
-		    }
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				List<Ingredient> ingredients = order.findIngredients(textField.getText());
+				pnlinven.removeAll();
+				pnlinven.repaint();
+				pnlinven.revalidate();
+				setting(ingredients);
+			}
 		}, null, KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), JComponent.WHEN_FOCUSED);
 		background.add(textField);
 		textField.setColumns(10);
 	}
-	
+
 	public void setting(List<Ingredient> ingredients) {
 		panel = new JPanel();
 		panel.setBackground(graycolor);
 		panel.setFocusTraversalPolicyProvider(true);
-		panel.setLayout(new GridLayout(ingredients.size(), 1)); 
-		for(int i = 0; i < ingredients.size(); i++) {
+		panel.setLayout(new GridLayout(ingredients.size(), 1));
+		for (int i = 0; i < ingredients.size(); i++) {
 			Ingredient ingredient = ingredients.get(i);
 			JPanel pnl1 = new JPanel();
 			pnl1.setLayout(null);
 			pnl1.setPreferredSize(new Dimension(500, 50));
 			pnl1.setOpaque(false);
-			
+
 			JLabel lbl1 = new JLabel(ingredient.getName());
 			lbl1.setHorizontalAlignment(SwingConstants.CENTER);
 			lbl1.setFont(new Font("굴림", Font.PLAIN, 15));
 			lbl1.setBounds(15, 0, 151, 30);
 			lbl1.setForeground(Color.WHITE);
 			pnl1.add(lbl1);
-			
+
 			JLabel lbl2 = new JLabel(ingredient.getType());
 			lbl2.setHorizontalAlignment(SwingConstants.CENTER);
 			lbl2.setFont(new Font("굴림", Font.PLAIN, 15));
 			lbl2.setBounds(175, 0, 97, 30);
 			lbl2.setForeground(Color.WHITE);
 			pnl1.add(lbl2);
-			
+
 			JLabel lbl3 = new JLabel(String.valueOf(ingredient.getCurrentCount()));
 			lbl3.setHorizontalAlignment(SwingConstants.CENTER);
 			lbl3.setFont(new Font("굴림", Font.PLAIN, 15));
 			lbl3.setBounds(305, 0, 103, 30);
 			lbl3.setForeground(Color.WHITE);
 			pnl1.add(lbl3);
-			
+
 			RoundButton btnbuy = new RoundButton("확인");
 			btnbuy.setBounds(460, 6, 80, 23);
-			
+
 			btnbuy.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -147,12 +151,54 @@ public class IngredientList extends JPanel {
 				btnbuy.setBackground(Color.decode("#F2C8ED"));
 			}
 			panel.add(pnl1);
-		}		
+		}
 		scrollPane = new JScrollPane(panel);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.getVerticalScrollBar().setBackground(graycolor); // 스크롤 바 배경
+		scrollPane.getVerticalScrollBar().setUnitIncrement(15); // 스크롤 바 속도
+		scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(5, 200));
+		scrollPane.getVerticalScrollBar().setUI(new CustomScrollBarUI()); // 뭔지 모르는데 UI 설정
 		scrollPane.setSize(590, 490);
 		scrollPane.setBorder(null);
 		pnlinven.add(scrollPane);
 	}
-}
 
+	static class CustomScrollBarUI extends BasicScrollBarUI {
+
+		@Override
+		protected void configureScrollBarColors() {
+			// ScrollBar의 색상 설정
+			thumbColor = mintcolor;
+			thumbDarkShadowColor = Color.BLUE;
+			thumbHighlightColor = Color.GREEN;
+			thumbLightShadowColor = Color.YELLOW;
+		}
+
+		@Override
+		protected void paintThumb(Graphics g, JComponent c, Rectangle thumbBounds) {
+			// Thumb의 디자인을 그림
+			// 예시로 단색의 Thumb을 그리는 코드를 작성하겠습니다.
+			g.setColor(thumbColor);
+			g.fillRect(thumbBounds.x, thumbBounds.y, thumbBounds.width, thumbBounds.height);
+		}
+
+		@Override
+		protected JButton createDecreaseButton(int orientation) {
+			return createZeroButton();
+		}
+
+		@Override
+		protected JButton createIncreaseButton(int orientation) {
+			return createZeroButton();
+		}
+
+		private JButton createZeroButton() {
+			JButton button = new JButton();
+			Dimension zeroDim = new Dimension(0, 0);
+			button.setPreferredSize(zeroDim);
+			button.setMinimumSize(zeroDim);
+			button.setMaximumSize(zeroDim);
+			return button;
+		}
+	}
+}

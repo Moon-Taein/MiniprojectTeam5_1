@@ -5,9 +5,13 @@ import javax.swing.JScrollPane;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Rectangle;
+import java.awt.Scrollbar;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComponent;
+
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -17,6 +21,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.basic.BasicScrollBarUI;
 
 import img.RoundButton;
 import repo.Menu;
@@ -25,6 +30,8 @@ import repo.PosRepo;
 import java.awt.Color;
 import javax.swing.ScrollPaneConstants;
 import java.awt.Font;
+import java.awt.Graphics;
+
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 
@@ -44,7 +51,7 @@ public class MenuList extends JPanel {
 	public void createMenuList() {
 		setSize(new Dimension(750, 800));
 		setLayout(null);
-		
+
 		ImageIcon frame = new ImageIcon("GreatPizza/img//menu.png");
 		background = new JLabel(frame);
 		background.setBounds(0, 0, 750, 800);
@@ -96,29 +103,26 @@ public class MenuList extends JPanel {
 			innerPanel.add(nameLabel);
 			innerPanel.add(typeLabel);
 			innerPanel.add(priceLabel);
-			
-			
+
 			innerPanel.addMouseListener(new MouseAdapter() {
-				
+
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					int index = 0;
-			        for (int i = 0; i < list.size(); i++) {
-			        	Menu menu = list.get(i);
-			            if (menu.getMenuId().equals(nameLabel.getText())) {
-			                index = i;
-			                break;
-			            }
-			        }
+					for (int i = 0; i < list.size(); i++) {
+						Menu menu = list.get(i);
+						if (menu.getMenuId().equals(nameLabel.getText())) {
+							index = i;
+							break;
+						}
+					}
 					Menu menu = list.get(index);
-					
-				MenuResetPopup menuResetPopup = new MenuResetPopup(MenuList.this, menu);
+
+					MenuResetPopup menuResetPopup = new MenuResetPopup(MenuList.this, menu);
 				}
-				
+
 			});
-			
-			
-			
+
 			innerPanel.revalidate();
 			innerPanel.repaint();
 			scrollablePanel.add(innerPanel);
@@ -129,16 +133,19 @@ public class MenuList extends JPanel {
 
 		// JScrollPane 생성 및 스크롤 가능한 패널 설정
 		JScrollPane scrollPane = new JScrollPane(scrollablePanel);
-		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+//		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setPreferredSize(new Dimension(590, 496));
 		scrollPane.setBackground(graycolor);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.getVerticalScrollBar().setBackground(graycolor); // 스크롤 바 배경
+		scrollPane.getVerticalScrollBar().setUnitIncrement(15); // 스크롤 바 속도
+		scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(5, 200));
+		scrollPane.getVerticalScrollBar().setUI(new CustomScrollBarUI()); // 뭔지 모르는데 UI 설정
 		scrollPane.setBorder(null);
 		scrollPane.revalidate();
 		scrollPane.repaint();
 		panel.add(scrollPane);
-		
+
 		RoundButton btnNewButton = new RoundButton("ADD MENU");
 		btnNewButton.setOpaque(false);
 		background.add(btnNewButton);
@@ -148,7 +155,7 @@ public class MenuList extends JPanel {
 			}
 		});
 		btnNewButton.setBounds(270, 670, 200, 50);
-		
+
 		textField = new JTextField();
 		textField.setBounds(120, 60, 423, 44);
 		textField.setOpaque(false);
@@ -156,5 +163,44 @@ public class MenuList extends JPanel {
 		textField.setForeground(Color.WHITE);
 		background.add(textField);
 		textField.setColumns(10);
+	}
+
+	static class CustomScrollBarUI extends BasicScrollBarUI {
+
+		@Override
+		protected void configureScrollBarColors() {
+			// ScrollBar의 색상 설정
+			thumbColor = mintcolor;
+			thumbDarkShadowColor = Color.BLUE;
+			thumbHighlightColor = Color.GREEN;
+			thumbLightShadowColor = Color.YELLOW;
+		}
+
+		@Override
+		protected void paintThumb(Graphics g, JComponent c, Rectangle thumbBounds) {
+			// Thumb의 디자인을 그림
+			// 예시로 단색의 Thumb을 그리는 코드를 작성하겠습니다.
+			g.setColor(thumbColor);
+			g.fillRect(thumbBounds.x, thumbBounds.y, thumbBounds.width, thumbBounds.height);
+		}
+
+		@Override
+		protected JButton createDecreaseButton(int orientation) {
+			return createZeroButton();
+		}
+
+		@Override
+		protected JButton createIncreaseButton(int orientation) {
+			return createZeroButton();
+		}
+
+		private JButton createZeroButton() {
+			JButton button = new JButton();
+			Dimension zeroDim = new Dimension(0, 0);
+			button.setPreferredSize(zeroDim);
+			button.setMinimumSize(zeroDim);
+			button.setMaximumSize(zeroDim);
+			return button;
+		}
 	}
 }
