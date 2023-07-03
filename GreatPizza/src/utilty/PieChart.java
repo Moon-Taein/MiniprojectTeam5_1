@@ -21,30 +21,14 @@ import java.io.InputStream;
 import javax.swing.*;
 
 
-public class pieChartExample {
-	/*
-	private static Font tftFont = getBMJUAFont(18f);
-
-	private static Font getBMJUAFont(float f) {
-		// TFT 폰트 파일 로드
-		InputStream fontStream = Pizza_PopUp_Frame.class.getResourceAsStream("/popup/BMJUA_ttf.ttf");
-		Font tftFont;
-		try {
-			tftFont = Font.createFont(Font.TRUETYPE_FONT, fontStream);
-			tftFont = tftFont.deriveFont(f);
-			return tftFont;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}*/
+public class PieChart extends JPanel {
 	
-	public static void main(String[] args) {
+	public PieChart() {
 		DefaultPieDataset dataset = new DefaultPieDataset();
-		dataset.setValue("1", 30);
-		dataset.setValue("2", 20);
-		dataset.setValue("3", 10);
-		dataset.setValue("4", 40);
+		dataset.setValue("1", 40);
+		dataset.setValue("2", 30);
+		dataset.setValue("3", 20);
+		dataset.setValue("4", 10);
 		
 		JFreeChart chart = ChartFactory.createPieChart(
 			    "",     // 그래프 제목
@@ -55,8 +39,8 @@ public class pieChartExample {
 			);
 		
 		ChartPanel chartPanel = new ChartPanel(chart);
-		chartPanel.setSize(new Dimension(400, 280)); 
-		
+		chartPanel.setPreferredSize(new Dimension(310, 200));
+
 		// 차트의 Plot 객체 가져오기
 
 		PiePlot plot = (PiePlot) chart.getPlot();
@@ -77,24 +61,13 @@ public class pieChartExample {
 		plot.setDrawingSupplier(supplier);
 
 		// 배경색 설정
-		//Font axisF = tftFont;
-		plot.setLabelBackgroundPaint(new Color(23, 24, 33));
-		//plot.setLabelFont(axisF);
+		plot.setLabelBackgroundPaint(Color.decode("#21222D"));
 		plot.setLabelPaint(new Color(169, 223, 216));
-		plot.setLabelOutlinePaint(new Color(23, 24, 33));
-		plot.setBackgroundPaint(new Color(23, 24, 33));
-        chart.setBackgroundPaint(new Color(23, 24, 33));
-
-		JFrame frame = new JFrame("Pie Chart Example");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().add(chartPanel);
-		frame.pack();
-		frame.setVisible(true);
-		
-		
+		plot.setLabelOutlinePaint(Color.decode("#21222D"));
+		plot.setBackgroundPaint(Color.decode("#21222D"));
+        chart.setBackgroundPaint(Color.decode("#21222D"));
+        
+        this.add(chartPanel);
+        this.setOpaque(false);
 	}
-	
-	
-	
-
 }

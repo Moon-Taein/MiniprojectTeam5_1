@@ -11,17 +11,26 @@ import java.awt.Shape;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 import javax.swing.border.EmptyBorder;
 
 import img.RoundButton;
+import repo.Ingredient;
+import utilty.PieChart;
 
 import javax.swing.JButton;
+import javax.swing.JComponent;
+
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.RoundRectangle2D;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
+import java.awt.Font;
 
 public class HomeFrame extends JFrame {
 
@@ -34,7 +43,14 @@ public class HomeFrame extends JFrame {
 	public static final Color mintcolor = Color.decode("#A9DFD8");
 	private SalesList salesList;
 	private IngredientList ingredientList;
-	private FinancialList FinancialList;
+	private FinancialList financialList;
+	private DashBoard dashboard;
+	public JButton dashbtn;
+	public JButton buybtn;
+	public JButton inventorybtn;
+	public JButton menubtn;
+	public JButton salesbtn;
+	public JButton financialbtn;
 
 	public HomeFrame() {
 		setUndecorated(true);
@@ -43,15 +59,15 @@ public class HomeFrame extends JFrame {
 		setLocationRelativeTo(null);
 
 		contentPane = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                Graphics2D g2 = (Graphics2D) g;
-                int arc = 30; 
-                Shape roundedRect = new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), arc, arc);
-                g2.setPaint(blackcolor); 
-                g2.fill(roundedRect);
-            }
-        };
+			@Override
+			protected void paintComponent(Graphics g) {
+				Graphics2D g2 = (Graphics2D) g;
+				int arc = 30;
+				Shape roundedRect = new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), arc, arc);
+				g2.setPaint(blackcolor);
+				g2.fill(roundedRect);
+			}
+		};
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -62,31 +78,40 @@ public class HomeFrame extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 
-		JButton salesbtn = new RoundButton("매 출 확 인");
-		salesbtn.setBounds(2, 209, 124, 36);
-		panel.add(salesbtn);
+		dashbtn = new RoundButton("dashboard");
+		dashbtn.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
+		dashbtn.setBounds(2, 81, 124, 36);
+		panel.add(dashbtn);
 
-		JButton financialbtn = new RoundButton("재 정 확 인");
-		financialbtn.setBounds(2, 251, 124, 36);
-		panel.add(financialbtn);
-
-		JButton buybtn = new RoundButton("주 문 내 역");
-//		buybtn.setIcon(new ImageIcon("\\\\GREEN-424\\Java\\Your code\\_자유주제(DB)\\5조\\0630(6일차)\\기본버튼\\Group 174.png"));
-		buybtn.setBounds(2, 82, 124, 36);
+		buybtn = new RoundButton("주 문 내 역");
+		buybtn.setBounds(2, 125, 124, 36);
 		panel.add(buybtn);
 
-		JButton menubtn = new RoundButton("메 뉴 관 리");
-		menubtn.setBounds(2, 167, 124, 36);
+		inventorybtn = new RoundButton("재 고 관 리");
+		inventorybtn.setBounds(2, 167, 124, 36);
+		panel.add(inventorybtn);
+
+		menubtn = new RoundButton("메 뉴 관 리");
+		menubtn.setBounds(2, 210, 124, 36);
 		panel.add(menubtn);
 
-		JButton inventorybtn = new RoundButton("재 고 관 리");
-		inventorybtn.setBounds(2, 124, 124, 36);
-		panel.add(inventorybtn);
+		salesbtn = new RoundButton("매 출 확 인");
+		salesbtn.setBounds(2, 252, 124, 36);
+		panel.add(salesbtn);
+
+		financialbtn = new RoundButton("재 정 확 인");
+		financialbtn.setBounds(2, 294, 124, 36);
+		panel.add(financialbtn);
 
 		cards = new JPanel(new CardLayout());
 		cards.setBackground(graycolor);
-		cards.setBounds(152, 0, 736, 861);
+		cards.setBounds(152, 0, 736, 800);
 		contentPane.add(cards, BorderLayout.CENTER);
+
+		dashboard = new DashBoard(this);
+		dashboard.setLayout(null);
+		dashboard.setBackground(blackcolor);
+		cards.add(dashboard, "dashboard");
 
 		BuyList buyList = new BuyList();
 		buyList.setLayout(null);
@@ -96,9 +121,9 @@ public class HomeFrame extends JFrame {
 		salesList = new SalesList();
 		cards.add(salesList, "salesList");
 
-		FinancialList = new FinancialList();
-		FinancialList.setLayout(null);
-		cards.add(FinancialList, "FinancialList");
+		financialList = new FinancialList();
+		financialList.setLayout(null);
+		cards.add(financialList, "financialList");
 
 		MenuList menuList = new MenuList();
 		menuList.setLayout(null);
@@ -109,7 +134,15 @@ public class HomeFrame extends JFrame {
 		ingredientList.setLayout(null);
 		ingredientList.setBackground(blackcolor);
 		cards.add(ingredientList, "ingredientList");
+
 		cardLayout = (CardLayout) cards.getLayout();
+
+		dashbtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				cardLayout.show(cards, "dashboard");
+			}
+		});
 
 		salesbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -123,7 +156,7 @@ public class HomeFrame extends JFrame {
 
 		financialbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cardLayout.show(cards, "FinancialList");
+				cardLayout.show(cards, "financialList");
 			}
 		});
 
@@ -148,7 +181,7 @@ public class HomeFrame extends JFrame {
 				cardLayout.show(cards, "ingredientList");
 			}
 		});
-		
+
 		ImageIcon dot = new ImageIcon("GreatPizza/img//Dots.png");
 		JLabel dots = new JLabel(dot);
 		dots.setBounds(2, 25, 60, 30);
@@ -159,21 +192,27 @@ public class HomeFrame extends JFrame {
 				login.setVisible(true);
 				dispose();
 			}
+
 			@Override
-			public void mousePressed(MouseEvent e) { }
+			public void mousePressed(MouseEvent e) {
+			}
+
 			@Override
-			public void mouseReleased(MouseEvent e) { }
+			public void mouseReleased(MouseEvent e) {
+			}
+
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				dots.setBounds(2, 22, 60, 30);
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				dots.setBounds(2, 25, 60, 30);
 			}
 		});
 		panel.add(dots);
-		
+
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(graycolor);
 		panel_1.setBounds(138, 0, 3, 800);

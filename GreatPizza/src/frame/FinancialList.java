@@ -72,13 +72,13 @@ public class FinancialList extends JPanel {
 		add(comboBoxPanel);
 
 		JPanel panel = new JPanel();
-		panel.setBounds(45, 0, 640, 100);
+		panel.setBounds(45, 0, 659, 100);
 		add(panel);
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(45, 642, 640, 10);
+		panel_1.setBounds(45, 665, 659, 100);
 		add(panel_1);
 		JScrollPane scrollPane = new JScrollPane(calendarTable);
-		scrollPane.setBounds(45, 140, 650, 515);
+		scrollPane.setBounds(45, 140, 659, 515);
 		add(scrollPane);
 
 	}

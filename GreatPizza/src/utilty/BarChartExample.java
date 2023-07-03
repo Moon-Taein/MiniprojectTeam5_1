@@ -15,7 +15,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import javax.swing.*;
 import java.awt.*;
 
-public class BarChartExample2 {
+public class BarChartExample {
     public static void main(String[] args) {
         // 데이터셋 생성 및 값 추가
         DefaultCategoryDataset dataset1 = new DefaultCategoryDataset();

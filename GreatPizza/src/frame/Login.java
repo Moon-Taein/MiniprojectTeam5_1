@@ -75,8 +75,8 @@ public class Login extends JFrame {
 		};
 
 		setContentPane(contentPane);
+		contentPane.setBackground(blackcolor);
 		contentPane.setLayout(null);
-
 		id = new JTextField();
 		id.setBackground(blackcolor);
 		id.setText("아이디");
@@ -181,18 +181,17 @@ public class Login extends JFrame {
 			}
 		});
 		contentPane.add(dots);
-		
+
 		KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
-            @Override
-            public boolean dispatchKeyEvent(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ENTER && e.getID() == KeyEvent.KEY_RELEASED) {
-                	login.doClick();
-                    return true;
-                }
-                return false;
-            }
-        });
+			@Override
+			public boolean dispatchKeyEvent(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER && e.getID() == KeyEvent.KEY_RELEASED) {
+					login.doClick();
+					return true;
+				}
+				return false;
+			}
+		});
 	}
 
-	
 }
