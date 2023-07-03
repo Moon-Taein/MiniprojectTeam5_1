@@ -72,7 +72,7 @@ public class MenuList extends JPanel {
 		List<Menu> list = pr.menuIdPrice();
 		for (Menu m : list) {
 			JPanel innerPanel = new JPanel();
-			innerPanel.setLayout(new GridLayout(1, 3, 0, 50)); // (행, 열, 글자사이 가로 간격, 격자사이 수직 간격)
+			innerPanel.setLayout(new GridLayout(1, 3, 0, 25)); // (행, 열, 글자사이 가로 간격, 격자사이 수직 간격)
 
 			innerPanel.setBorder(new EmptyBorder(15, 5, 15, 5)); // (위로 간격, 왼쪽 ,아래, 우측) 레이아웃과의 간격
 			innerPanel.setBackground(graycolor);
@@ -133,9 +133,11 @@ public class MenuList extends JPanel {
 
 		// JScrollPane 생성 및 스크롤 가능한 패널 설정
 		JScrollPane scrollPane = new JScrollPane(scrollablePanel);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 //		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setPreferredSize(new Dimension(590, 496));
 		scrollPane.setBackground(graycolor);
+		
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.getVerticalScrollBar().setBackground(graycolor); // 스크롤 바 배경
 		scrollPane.getVerticalScrollBar().setUnitIncrement(15); // 스크롤 바 속도
