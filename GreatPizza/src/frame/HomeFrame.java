@@ -11,17 +11,26 @@ import java.awt.Shape;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 import javax.swing.border.EmptyBorder;
 
 import img.RoundButton;
+import repo.Ingredient;
+import utilty.PieChart;
 
 import javax.swing.JButton;
+import javax.swing.JComponent;
+
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.RoundRectangle2D;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
+import java.awt.Font;
 
 public class HomeFrame extends JFrame {
 
@@ -35,6 +44,13 @@ public class HomeFrame extends JFrame {
 	private SalesList salesList;
 	private IngredientList ingredientList;
 	private FinancialList financialList;
+	private DashBoard dashboard;
+	public JButton dashbtn;
+	public JButton buybtn;
+	public JButton inventorybtn;
+	public JButton menubtn;
+	public JButton salesbtn;
+	public JButton financialbtn;
 
 	public HomeFrame() {
 		setUndecorated(true);
@@ -61,33 +77,42 @@ public class HomeFrame extends JFrame {
 		panel.setBounds(12, 0, 141, 900);
 		contentPane.add(panel);
 		panel.setLayout(null);
+		
+		dashbtn = new RoundButton("dashboard");
+		dashbtn.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
+		dashbtn.setBounds(2, 81, 124, 36);
+		panel.add(dashbtn);
 
-		JButton salesbtn = new RoundButton("매 출 확 인");
-		salesbtn.setBounds(2, 209, 124, 36);
+		buybtn = new RoundButton("주 문 내 역");
+		buybtn.setBounds(2, 125, 124, 36);
+		panel.add(buybtn);
+		
+		inventorybtn = new RoundButton("재 고 관 리");
+		inventorybtn.setBounds(2, 167, 124, 36);
+		panel.add(inventorybtn);
+		
+		menubtn = new RoundButton("메 뉴 관 리");
+		menubtn.setBounds(2, 210, 124, 36);
+		panel.add(menubtn);
+		
+		salesbtn = new RoundButton("매 출 확 인");
+		salesbtn.setBounds(2, 252, 124, 36);
 		panel.add(salesbtn);
 
-		JButton financialbtn = new RoundButton("재 정 확 인");
-		financialbtn.setBounds(2, 251, 124, 36);
+		financialbtn = new RoundButton("재 정 확 인");
+		financialbtn.setBounds(2, 294, 124, 36);
 		panel.add(financialbtn);
-
-		JButton buybtn = new RoundButton("주 문 내 역");
-//		buybtn.setIcon(new ImageIcon("\\\\GREEN-424\\Java\\Your code\\_자유주제(DB)\\5조\\0630(6일차)\\기본버튼\\Group 174.png"));
-		buybtn.setBounds(2, 82, 124, 36);
-		panel.add(buybtn);
-
-		JButton menubtn = new RoundButton("메 뉴 관 리");
-		menubtn.setBounds(2, 167, 124, 36);
-		panel.add(menubtn);
-
-		JButton inventorybtn = new RoundButton("재 고 관 리");
-		inventorybtn.setBounds(2, 124, 124, 36);
-		panel.add(inventorybtn);
 
 		cards = new JPanel(new CardLayout());
 		cards.setBackground(graycolor);
-		cards.setBounds(152, 0, 736, 861);
+		cards.setBounds(152, 0, 736, 800);
 		contentPane.add(cards, BorderLayout.CENTER);
 
+		dashboard = new DashBoard(this);
+		dashboard.setLayout(null);
+		dashboard.setBackground(blackcolor);
+		cards.add(dashboard, "dashboard");
+		
 		BuyList buyList = new BuyList();
 		buyList.setLayout(null);
 		buyList.setBackground(blackcolor);
@@ -110,7 +135,15 @@ public class HomeFrame extends JFrame {
 		ingredientList.setLayout(null);
 		ingredientList.setBackground(blackcolor);
 		cards.add(ingredientList, "ingredientList");
+		
 		cardLayout = (CardLayout) cards.getLayout();
+		
+		dashbtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				cardLayout.show(cards, "dashboard");
+			}
+		});
 
 		salesbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
