@@ -36,6 +36,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.awt.event.ActionEvent;
 
@@ -64,7 +65,7 @@ public class MenuResetPopup extends JFrame {
 	public static final Color graycolor = Color.decode("#21222D");
 	public static final Color mintcolor = Color.decode("#A9DFD8");
 	
-	private String origin;
+	private String origin = "";
 	private String originType;
 	private String originSize;
 	private String originName;
@@ -76,6 +77,7 @@ public class MenuResetPopup extends JFrame {
 		PosRepo pr = new PosRepo();
 		or.getIngredients(menu.getMenuId());
 		System.out.println(menu);
+	
 		
 		
 		
@@ -483,8 +485,7 @@ public class MenuResetPopup extends JFrame {
 				String name = String.valueOf(menuName.getText());
 				
 				// 입력된 소스
-				String setSauce = sauce.getText();
-				String setectEdge = edge.getText();
+				
 
 				setRecipe = new ArrayList<>();
 				setRecipe.add(topping_1.getText());
@@ -492,10 +493,19 @@ public class MenuResetPopup extends JFrame {
 				setRecipe.add(topping_3.getText());
 				setRecipe.add(topping_4.getText());
 				setRecipe.add(topping_5.getText());
+				setRecipe.add(sauce.getText());
+				setRecipe.add(edge.getText());
+				
+				setRecipe.removeAll(Collections.singleton("없 음"));
 
 				if (name != null || setPrice != null) {
 					if (selectType.equals("피자")) {
-						System.out.println(setRecipe);
+						pr.dropPizzaRecipe(origin);
+						pr.dropPizzaMenu(origin);
+						System.out.println("삭제완료");
+						pr.InsertPizzaMenu(selectType, name, selectSize, setPrice, sBytes);
+						pr.InsertPizzaRecipe(selectType, name, selectSize, setPrice, setRecipe);
+						System.out.println("인서트완료");
 						addMenuReset();
 						menuName.setText(" ");
 						hopedPrice.setText(" ");
@@ -518,8 +528,9 @@ public class MenuResetPopup extends JFrame {
 				menulist.repaint();
 				menulist.revalidate();
 				menulist.createMenuList();
+				setVisible(false);
 			}
-		});
+		}); 
 
 		btnNewButton.setBackground(new Color(255, 222, 173));
 		btnNewButton.setBounds(395, 526, 186, 38);
@@ -586,10 +597,10 @@ public class MenuResetPopup extends JFrame {
 				menuName.setText(originName);
 				menuName.setEnabled(false);
 				hopedPrice.setText(originPrice);
-				System.out.println(pr.origin(menu.getMenuId()));
-				System.out.println(pr.getToppingList(pr.origin(menu.getMenuId()), menu.getMenuId()));
+				System.out.println(pr.originHash(menu.getMenuId()));
 				
-				originList = pr.getToppingList(pr.origin(menu.getMenuId()), menu.getMenuId());
+				
+				originList = pr.getToppingList(pr.originHash(menu.getMenuId()), menu.getMenuId());
 				
 				  for (String str : originList) {
 			            if (str.startsWith("도우_")&&pizzaSize.getText().equals("없 음")) {

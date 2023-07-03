@@ -350,7 +350,8 @@ public class PosRepo {
 		return 0;
 	}
 
-	public HashMap<String, Integer> origin(String menuId) {
+	// 데이터베이스에서 오리지널 레시피 들고오기
+	public HashMap<String, Integer> originHash(String menuId) {
 		HashMap<String, Integer> recipe = new HashMap<>();
 		String ingredient_id = "";
 		int recipeCount;
@@ -381,10 +382,57 @@ public class PosRepo {
 		}
 		return recipe;
 	}
+	// 수정된 레시피
+	public HashMap<String, Integer> setHash(List<String>setRecipe) {
+		HashMap<String, Integer> set = new HashMap<>();
+		for (String item : setRecipe) {
+			System.out.println(item);
+			set.put(item, set.getOrDefault(item, 0) + 1);
+        }
+		return set;
+	}
+	
+	public HashMap<String, Integer> addRecipe(HashMap<String, Integer>originHash,HashMap<String, Integer>setHash){
+	       for (Map.Entry<String, Integer> entry : setHash.entrySet()) {
+	            String key = entry.getKey();
+	            int setValue = entry.getValue();
+	            int originValue = originHash.getOrDefault(key, 0);
+
+	            int difference = setValue - originValue;
+	            if (difference != 0) {
+	            	
+	                setHash.put(key, difference);
+	            } else {
+	                setHash.remove(key);
+	            }
+	        }
+
+	        return setHash;
+	}
+	
+	public HashMap<String, Integer> removeRecipe(HashMap<String, Integer> originHash, HashMap<String, Integer> setHash){
+	    for (Map.Entry<String, Integer> entry : setHash.entrySet()) {
+            String key = entry.getKey();
+            int originValue = entry.getValue();
+            int setValue = originHash.getOrDefault(key, 0);
+
+            int difference =  originValue - setValue ;
+            if (difference != 0) {
+            	
+                originHash.put(key, difference);
+            } else {
+                originHash.remove(key);
+            }
+        }
+		return originHash;
+	}
+	
+
+	
 
 	public List<String> getToppingList(HashMap<String, Integer> hashMap, String menuId) {
 		List<String> toppoingList = new ArrayList<>();
-		HashMap<String, Integer> map = origin(menuId);
+		HashMap<String, Integer> map = originHash(menuId);
 
 		for (Map.Entry<String, Integer> entry : map.entrySet()) {
 			String key = entry.getKey();
@@ -399,7 +447,59 @@ public class PosRepo {
 	}
 
 
-	
+	public int updateSide(String type, String name, String price, byte[] bytes) {
+		ip = new InputImage();
+
+		String sql = "INSERT INTO menu (Menu_id,Menu_name,price,image) VALUES (?,?,?,?)";
+
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+
+			String menuId = type + "_" + name;
+
+			stmt.setString(1, menuId);
+			stmt.setString(2, name);
+			stmt.setString(3, price);
+			stmt.setBytes(4, bytes);
+
+			System.out.println("메뉴에 사이드가 추가 됐다!");
+			return stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		return 0;
+	}
+
+	public int updateDrink(String type, String name, String size, String price, byte[] bytes) {
+		ip = new InputImage();
+		String sql = "INSERT INTO menu (Menu_id,Menu_name,price,image) VALUES (?,?,?,?)";
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+
+			String menuId = type + "_" + name;
+			String menuName = name + size;
+
+			stmt.setString(1, menuId);
+			stmt.setString(2, menuName);
+			stmt.setString(3, price);
+			stmt.setBytes(4, bytes);
+			System.out.println("메뉴에 음료가 추가 됐다!");
+			return stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		return 0;
+	}
 	
 	public int deletePizzaRecipe(String type, String name, String size, List<String> removerecipe) {
 
