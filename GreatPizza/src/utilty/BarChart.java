@@ -14,8 +14,9 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import javax.swing.*;
 import java.awt.*;
 
-public class BarChartExample {
-    public static void main(String[] args) {
+public class BarChart extends JPanel {
+	
+    public BarChart() {
         // 데이터셋 생성 및 값 추가
         DefaultCategoryDataset dataset1 = new DefaultCategoryDataset();
         dataset1.addValue(50, "Database 1", "Category 1");
@@ -25,7 +26,6 @@ public class BarChartExample {
         dataset1.addValue(80, "Database 1", "Category 5");
         dataset1.addValue(50, "Database 1", "Category 6");
         dataset1.addValue(20, "Database 1", "Category 7");
-        dataset1.addValue(10, "Database 1", "Category 8");
 
         DefaultCategoryDataset dataset2 = new DefaultCategoryDataset();
         dataset2.addValue(40, "Database 2", "Category 1");
@@ -35,7 +35,6 @@ public class BarChartExample {
         dataset2.addValue(90, "Database 2", "Category 5");
         dataset2.addValue(20, "Database 2", "Category 6");
         dataset2.addValue(30, "Database 2", "Category 7");
-        dataset2.addValue(80, "Database 2", "Category 8");
 
         // 데이터셋 병합
         DefaultCategoryDataset mergedDataset = new DefaultCategoryDataset();
@@ -69,7 +68,7 @@ public class BarChartExample {
         );
         
         // 배경색 설정
-        chart.setBackgroundPaint(new Color(23, 24, 33));
+        chart.setBackgroundPaint(Color.decode("#21222D"));
 
         // 막대 색상 설정
         CategoryPlot plot = chart.getCategoryPlot();
@@ -78,7 +77,7 @@ public class BarChartExample {
         renderer.setShadowVisible(false);
         renderer.setShadowVisible(false);  // 그래프 그림자 비활성화
         renderer.setSeriesPaint(0, new Color(169, 223, 216));
-        renderer.setSeriesPaint(1, new Color(43, 43, 54));
+        renderer.setSeriesPaint(1, Color.decode("#2B2B36"));
 
         
         // 막대 너비 및 간격 설정
@@ -86,7 +85,6 @@ public class BarChartExample {
         double categoryMargin = 0; // 막대 사이의 간격
         renderer.setMaximumBarWidth(barWidth);
         renderer.setItemMargin(categoryMargin);
-
         
         // X축 설정
         CategoryAxis domainAxis = plot.getDomainAxis();
@@ -100,19 +98,18 @@ public class BarChartExample {
 
         // 차트 패널 생성
         ChartPanel chartPanel = new ChartPanel(chart);
-        chartPanel.setSize(new Dimension(400, 280)); 
+        chartPanel.setSize(new Dimension(570, 265)); 
         
         // ChartPanel 내부 JPanel의 배경색 설정
         CategoryPlot categoryPlot = chart.getCategoryPlot();
-        categoryPlot.setBackgroundPaint(new Color(23, 24, 33));
-
-
-        // 차트를 포함하는 프레임 생성
-        JFrame frame = new JFrame("Bar Chart");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(chartPanel);
-        frame.pack();
-        frame.setVisible(true);
-        frame.setSize(new Dimension(400, 280)); 
+        categoryPlot.setBackgroundPaint(Color.decode("#21222D"));
+        
+        Dimension preferredSize = new Dimension(570, 265);
+        chartPanel.setPreferredSize(preferredSize);
+        
+        setSize(new Dimension(570, 265));
+        add(chartPanel);
+        
+        plot.setBackgroundPaint(Color.decode("#21222D"));
     }
 }

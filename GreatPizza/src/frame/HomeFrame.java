@@ -117,6 +117,7 @@ public class HomeFrame extends JFrame {
 				salesList.removeAll();
 				salesList.repaint();
 				salesList.initialize();
+				salesList.revalidate();
 				cardLayout.show(cards, "salesList");
 			}
 		});
@@ -143,7 +144,8 @@ public class HomeFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				ingredientList.removeAll();
 				ingredientList.repaint();
-				ingredientList.setting();
+				ingredientList.initialize();
+				ingredientList.revalidate();
 				cardLayout.show(cards, "ingredientList");
 			}
 		});

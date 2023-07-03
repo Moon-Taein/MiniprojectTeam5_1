@@ -128,6 +128,39 @@ public class OrderRepo {
 		return list;
 	}
 	
+	public List<Ingredient> findIngredients(String find){
+		String sql = "SELECT * FROM ingredient WHERE ingredient_id Like ?";
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		List<Ingredient> list = new ArrayList<>();
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+			String line = "%"+find+"%";
+			stmt.setString(1, line);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				String id = rs.getString("ingredient_id");
+				String name = rs.getString("ingredient_name");
+				int priceRetail = rs.getInt("price_retail");
+				int priceSupply = rs.getInt("price_supply");
+				int lowerCount = rs.getInt("lower_limit_count");
+				int currentCount = rs.getInt("current_count");
+				
+				list.add(new Ingredient(id, name, priceRetail, priceSupply, lowerCount, currentCount));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		return list;
+	}
+	
 	public List<Ingredient> getIngredients(String menu){
 		String sql = "SELECT * FROM ingredient WHERE ingredient_id \r\n" + 
 				"IN (SELECT ingredient_id FROM recipe WHERE menu_id = ?);";
@@ -285,6 +318,25 @@ public class OrderRepo {
 		return 0;
 	}
 	
+	public int deleteIngredient(String id) {
+		String sql = "DELETE FROM ingredient WHERE ingredient_id = ?";
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, id);
+			return stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		return 0;
+	}
+	
 	public int plusDay(String date) {
 		if (plusAccount(0, date) == 0) {
 			String sql = "INSERT account (date, purchase, sales) VALUES (?, 0, 0); ";
@@ -324,6 +376,27 @@ public class OrderRepo {
 		}
 		return 0;
 	}
+	
+	public int minusAccount(int purchase, String date) {
+		String sql = "UPDATE account SET purchase = purchase + ? WHERE date = ?";
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, purchase);
+			stmt.setString(2, date);
+			return stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		return 0;
+	}
+	
 	public int updateAsset(String date) {
 		String[] dates = date.split("-");
 		System.out.println(dates[1].toString());
@@ -395,6 +468,53 @@ public class OrderRepo {
 		}
 		return "0";
 	}
+	public String todayPurchase(String date) {
+		String sql = "SELECT * FROM account WHERE date = ?";
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, date);
+			rs = stmt.executeQuery();
+			if(rs.next()) {
+				return rs.getString("purchase");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		return "0";
+	}
+	
+	public String soldtoday(String date) {
+		String sql = "SELECT COUNT(*) FROM mainorder WHERE 주문날짜 = ? AND state = '확인';";
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, date);
+			rs = stmt.executeQuery();
+			if(rs.next()) {
+				return rs.getString("COUNT(*)");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		return "0";
+	}
 	
 	public Map<Integer, List<String>> bestMonth(String year) {
 		String sql = "SELECT month, money FROM asset WHERE year = ? ORDER BY money DESC LIMIT 5";
@@ -407,6 +527,35 @@ public class OrderRepo {
 			conn = DBUtil.getConnection();
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, year);
+			rs = stmt.executeQuery();
+			int i = 1;
+			while (rs.next()) {
+				List<String> list = new ArrayList<>();
+				list.add(rs.getString("month"));
+				list.add(rs.getString("money"));
+				map.put(i, list);
+				i++;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		return map;
+	}
+	
+	public Map<Integer, List<String>> months() {
+		String sql = "SELECT month, money FROM asset LIMIT 12";
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		Map<Integer, List<String>> map = new LinkedHashMap<>();
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
 			rs = stmt.executeQuery();
 			int i = 1;
 			while (rs.next()) {
