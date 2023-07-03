@@ -123,7 +123,6 @@ public class HomeFrame extends JFrame {
 
 		financialList = new FinancialList();
 		financialList.setLayout(null);
-		financialList.setBackground(blackcolor);
 		cards.add(financialList, "financialList");
 
 		MenuList menuList = new MenuList();

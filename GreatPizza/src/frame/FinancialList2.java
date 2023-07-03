@@ -1,6 +1,9 @@
 package frame;
+
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 import repo.PosRepo;
 
@@ -13,12 +16,16 @@ public class FinancialList2 extends JFrame {
 	private JComboBox<Integer> yearComboBox;
 	private JComboBox<Integer> monthComboBox;
 	private JTable calendarTable;
+	private DefaultTableModel model;
 	private PosRepo pr;
+	private String selectYear;
+	private int month;
 
 	public FinancialList2() {
 		setTitle("Calendar App");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setLayout(new BorderLayout());
+		getContentPane().setLayout(new BorderLayout());
+
 		pr = new PosRepo();
 
 		// 연도 콤보박스 생성
@@ -30,28 +37,27 @@ public class FinancialList2 extends JFrame {
 
 		// 월 콤보박스 생성
 		monthComboBox = new JComboBox<>();
+
 		yearComboBox.addActionListener(new ActionListener() {
-			private String selectYear;
-
 			public void actionPerformed(ActionEvent arg0) {
-				selectYear = yearComboBox.getSelectedItem().toString();
 				monthComboBox.removeAllItems();
-
+				selectYear = yearComboBox.getSelectedItem().toString();
 				for (Integer i : pr.month(Integer.valueOf(selectYear))) {
 					monthComboBox.addItem(i);
 				}
+				updateCalendar();
 			}
 		});
 
 		// 콤보박스 이벤트 리스너 등록
-		ActionListener comboBoxListener = new ActionListener() {
+		monthComboBox.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				updateCalendar();
+				if (monthComboBox.getSelectedItem() != null) {
+					updateCalendar();
+				}
 			}
-		};
-		yearComboBox.addActionListener(comboBoxListener);
-		monthComboBox.addActionListener(comboBoxListener);
+		});
 
 		// 패널에 콤보박스 추가
 		JPanel comboBoxPanel = new JPanel();
@@ -60,58 +66,90 @@ public class FinancialList2 extends JFrame {
 
 		// 달력 테이블 생성
 		calendarTable = new JTable();
-		calendarTable.setRowHeight(70);
+		calendarTable.setRowHeight(80);
 		calendarTable.setEnabled(false);
-		JScrollPane tableScrollPane = new JScrollPane(calendarTable);
 
 		// 프레임에 패널과 테이블 추가
-		add(comboBoxPanel, BorderLayout.NORTH);
-		add(tableScrollPane, BorderLayout.CENTER);
+		getContentPane().add(comboBoxPanel, BorderLayout.NORTH);
+		JScrollPane scrollPane = new JScrollPane(calendarTable);
+		getContentPane().add(scrollPane, BorderLayout.CENTER);
 
-		setSize(750, 800);
+		setSize(640, 640);
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}
 
-	
-		// 여기 하는중
 	private void updateCalendar() {
 		int year = (int) yearComboBox.getSelectedItem();
-		int month = (int) monthComboBox.getSelectedItem();
+		month = (int) monthComboBox.getSelectedItem();
 
-		// 달력 모델 생성
 		YearMonth yearMonth = YearMonth.of(year, month);
+		String yearAndMonth = year + "-" + month;
+
 		int lastDayOfMonth = yearMonth.lengthOfMonth();
 		int firstDayOfWeek = yearMonth.atDay(1).getDayOfWeek().getValue();
+
 		String[] columnNames = { "일", "월", "화", "수", "목", "금", "토" };
 		Object[][] data = new Object[6][7];
 
-		// 달력 데이터 채우기
 		int day = 1;
 		for (int row = 0; row < 6; row++) {
 			for (int col = 0; col < 7; col++) {
 				if (row == 0 && col < firstDayOfWeek - 1) {
-					data[row][col] = "";
+					data[row][col] = "앞에 빈칸";
 				} else if (day > lastDayOfMonth) {
-					data[row][col] = "";
+					data[row][col] = "뒤에 빈칸";
 				} else {
-					data[row][col] = day;
+					String date = year + "-" + month + "-" + day;
+
+					JPanel panel = new JPanel(new BorderLayout());
+					JPanel infoPanel = new JPanel(new GridLayout(2, 1));
+
+					JLabel dateLabel = new JLabel(String.valueOf(day));
+					JLabel purchaseLabel = new JLabel("매출: " + pr.getSales(date));
+					JLabel salesLabel = new JLabel("매입: " + pr.getPurchase(date));
+
+					infoPanel.add(purchaseLabel);
+					infoPanel.add(salesLabel);
+
+					panel.add(dateLabel, BorderLayout.NORTH);
+					panel.add(infoPanel, BorderLayout.CENTER);
+
+					data[row][col] = panel;
+
 					day++;
+
 				}
 			}
 		}
 
-		// 달력 모델 업데이트
-		DefaultTableModel model = new DefaultTableModel(data, columnNames);
+		model = new DefaultTableModel(data, columnNames);
 		calendarTable.setModel(model);
+		calendarTable.setDefaultRenderer(Object.class, new PanelCellRenderer());
 	}
 
 	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				new FinancialList2();
+		new FinancialList2();
+	}
+}
+
+class PanelCellRenderer implements TableCellRenderer {
+	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+			int row, int column) {
+		if (value instanceof JPanel) {
+			JPanel panel = (JPanel) value;
+			panel.setBackground(table.getBackground());
+			panel.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
+
+			// 패널 내부의 컴포넌트 배경색 설정
+			for (Component component : panel.getComponents()) {
+				component.setBackground(panel.getBackground());
 			}
-		});
+
+			return panel;
+		} else {
+			return new DefaultTableCellRenderer().getTableCellRendererComponent(table, value, isSelected, hasFocus, row,
+					column);
+		}
 	}
 }
