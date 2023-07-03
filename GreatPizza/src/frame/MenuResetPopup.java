@@ -530,7 +530,7 @@ public class MenuResetPopup extends JFrame {
 				menulist.createMenuList();
 				setVisible(false);
 			}
-		});
+		}); 
 
 		btnNewButton.setBackground(new Color(255, 222, 173));
 		btnNewButton.setBounds(395, 526, 186, 38);
