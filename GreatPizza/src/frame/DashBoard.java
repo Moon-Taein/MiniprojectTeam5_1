@@ -135,8 +135,13 @@ public class DashBoard extends JPanel {
 	public void setting() {
 		Map<Integer, List<String>> bests = order.bestMenu();
 		String todaySale = order.todaySales(day);
-		total.setText(todaySale.substring(0, todaySale.length() - 4) + "만");
-		buy.setText(order.soldtoday(day) + "개");
+		if(todaySale.length() > 4) {
+			total.setText(todaySale.substring(0, todaySale.length() - 4) + "만");
+		} else {
+			total.setText(todaySale + "원");
+		}
+		buy.setText(order.soldtoday(day, "확인") + "개");
+		cancel.setText(order.soldtoday(day, "취소") + "개");
 		fir.setText(bests.get(1).get(0));
 		sec.setText(bests.get(2).get(0));
 		thr.setText(bests.get(3).get(0));

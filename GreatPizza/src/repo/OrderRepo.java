@@ -492,8 +492,8 @@ public class OrderRepo {
 		return "0";
 	}
 	
-	public String soldtoday(String date) {
-		String sql = "SELECT COUNT(*) FROM mainorder WHERE 주문날짜 = ? AND state = '확인';";
+	public String soldtoday(String date, String state) {
+		String sql = "SELECT COUNT(*) FROM mainorder WHERE 주문날짜 = ? AND state = ?;";
 		
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -502,6 +502,7 @@ public class OrderRepo {
 			conn = DBUtil.getConnection();
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, date);
+			stmt.setString(2, state);
 			rs = stmt.executeQuery();
 			if(rs.next()) {
 				return rs.getString("COUNT(*)");

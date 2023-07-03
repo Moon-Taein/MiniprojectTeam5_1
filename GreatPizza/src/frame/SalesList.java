@@ -142,7 +142,7 @@ public class SalesList extends JPanel {
 		minus.setBounds(472, 180, 100, 30);
 		dateback.add(minus);
 		
-		JLabel finish = new JLabel(order.soldtoday(day)+"개의 주문 완료");
+		JLabel finish = new JLabel(order.soldtoday(day,"확인")+"개의 주문 완료");
 		finish.setForeground(Color.WHITE);
 		finish.setBounds(120, 109, 150, 30);
 		finish.setFont(new Font("굴림", Font.BOLD, 15));
