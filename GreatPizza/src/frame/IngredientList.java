@@ -11,11 +11,15 @@ import java.awt.Dimension;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.KeyEventDispatcher;
+import java.awt.KeyboardFocusManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.util.List;
 
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.SwingConstants;
 
 import repo.Ingredient;
@@ -24,6 +28,8 @@ import repo.OrderRepo;
 import javax.swing.JButton;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
+
 import java.awt.Component;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -36,13 +42,15 @@ public class IngredientList extends JPanel {
 	private JTextField textField;
 	public Color blackcolor = Color.decode("#171821");
 	public Color graycolor = Color.decode("#21222D");
+	private JPanel panel;
+	private JScrollPane scrollPane;
 
 	public IngredientList() {
-		order = new OrderRepo();
-		setting();
+		initialize();
 	}
 	
-	public void setting() {
+	public void initialize() {
+		order = new OrderRepo();
 		setBounds(0, 0, 750, 800);
 		setLayout(null);
 		
@@ -70,19 +78,38 @@ public class IngredientList extends JPanel {
 		background.add(btnNewButton);
 		
 		List<Ingredient> ingredients = order.getIngredients();
-		JPanel panel = new JPanel();
+		setting(ingredients);
+		
+		textField = new JTextField();
+		textField.setBounds(120, 60, 423, 44);
+		textField.setOpaque(false);
+		textField.setBorder(null);
+		textField.setForeground(Color.WHITE);
+		textField.registerKeyboardAction(new ActionListener() {
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		    	List<Ingredient> ingredients = order.findIngredients(textField.getText());
+		    	pnlinven.removeAll();
+		    	pnlinven.repaint();
+		    	pnlinven.revalidate();
+		    	setting(ingredients);
+		    }
+		}, null, KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), JComponent.WHEN_FOCUSED);
+		background.add(textField);
+		textField.setColumns(10);
+	}
+	
+	public void setting(List<Ingredient> ingredients) {
+		panel = new JPanel();
+		panel.setBackground(graycolor);
 		panel.setFocusTraversalPolicyProvider(true);
 		panel.setLayout(new GridLayout(ingredients.size(), 1)); 
-		JScrollPane scrollPane = new JScrollPane(panel);
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		
 		for(int i = 0; i < ingredients.size(); i++) {
-			final Ingredient ingredient = ingredients.get(i);
+			Ingredient ingredient = ingredients.get(i);
 			JPanel pnl1 = new JPanel();
-			panel.add(pnl1);
 			pnl1.setLayout(null);
 			pnl1.setPreferredSize(new Dimension(500, 50));
-			pnl1.setBackground(graycolor);
+			pnl1.setOpaque(false);
 			
 			JLabel lbl1 = new JLabel(ingredient.getName());
 			lbl1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -117,23 +144,15 @@ public class IngredientList extends JPanel {
 			});
 			pnl1.add(btnbuy);
 			if (ingredient.getLowerLimitCount() > ingredient.getCurrentCount()) {
-//				lbl1.setForeground(Color.decode("#F2C8ED"));
-//				lbl2.setForeground(Color.decode("#F2C8ED"));
-//				lbl3.setForeground(Color.decode("#F2C8ED"));
 				btnbuy.setBackground(Color.decode("#F2C8ED"));
 			}
+			panel.add(pnl1);
 		}		
+		scrollPane = new JScrollPane(panel);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setSize(590, 490);
 		scrollPane.setBorder(null);
 		pnlinven.add(scrollPane);
-		
-		textField = new JTextField();
-		textField.setBounds(120, 60, 423, 44);
-		textField.setOpaque(false);
-		textField.setBorder(null);
-		textField.setForeground(Color.WHITE);
-		background.add(textField);
-		textField.setColumns(10);
 	}
 }
 

@@ -88,7 +88,7 @@ public class IngredientPlus extends JFrame {
 				setVisible(false);
 				ingredientList.removeAll();
 				ingredientList.repaint();
-				ingredientList.setting();
+				ingredientList.initialize();
 				ingredientList.revalidate();
 			}
 		});

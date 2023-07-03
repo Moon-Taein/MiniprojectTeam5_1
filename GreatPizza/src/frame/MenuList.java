@@ -9,6 +9,9 @@ import java.awt.GridLayout;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
@@ -68,7 +71,7 @@ public class MenuList extends JPanel {
 			innerPanel.setBackground(graycolor);
 			innerPanel.setOpaque(true);
 
-			JLabel nameLabel = new JLabel(m.getMenuName());
+			JLabel nameLabel = new JLabel(m.getMenuId());
 			nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
 			nameLabel.setOpaque(false);
 			nameLabel.setFont(new Font("굴림", Font.PLAIN, 15));
@@ -94,6 +97,29 @@ public class MenuList extends JPanel {
 			innerPanel.add(typeLabel);
 			innerPanel.add(priceLabel);
 			
+			
+			innerPanel.addMouseListener(new MouseAdapter() {
+				
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					int index = 0;
+			        for (int i = 0; i < list.size(); i++) {
+			        	Menu menu = list.get(i);
+			            if (menu.getMenuId().equals(nameLabel.getText())) {
+			                index = i;
+			                break;
+			            }
+			        }
+					System.out.println(index);
+					Menu menu = list.get(index);
+					
+				MenuResetPopup menuResetPopup = new MenuResetPopup(MenuList.this, menu);
+				}
+				
+			});
+			
+			
+			
 			innerPanel.revalidate();
 			innerPanel.repaint();
 			scrollablePanel.add(innerPanel);
@@ -113,6 +139,7 @@ public class MenuList extends JPanel {
 		panel.add(scrollPane);
 		
 		RoundButton btnNewButton = new RoundButton("ADD MENU");
+		btnNewButton.setOpaque(false);
 		background.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
