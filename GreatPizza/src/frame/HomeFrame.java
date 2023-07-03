@@ -34,7 +34,7 @@ public class HomeFrame extends JFrame {
 	public static final Color mintcolor = Color.decode("#A9DFD8");
 	private SalesList salesList;
 	private IngredientList ingredientList;
-	private FinancialList financialList;
+	private FinancialList FinancialList;
 
 	public HomeFrame() {
 		setUndecorated(true);
@@ -96,9 +96,9 @@ public class HomeFrame extends JFrame {
 		salesList = new SalesList();
 		cards.add(salesList, "salesList");
 
-		financialList = new FinancialList();
-		financialList.setLayout(null);
-		cards.add(financialList, "financialList");
+		FinancialList = new FinancialList();
+		FinancialList.setLayout(null);
+		cards.add(FinancialList, "FinancialList");
 
 		MenuList menuList = new MenuList();
 		menuList.setLayout(null);
@@ -123,7 +123,7 @@ public class HomeFrame extends JFrame {
 
 		financialbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cardLayout.show(cards, "financialList");
+				cardLayout.show(cards, "FinancialList");
 			}
 		});
 

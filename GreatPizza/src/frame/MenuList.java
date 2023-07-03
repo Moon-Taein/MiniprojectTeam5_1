@@ -110,7 +110,6 @@ public class MenuList extends JPanel {
 			                break;
 			            }
 			        }
-					System.out.println(index);
 					Menu menu = list.get(index);
 					
 				MenuResetPopup menuResetPopup = new MenuResetPopup(MenuList.this, menu);
