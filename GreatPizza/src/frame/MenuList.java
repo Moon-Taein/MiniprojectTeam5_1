@@ -133,6 +133,8 @@ public class MenuList extends JPanel {
 		scrollPane.setPreferredSize(new Dimension(590, 496));
 		scrollPane.setBackground(graycolor);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.getVerticalScrollBar().setBackground(graycolor); // 스크롤 바 배경
+		scrollPane.setBorder(null);
 		scrollPane.revalidate();
 		scrollPane.repaint();
 		panel.add(scrollPane);
