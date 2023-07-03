@@ -40,8 +40,8 @@ public class MenuPopupTutorial extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\ghkfz\\Desktop\\Frame 88.png"));
+		ImageIcon icon = new ImageIcon("GreatPizza/img//Frame88.png");
+		JLabel lblNewLabel = new JLabel(icon);
 		lblNewLabel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

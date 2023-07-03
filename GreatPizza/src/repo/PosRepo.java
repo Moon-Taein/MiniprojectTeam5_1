@@ -22,6 +22,8 @@ public class PosRepo {
 	private PreparedStatement stmt = null;
 	private ResultSet rs = null;
 	private InputImage ip;
+	private int day;
+	
 
 	public List<Menu> menuIdPrice() {
 		list = new ArrayList<>();
@@ -35,9 +37,12 @@ public class PosRepo {
 			while (rs.next()) {
 				String id = rs.getString("menu_id");
 				String name = rs.getString("menu_name");
+				System.out.println(id);
+				System.out.println(name);
 				int price = rs.getInt("price");
 
 				list.add(new Menu(id, name, price));
+				System.out.println(list);
 			}
 
 		} catch (SQLException e) {
@@ -95,6 +100,55 @@ public class PosRepo {
 			DBUtil.close(conn);
 		}
 		return listY;
+	}
+
+	public int getPurchase(String date) {
+		String sql = "select purchase from account where date = '" + date + "'";
+		int purchase = 0;
+
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+			rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				purchase = rs.getInt("purchase");
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		System.out.println(purchase);
+		return purchase;
+	}
+
+	public int getSales(String date) {
+		String sql = "select sales from account where date = '" + date + "'";
+		int sales = 0;
+		
+		
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+			rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				sales = rs.getInt("sales");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		System.out.println(sales);
+		return sales;
 	}
 
 	public List<Integer> month(Integer year) {

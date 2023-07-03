@@ -135,10 +135,8 @@ public class FinancialList extends JPanel {
 
 				// 연도 - 월 형식으로 출력
 				String yearAndMonth = year + "-" + month;
-				System.out.println(yearAndMonth);
 
 				List<Account> list = pr.monthYear매입매출(yearAndMonth);
-				System.out.println(list);
 				for (Account ac : list) {
 					// 패널 내부의 패널 생성
 					JPanel innerPanel = new JPanel();

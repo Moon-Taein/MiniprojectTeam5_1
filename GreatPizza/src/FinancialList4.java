@@ -1,5 +1,3 @@
-package frame;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -12,7 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.YearMonth;
 
-public class FinancialList2 extends JFrame {
+public class FinancialList4 extends JPanel {
 	private JComboBox<Integer> yearComboBox;
 	private JComboBox<Integer> monthComboBox;
 	private JTable calendarTable;
@@ -21,10 +19,8 @@ public class FinancialList2 extends JFrame {
 	private String selectYear;
 	private int month;
 
-	public FinancialList2() {
-		setTitle("Calendar App");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		getContentPane().setLayout(new BorderLayout());
+	public FinancialList4() {
+		setSize(new Dimension(750,800));
 
 		pr = new PosRepo();
 
@@ -61,6 +57,7 @@ public class FinancialList2 extends JFrame {
 
 		// 패널에 콤보박스 추가
 		JPanel comboBoxPanel = new JPanel();
+		comboBoxPanel.setBounds(0, 104, 750, 31);
 		comboBoxPanel.add(yearComboBox);
 		comboBoxPanel.add(monthComboBox);
 
@@ -68,15 +65,27 @@ public class FinancialList2 extends JFrame {
 		calendarTable = new JTable();
 		calendarTable.setRowHeight(80);
 		calendarTable.setEnabled(false);
+		setLayout(null);
 
 		// 프레임에 패널과 테이블 추가
-		getContentPane().add(comboBoxPanel, BorderLayout.NORTH);
+		add(comboBoxPanel);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(0, 642, 750, 104);
+		add(panel_1);
 		JScrollPane scrollPane = new JScrollPane(calendarTable);
-		getContentPane().add(scrollPane, BorderLayout.CENTER);
+		scrollPane.setBounds(0, 135, 750, 510);
+		add(scrollPane);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(0, 0, 750, 104);
+		add(panel);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBounds(0, 0, 750, 104);
+		add(panel_2);
 
-		setSize(640, 640);
-		setLocationRelativeTo(null);
-		setVisible(true);
+		updateCalendar();
 	}
 
 	private void updateCalendar() {
@@ -129,7 +138,14 @@ public class FinancialList2 extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		new FinancialList2();
+		SwingUtilities.invokeLater(() -> {
+			JFrame frame = new JFrame("Calendar App");
+			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			frame.getContentPane().add(new FinancialList4());
+			frame.setSize(640, 640);
+			frame.setLocationRelativeTo(null);
+			frame.setVisible(true);
+		});
 	}
 }
 

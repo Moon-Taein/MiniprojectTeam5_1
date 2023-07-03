@@ -96,7 +96,6 @@ public class HomeFrame extends JFrame {
 
 		FinancialList financialList = new FinancialList();
 		financialList.setLayout(null);
-		financialList.setBackground(blackcolor);
 		cards.add(financialList, "financialList");
 
 		MenuList menuList = new MenuList();
