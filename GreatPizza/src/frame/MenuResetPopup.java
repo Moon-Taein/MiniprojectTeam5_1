@@ -63,6 +63,13 @@ public class MenuResetPopup extends JFrame {
 	public static final Color blackcolor = Color.decode("#171821");
 	public static final Color graycolor = Color.decode("#21222D");
 	public static final Color mintcolor = Color.decode("#A9DFD8");
+	
+	private String origin;
+	private String originType;
+	private String originSize;
+	private String originName;
+	private String originPrice;
+	private List<String> originList;
 
 	public MenuResetPopup(MenuList menulist, Menu menu) {
 		OrderRepo or = new OrderRepo();
@@ -525,11 +532,22 @@ public class MenuResetPopup extends JFrame {
 		JButton btnNewButton_3 = new JButton("메 뉴 삭 제");
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				System.out.println(menu.getMenuId().substring(0, menu.getMenuId().indexOf("_")).equals("피자"));
+				if(menu.getMenuId().substring(0, menu.getMenuId().indexOf("_")).equals("피자")) {
+					pr.dropPizzaRecipe(origin);
+					pr.dropPizzaMenu(origin);
+
+				}else {
+					System.out.println(origin);
+					pr.drupMenu(origin);
+
+				}
 				
-				
-				// 해당 레시피메뉴 삭제
-				// 해당 메뉴삭제
-				
+				menulist.removeAll();
+				menulist.repaint();
+				menulist.revalidate();
+				menulist.createMenuList();
+				setVisible(false);
 				
 				
 			}
@@ -538,28 +556,42 @@ public class MenuResetPopup extends JFrame {
 		
 		
 		addWindowListener(new WindowAdapter() {
+			
+
+			
+
+			
+
 			@Override
 			public void windowOpened(WindowEvent e) {
-				String origin =menu.getMenuId();
-				String reStr = origin.substring(0, origin.indexOf("_"));
-				System.out.println(reStr);
 				
-				comboBox_1.setSelectedItem(reStr);
+				origin = menu.getMenuId();
+				originType = origin.substring(0, origin.indexOf("_"));
+				if(originType.equals("피자")) {
+					originSize = menu.getMenuId().substring(menu.getMenuId().indexOf(menu.getMenuName())+menu.getMenuName().length());
+				}else {
+					originSize = "";
+					
+				}
+				originName = menu.getMenuName();
+				originPrice = String.valueOf(menu.getPrice());
+				System.out.println(originType);
+				
+				comboBox_1.setSelectedItem(originType);
 				comboBox_1.setEnabled(false);
-				comboBox_1_1.setSelectedItem(menu.getMenuId().substring(menu.getMenuId().indexOf("_")));
+				comboBox_1_1.setSelectedItem(originSize);
 				btnNewButton_2.setEnabled(false);
-				System.out.println(menu.getMenuId());
-				System.out.println(menu.getMenuId().substring(menu.getMenuId().indexOf(menu.getMenuName())+menu.getMenuName().length()));
+
 				comboBox_1_1.setEnabled(false);
-				menuName.setText(menu.getMenuName());
+				menuName.setText(originName);
 				menuName.setEnabled(false);
-				hopedPrice.setText(String.valueOf(menu.getPrice()));
+				hopedPrice.setText(originPrice);
 				System.out.println(pr.origin(menu.getMenuId()));
 				System.out.println(pr.getToppingList(pr.origin(menu.getMenuId()), menu.getMenuId()));
 				
-				List<String> list = pr.getToppingList(pr.origin(menu.getMenuId()), menu.getMenuId());
+				originList = pr.getToppingList(pr.origin(menu.getMenuId()), menu.getMenuId());
 				
-				  for (String str : list) {
+				  for (String str : originList) {
 			            if (str.startsWith("도우_")&&pizzaSize.getText().equals("없 음")) {
 			            	pizzaSize.setText(str);
 			            }else if (str.startsWith("엣지_")&&edge.getText().equals("없 음")) {
