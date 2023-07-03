@@ -17,9 +17,11 @@ import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 
 import repo.Ingredient;
+import repo.MainOrder;
 import repo.OrderRepo;
 import utilty.PieChart;
 import java.awt.Font;
+import javax.swing.SwingConstants;
 
 public class DashBoard extends JPanel {
 
@@ -146,6 +148,16 @@ public class DashBoard extends JPanel {
 		sec.setText(bests.get(2).get(0));
 		thr.setText(bests.get(3).get(0));
 		fou.setText(bests.get(4).get(0));
+		
+		for (int i = 1; i <= 4; i++) {
+			JLabel f = new JLabel(bests.get(i).get(1));
+			f.setHorizontalAlignment(SwingConstants.CENTER);
+			f.setBounds(605, 429 +((i-1)*43), 54, 15);
+			f.setForeground(Color.WHITE);
+			background.add(f);
+		}
+		
+		List<MainOrder> mainOrders = order.getMainOrders("미확인");
+		lblNewLabel.setText(mainOrders.get(0).getDate().replace("-", "") + mainOrders.get(0).getNo());
 	}
-
 }
