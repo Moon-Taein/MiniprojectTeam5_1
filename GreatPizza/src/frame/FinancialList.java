@@ -40,9 +40,12 @@ public class FinancialList extends JPanel {
 		// 월 콤보박스 생성
 		monthComboBox = new JComboBox<>();
 		monthComboBox.setBounds(124, 5, 45, 30);
-
+		
+		JLabel lblNewLabel_5 = new JLabel("년도를 선택하면 사라집니다.");
+		
 		yearComboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				lblNewLabel_5.setVisible(false);
 				monthComboBox.removeAllItems();
 				selectYear = yearComboBox.getSelectedItem().toString();
 				for (Integer i : pr.month(Integer.valueOf(selectYear))) {
@@ -76,6 +79,15 @@ public class FinancialList extends JPanel {
 		calendarTable.setBounds(50, 140, 650, 515);
 		calendarTable.setEnabled(false);
 		setLayout(null);
+		
+		
+		lblNewLabel_5.setOpaque(true);
+		lblNewLabel_5.setFont(new Font("굴림", Font.PLAIN, 20));
+		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_5.setBackground(Color.BLACK);
+		lblNewLabel_5.setForeground(Color.WHITE);
+		lblNewLabel_5.setBounds(45, 140, 659, 505);
+		add(lblNewLabel_5);
 
 		// 프레임에 패널과 테이블 추가
 		add(comboBoxPanel);
