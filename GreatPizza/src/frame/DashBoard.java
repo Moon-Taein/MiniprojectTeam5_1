@@ -4,7 +4,10 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
@@ -14,17 +17,31 @@ import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 
 import repo.Ingredient;
+import repo.OrderRepo;
 import utilty.PieChart;
+import java.awt.Font;
 
 public class DashBoard extends JPanel {
 
 	private JLabel background;
 	private JTextField text;
+	private JLabel total;
+	private JLabel buy;
+	private JLabel cancel;
+	private JLabel fir;
+	private JLabel sec;
+	private JLabel thr;
+	private JLabel fou;
 	private JLabel lblNewLabel;
-	private JLabel lblNewLabel_1;
 	private JLabel lblNewLabel_2;
+	private OrderRepo order;
+	private String day;
 	
 	public DashBoard(HomeFrame home) {
+		order = new OrderRepo();
+		LocalDate today = LocalDate.now();
+	    day = today.format(DateTimeFormatter.ofPattern("yyyy-M-d"));
+	    
 		setLayout(null);
 		setSize(750, 800);
 		ImageIcon frame = new ImageIcon("GreatPizza/img//dashboard.png");
@@ -61,17 +78,69 @@ public class DashBoard extends JPanel {
 		background.add(text);
 		text.setColumns(10);
 		
-		lblNewLabel = new JLabel("New label");
-		lblNewLabel.setBounds(78, 232, 57, 15);
-		add(lblNewLabel);
+		total = new JLabel("100만");
+		total.setForeground(Color.WHITE);
+		total.setBounds(100, 232, 57, 15);
+		background.add(total);
 		
-		lblNewLabel_1 = new JLabel("New label");
-		lblNewLabel_1.setBounds(189, 232, 57, 15);
-		add(lblNewLabel_1);
+		buy = new JLabel("20개");
+		buy.setForeground(Color.WHITE);
+		buy.setBounds(210, 232, 57, 15);
+		background.add(buy);
 		
-		lblNewLabel_2 = new JLabel("New label");
-		lblNewLabel_2.setBounds(302, 232, 57, 15);
-		add(lblNewLabel_2);
+		cancel = new JLabel("1개");
+		cancel.setBounds(334, 232, 57, 15);
+		cancel.setForeground(Color.WHITE);
+		background.add(cancel);
+		
+		fir = new JLabel("불고기");
+		fir.setFont(new Font("굴림", Font.BOLD, 15));
+		fir.setBounds(159, 429, 300, 15);
+		fir.setForeground(Color.WHITE);
+		background.add(fir);
+		
+		sec = new JLabel("불고기");
+		sec.setFont(new Font("굴림", Font.BOLD, 15));
+		sec.setBounds(159, 472, 300, 15);
+		sec.setForeground(Color.WHITE);
+		background.add(sec);
+		
+		thr = new JLabel("불고기");
+		thr.setFont(new Font("굴림", Font.BOLD, 15));
+		thr.setBounds(159, 516, 300, 15);
+		thr.setForeground(Color.WHITE);
+		background.add(thr);
+		
+		fou = new JLabel("불고기");
+		fou.setFont(new Font("굴림", Font.BOLD, 15));
+		fou.setBounds(159, 560, 300, 15);
+		fou.setForeground(Color.WHITE);
+		background.add(fou);
+		
+		lblNewLabel = new JLabel("2023070501");
+		lblNewLabel.setFont(new Font("굴림", Font.BOLD, 25));
+		lblNewLabel.setBounds(120, 672, 300, 40);
+		lblNewLabel.setForeground(Color.WHITE);
+		background.add(lblNewLabel);
+		
+		lblNewLabel_2 = new JLabel("No.1");
+		lblNewLabel_2.setFont(new Font("굴림", Font.BOLD, 15));
+		lblNewLabel_2.setBounds(122, 652, 57, 15);
+		lblNewLabel_2.setForeground(Color.WHITE);
+		background.add(lblNewLabel_2);
+		
+		setting();
+	}
+	
+	public void setting() {
+		Map<Integer, List<String>> bests = order.bestMenu();
+		String todaySale = order.todaySales(day);
+		total.setText(todaySale.substring(0, todaySale.length() - 4) + "만");
+		buy.setText(order.soldtoday(day) + "개");
+		fir.setText(bests.get(1).get(0));
+		sec.setText(bests.get(2).get(0));
+		thr.setText(bests.get(3).get(0));
+		fou.setText(bests.get(4).get(0));
 	}
 
 }
