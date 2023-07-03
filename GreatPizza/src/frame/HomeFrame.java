@@ -57,18 +57,17 @@ public class HomeFrame extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 900, 800);
 		setLocationRelativeTo(null);
-		setBackground(new Color(0, 0, 0, 0));
-		
+
 		contentPane = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                Graphics2D g2 = (Graphics2D) g;
-                int arc = 30; 
-                Shape roundedRect = new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), arc, arc);
-                g2.setPaint(blackcolor); 
-                g2.fill(roundedRect);
-            }
-        };
+			@Override
+			protected void paintComponent(Graphics g) {
+				Graphics2D g2 = (Graphics2D) g;
+				int arc = 30;
+				Shape roundedRect = new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), arc, arc);
+				g2.setPaint(blackcolor);
+				g2.fill(roundedRect);
+			}
+		};
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -78,7 +77,7 @@ public class HomeFrame extends JFrame {
 		panel.setBounds(12, 0, 141, 900);
 		contentPane.add(panel);
 		panel.setLayout(null);
-		
+
 		dashbtn = new RoundButton("dashboard");
 		dashbtn.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
 		dashbtn.setBounds(2, 81, 124, 36);
@@ -87,15 +86,15 @@ public class HomeFrame extends JFrame {
 		buybtn = new RoundButton("주 문 내 역");
 		buybtn.setBounds(2, 125, 124, 36);
 		panel.add(buybtn);
-		
+
 		inventorybtn = new RoundButton("재 고 관 리");
 		inventorybtn.setBounds(2, 167, 124, 36);
 		panel.add(inventorybtn);
-		
+
 		menubtn = new RoundButton("메 뉴 관 리");
 		menubtn.setBounds(2, 210, 124, 36);
 		panel.add(menubtn);
-		
+
 		salesbtn = new RoundButton("매 출 확 인");
 		salesbtn.setBounds(2, 252, 124, 36);
 		panel.add(salesbtn);
@@ -113,7 +112,7 @@ public class HomeFrame extends JFrame {
 		dashboard.setLayout(null);
 		dashboard.setBackground(blackcolor);
 		cards.add(dashboard, "dashboard");
-		
+
 		BuyList buyList = new BuyList();
 		buyList.setLayout(null);
 		buyList.setBackground(blackcolor);
@@ -135,9 +134,9 @@ public class HomeFrame extends JFrame {
 		ingredientList.setLayout(null);
 		ingredientList.setBackground(blackcolor);
 		cards.add(ingredientList, "ingredientList");
-		
+
 		cardLayout = (CardLayout) cards.getLayout();
-		
+
 		dashbtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -182,7 +181,7 @@ public class HomeFrame extends JFrame {
 				cardLayout.show(cards, "ingredientList");
 			}
 		});
-		
+
 		ImageIcon dot = new ImageIcon("GreatPizza/img//Dots.png");
 		JLabel dots = new JLabel(dot);
 		dots.setBounds(2, 25, 60, 30);
@@ -193,21 +192,27 @@ public class HomeFrame extends JFrame {
 				login.setVisible(true);
 				dispose();
 			}
+
 			@Override
-			public void mousePressed(MouseEvent e) { }
+			public void mousePressed(MouseEvent e) {
+			}
+
 			@Override
-			public void mouseReleased(MouseEvent e) { }
+			public void mouseReleased(MouseEvent e) {
+			}
+
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				dots.setBounds(2, 22, 60, 30);
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				dots.setBounds(2, 25, 60, 30);
 			}
 		});
 		panel.add(dots);
-		
+
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(graycolor);
 		panel_1.setBounds(138, 0, 3, 800);

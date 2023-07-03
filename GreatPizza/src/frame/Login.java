@@ -61,9 +61,7 @@ public class Login extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 900, 800);
 		setLocationRelativeTo(null);
-		setBackground(new Color(0, 0, 0, 0));
-		
-		
+
 		contentPane = new JPanel() {
 			@Override
 			protected void paintComponent(Graphics g) {
@@ -77,8 +75,8 @@ public class Login extends JFrame {
 		};
 
 		setContentPane(contentPane);
+		contentPane.setBackground(blackcolor);
 		contentPane.setLayout(null);
-
 		id = new JTextField();
 		id.setBackground(blackcolor);
 		id.setText("아이디");
