@@ -54,7 +54,6 @@ public class MenuPopup extends JFrame {
 	private JLabel sauce;
 	private ImageIcon image;
 	private JLabel lblNewLabel_5;
-	private String imagePath;
 	private byte[] sBytes;
 	private JButton btnNewButton;
 	public static final Color blackcolor = Color.decode("#171821");
@@ -65,9 +64,8 @@ public class MenuPopup extends JFrame {
 
 	public MenuPopup(MenuList menulist) {
 		pr = new PosRepo();
-		getContentPane().setBackground(Color.PINK);
-		setBackground(Color.PINK);
-		setSize(new Dimension(652, 613));
+		getContentPane().setBackground(Color.LIGHT_GRAY);
+		setSize(new Dimension(671, 622));
 		setLocationRelativeTo(null);
 		setUndecorated(true);
 		getContentPane().setLayout(null);
@@ -75,8 +73,8 @@ public class MenuPopup extends JFrame {
 		comboBox.setEnabled(false);
 
 		JPanel panel = new JPanel();
-		panel.setBackground(new Color(255, 228, 225));
-		panel.setBounds(17, 10, 251, 50);
+		panel.setBackground(graycolor);
+		panel.setBounds(17, 54, 251, 50);
 		getContentPane().add(panel);
 		panel.setLayout(null);
 
@@ -87,8 +85,9 @@ public class MenuPopup extends JFrame {
 		panel.add(lblNewLabel);
 
 		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(255, 228, 225));
-		panel_1.setBounds(17, 70, 251, 50);
+		panel_1.setBounds(17, 114, 251, 50);
+		panel_1.setForeground(blackcolor);
+		panel_1.setBackground(graycolor);
 		getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 
@@ -99,8 +98,8 @@ public class MenuPopup extends JFrame {
 		panel_1.add(lblNewLabel_1);
 
 		JPanel panel_5 = new JPanel();
-		panel_5.setBackground(Color.WHITE);
-		panel_5.setBounds(359, 10, 265, 508);
+		panel_5.setBackground(graycolor);
+		panel_5.setBounds(394, 54, 265, 526);
 		getContentPane().add(panel_5);
 		panel_5.setLayout(null);
 
@@ -118,7 +117,7 @@ public class MenuPopup extends JFrame {
 
 			}
 		});
-		btnNewButton_1.setBounds(153, 254, 82, 23);
+		btnNewButton_1.setBounds(143, 270, 82, 23);
 		btnNewButton_1.setForeground(mintcolor);
 		panel_5.add(btnNewButton_1);
 
@@ -151,8 +150,9 @@ public class MenuPopup extends JFrame {
 		panel.add(comboBox_1);
 
 		JPanel panel_2 = new JPanel();
-		panel_2.setBackground(new Color(255, 228, 225));
-		panel_2.setBounds(17, 130, 251, 50);
+		panel_2.setBackground(graycolor);
+		;
+		panel_2.setBounds(17, 174, 251, 50);
 		getContentPane().add(panel_2);
 		panel_2.setLayout(null);
 
@@ -169,8 +169,8 @@ public class MenuPopup extends JFrame {
 		menuName.setColumns(10);
 
 		JPanel panel_3 = new JPanel();
-		panel_3.setBackground(new Color(255, 228, 225));
-		panel_3.setBounds(17, 190, 251, 50);
+		panel_3.setBackground(graycolor);
+		panel_3.setBounds(17, 234, 251, 50);
 		getContentPane().add(panel_3);
 		panel_3.setLayout(null);
 
@@ -187,8 +187,8 @@ public class MenuPopup extends JFrame {
 		panel_3.add(hopedPrice);
 
 		JPanel panel_4 = new JPanel();
-		panel_4.setBackground(Color.PINK);
-		panel_4.setBounds(17, 356, 251, 208);
+		panel_4.setBackground(graycolor);
+		panel_4.setBounds(17, 404, 251, 208);
 		getContentPane().add(panel_4);
 
 		final JPanel scrollablePanel = new JPanel();
@@ -219,24 +219,31 @@ public class MenuPopup extends JFrame {
 							if (countCb < 5 && selectType.equals("토핑")) {
 								if (countCb == 0 && selectType.equals("토핑")) {
 									topping_1.setText(ig.getId());
+									topping_1.setForeground(Color.WHITE);
 									countCb++;
 								} else if (countCb == 1 && selectType.equals("토핑")) {
 									topping_2.setText(ig.getId());
+									topping_2.setForeground(Color.WHITE);
 									countCb++;
 								} else if (countCb == 2 && selectType.equals("토핑")) {
 									topping_3.setText(ig.getId());
+									topping_3.setForeground(Color.WHITE);
 									countCb++;
 								} else if (countCb == 3 && selectType.equals("토핑")) {
 									topping_4.setText(ig.getId());
+									topping_4.setForeground(Color.WHITE);
 									countCb++;
 								} else if (countCb == 4 && selectType.equals("토핑")) {
 									topping_5.setText(ig.getId());
+									topping_5.setForeground(Color.WHITE);
 									countCb++;
 								}
 							} else if (selectType.equals("소스")) {
 								sauce.setText(ig.getId());
+								sauce.setForeground(Color.WHITE);
 							} else if (selectType.equals("엣지")) {
 								edge.setText(ig.getId());
+								edge.setForeground(Color.WHITE);
 							}
 						}
 					});
@@ -248,7 +255,7 @@ public class MenuPopup extends JFrame {
 		});
 		comboBox.setToolTipText("분 류\r\n");
 		comboBox.setModel(new DefaultComboBoxModel(new String[] { "엣지", "소스", "토핑" }));
-		comboBox.setBounds(154, 312, 113, 43);
+		comboBox.setBounds(154, 357, 113, 43);
 		getContentPane().add(comboBox);
 
 		JScrollPane jsp = new JScrollPane(scrollablePanel);
@@ -315,7 +322,7 @@ public class MenuPopup extends JFrame {
 		lblNewLabel_4_8.setSize(new Dimension(60, 20));
 		lblNewLabel_4_8.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_4_8.setForeground(mintcolor);
-		lblNewLabel_4_8.setBounds(55, 255, 60, 20);
+		lblNewLabel_4_8.setBounds(54, 271, 60, 20);
 		panel_5.add(lblNewLabel_4_8);
 
 		edge = new JLabel("없 음");
@@ -362,7 +369,7 @@ public class MenuPopup extends JFrame {
 
 		lblNewLabel_5 = new JLabel("이 미 지 출 력");
 		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_5.setBounds(26, 283, 215, 215);
+		lblNewLabel_5.setBounds(27, 301, 215, 215);
 		lblNewLabel_5.setForeground(mintcolor);
 		panel_5.add(lblNewLabel_5);
 
@@ -387,6 +394,7 @@ public class MenuPopup extends JFrame {
 		btnNewButton_2_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				edge.setText("없 음");
+				edge.setForeground(blackcolor);
 			}
 		});
 		btnNewButton_2_1.setBounds(188, 40, 65, 25);
@@ -397,6 +405,7 @@ public class MenuPopup extends JFrame {
 		btnNewButton_2_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				sauce.setText("없 음");
+				sauce.setForeground(blackcolor);
 			}
 		});
 		btnNewButton_2_2.setBounds(188, 71, 65, 25);
@@ -407,6 +416,7 @@ public class MenuPopup extends JFrame {
 		btnNewButton_2_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				topping_1.setText("없 음");
+				topping_1.setForeground(blackcolor);
 			}
 		});
 		btnNewButton_2_3.setBounds(188, 101, 65, 25);
@@ -417,6 +427,7 @@ public class MenuPopup extends JFrame {
 		btnNewButton_2_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				topping_2.setText("없 음");
+				topping_2.setForeground(blackcolor);
 			}
 		});
 		btnNewButton_2_4.setBounds(188, 131, 65, 25);
@@ -427,6 +438,7 @@ public class MenuPopup extends JFrame {
 		btnNewButton_2_4_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				topping_3.setText("없 음");
+				topping_3.setForeground(blackcolor);
 			}
 		});
 		btnNewButton_2_4_1.setBounds(188, 161, 65, 25);
@@ -437,6 +449,7 @@ public class MenuPopup extends JFrame {
 		btnNewButton_2_4_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				topping_4.setText("없 음");
+				topping_4.setForeground(blackcolor);
 			}
 		});
 		btnNewButton_2_4_2.setBounds(188, 192, 65, 25);
@@ -447,6 +460,8 @@ public class MenuPopup extends JFrame {
 		btnNewButton_2_4_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				topping_5.setText("없 음");
+				topping_5.setForeground(blackcolor);
+
 			}
 		});
 		btnNewButton_2_4_3.setBounds(188, 221, 65, 25);
@@ -534,7 +549,7 @@ public class MenuPopup extends JFrame {
 		btnNewButton.setEnabled(false);
 
 		btnNewButton.setBackground(new Color(255, 222, 173));
-		btnNewButton.setBounds(395, 526, 186, 38);
+		btnNewButton.setBounds(438, 574, 186, 38);
 		getContentPane().add(btnNewButton);
 
 		JButton btnNewButton_3 = new JButton("확 정");
@@ -548,7 +563,7 @@ public class MenuPopup extends JFrame {
 				}
 			}
 		});
-		btnNewButton_3.setBounds(201, 243, 67, 28);
+		btnNewButton_3.setBounds(201, 294, 67, 28);
 		getContentPane().add(btnNewButton_3);
 
 		JButton btnNewButton_3_1 = new JButton("수 정");
@@ -560,19 +575,53 @@ public class MenuPopup extends JFrame {
 				hopedPrice.setEnabled(true);
 			}
 		});
-		btnNewButton_3_1.setBounds(122, 243, 67, 28);
+		btnNewButton_3_1.setBounds(123, 294, 67, 28);
 		getContentPane().add(btnNewButton_3_1);
+
+		ImageIcon icon = new ImageIcon("GreatPizza/img//Frame 94.png");
+		JPanel panel_6 = new JPanel();
+		panel_6.setBounds(0, 0, 671, 622);
+		getContentPane().add(panel_6);
+		panel_6.setLayout(null);
+
+		JPanel panel_7 = new JPanel();
+		panel_7.setBackground(blackcolor);
+		panel_7.setBounds(12, 47, 262, 282);
+		panel_6.add(panel_7);
+
+		JPanel panel_8 = new JPanel();
+		panel_8.setBackground(blackcolor);
+		panel_8.setBounds(12, 352, 262, 270);
+		panel_6.add(panel_8);
+
+		JPanel panel_9 = new JPanel();
+		panel_9.setBackground(blackcolor);
+		panel_9.setBounds(386, 47, 285, 575);
+		panel_6.add(panel_9);
+
+		JLabel background = new JLabel(icon);
+		background.setBounds(0, 0, 671, 622);
+		panel_6.add(background);
+
 		setVisible(true);
+
 	}
 
 	public void addMenuReset() {
 		topping_1.setText("없 음");
+		topping_1.setForeground(blackcolor);
 		topping_2.setText("없 음");
+		topping_2.setForeground(blackcolor);
 		topping_3.setText("없 음");
+		topping_3.setForeground(blackcolor);
 		topping_4.setText("없 음");
+		topping_4.setForeground(blackcolor);
 		topping_5.setText("없 음");
+		topping_5.setForeground(blackcolor);
 		edge.setText("없 음");
+		edge.setForeground(blackcolor);
 		sauce.setText("없 음");
+		sauce.setForeground(blackcolor);
 	}
 
 	public void addImage(byte[] bytes) {

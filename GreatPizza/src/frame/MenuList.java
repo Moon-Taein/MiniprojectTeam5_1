@@ -13,7 +13,6 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -25,7 +24,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
 import img.RoundButton;
-import repo.Ingredient;
 import repo.Menu;
 import repo.PosRepo;
 
@@ -36,7 +34,6 @@ import java.awt.Graphics;
 
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
-import javax.swing.KeyStroke;
 
 public class MenuList extends JPanel {
 	private JPanel scrollablePanel;
@@ -45,9 +42,6 @@ public class MenuList extends JPanel {
 	public static final Color graycolor = Color.decode("#21222D");
 	public static final Color mintcolor = Color.decode("#A9DFD8");
 	private JTextField textField;
-	private PosRepo pr;
-	private JScrollPane scrollPane;
-	private JPanel innerPanel;
 
 	public MenuList() {
 		setBackground(Color.BLACK);
@@ -73,14 +67,77 @@ public class MenuList extends JPanel {
 		scrollablePanel.setBounds(80, 160, 589, 500);
 		scrollablePanel.setLayout(new BoxLayout(scrollablePanel, BoxLayout.Y_AXIS));
 
-		pr = new PosRepo();
+		// 패널 내부의 패널 생성
+		PosRepo pr = new PosRepo();
 		List<Menu> list = pr.menuIdPrice();
-		setting(list);
+		for (Menu m : list) {
+			JPanel innerPanel = new JPanel();
+			innerPanel.setLayout(new GridLayout(1, 3, 0, 25)); // (행, 열, 글자사이 가로 간격, 격자사이 수직 간격)
 
-		scrollPane = new JScrollPane(scrollablePanel);
+			innerPanel.setBorder(new EmptyBorder(15, 5, 15, 5)); // (위로 간격, 왼쪽 ,아래, 우측) 레이아웃과의 간격
+			innerPanel.setBackground(graycolor);
+			innerPanel.setOpaque(true);
+
+			JLabel nameLabel = new JLabel(m.getMenuId());
+			nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
+			nameLabel.setOpaque(false);
+			nameLabel.setFont(new Font("굴림", Font.PLAIN, 15));
+			nameLabel.setBackground(graycolor);
+			nameLabel.setForeground(mintcolor);
+
+			JLabel typeLabel = new JLabel(m.getType());
+			typeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+			typeLabel.setOpaque(true);
+			typeLabel.setFont(new Font("굴림", Font.PLAIN, 15));
+			typeLabel.setBackground(graycolor);
+			typeLabel.setForeground(mintcolor);
+
+			JLabel priceLabel = new JLabel(String.valueOf(m.getPrice()));
+			priceLabel.setHorizontalAlignment(SwingConstants.CENTER);
+			priceLabel.setOpaque(true);
+			priceLabel.setFont(new Font("굴림", Font.PLAIN, 15));
+			priceLabel.setBackground(graycolor);
+			priceLabel.setForeground(mintcolor);
+
+			// Add the labels to the inner panel
+			innerPanel.add(nameLabel);
+			innerPanel.add(typeLabel);
+			innerPanel.add(priceLabel);
+
+			innerPanel.addMouseListener(new MouseAdapter() {
+
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					int index = 0;
+					for (int i = 0; i < list.size(); i++) {
+						Menu menu = list.get(i);
+						if (menu.getMenuId().equals(nameLabel.getText())) {
+							index = i;
+							break;
+						}
+					}
+					Menu menu = list.get(index);
+
+					MenuResetPopup menuResetPopup = new MenuResetPopup(MenuList.this, menu);
+				}
+
+			});
+
+			innerPanel.revalidate();
+			innerPanel.repaint();
+			scrollablePanel.add(innerPanel);
+			scrollablePanel.setOpaque(false);
+			scrollablePanel.revalidate();
+			scrollablePanel.repaint();
+		}
+
+		// JScrollPane 생성 및 스크롤 가능한 패널 설정
+		JScrollPane scrollPane = new JScrollPane(scrollablePanel);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 //		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setPreferredSize(new Dimension(590, 496));
 		scrollPane.setBackground(graycolor);
+		
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.getVerticalScrollBar().setBackground(graycolor); // 스크롤 바 배경
 		scrollPane.getVerticalScrollBar().setUnitIncrement(15); // 스크롤 바 속도
@@ -106,77 +163,8 @@ public class MenuList extends JPanel {
 		textField.setOpaque(false);
 		textField.setBorder(null);
 		textField.setForeground(Color.WHITE);
-		textField.registerKeyboardAction(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				List<Menu> menus = pr.findmenus(textField.getText());
-				scrollablePanel.removeAll();
-				scrollablePanel.repaint();
-				setting(menus);
-				scrollablePanel.revalidate();
-			}
-		}, null, KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), JComponent.WHEN_FOCUSED);
 		background.add(textField);
 		textField.setColumns(10);
-	}
-	
-	public void setting(List<Menu> list) {
-		for (Menu m : list) {
-			innerPanel = new JPanel();
-			innerPanel.setLayout(new GridLayout(1, 3, 0, 50)); // (행, 열, 글자사이 가로 간격, 격자사이 수직 간격)
-			
-			innerPanel.setBorder(new EmptyBorder(15, 5, 15, 5)); // (위로 간격, 왼쪽 ,아래, 우측) 레이아웃과의 간격
-			innerPanel.setBackground(graycolor);
-			innerPanel.setOpaque(true);
-			
-			JLabel nameLabel = new JLabel(m.getMenuId());
-			nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
-			nameLabel.setOpaque(true);
-			nameLabel.setFont(new Font("굴림", Font.PLAIN, 15));
-			nameLabel.setBackground(graycolor);
-			nameLabel.setForeground(mintcolor);
-			
-			JLabel typeLabel = new JLabel(m.getType());
-			typeLabel.setHorizontalAlignment(SwingConstants.CENTER);
-			typeLabel.setOpaque(true);
-			typeLabel.setFont(new Font("굴림", Font.PLAIN, 15));
-			typeLabel.setBackground(graycolor);
-			typeLabel.setForeground(mintcolor);
-			
-			JLabel priceLabel = new JLabel(String.valueOf(m.getPrice()));
-			priceLabel.setHorizontalAlignment(SwingConstants.CENTER);
-			priceLabel.setOpaque(true);
-			priceLabel.setFont(new Font("굴림", Font.PLAIN, 15));
-			priceLabel.setBackground(graycolor);
-			priceLabel.setForeground(mintcolor);
-			
-			// Add the labels to the inner panel
-			innerPanel.add(nameLabel);
-			innerPanel.add(typeLabel);
-			innerPanel.add(priceLabel);
-			
-			innerPanel.addMouseListener(new MouseAdapter() {
-				
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					int index = 0;
-					for (int i = 0; i < list.size(); i++) {
-						Menu menu = list.get(i);
-						if (menu.getMenuId().equals(nameLabel.getText())) {
-							index = i;
-							break;
-						}
-					}
-					Menu menu = list.get(index);
-					
-					MenuResetPopup menuResetPopup = new MenuResetPopup(MenuList.this, menu);
-				}
-				
-			});
-			
-			scrollablePanel.add(innerPanel);
-			scrollablePanel.setBackground(graycolor);
-		}
 	}
 
 	static class CustomScrollBarUI extends BasicScrollBarUI {
