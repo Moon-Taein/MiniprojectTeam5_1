@@ -11,6 +11,6 @@
 	<classpathentry kind="lib" path="commons-logging-1.2.jar"/>
 	<classpathentry kind="lib" path="commons-pool2-2.11.1.jar"/>
 	<classpathentry kind="lib" path="mysql-connector-java-8.0.20.jar"/>
-	<classpathentry kind="lib" path="C:/Users/GGG/Downloads/jfreechart-1.5.3.jar"/>
+	<classpathentry kind="lib" path="jfreechart-1.5.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
