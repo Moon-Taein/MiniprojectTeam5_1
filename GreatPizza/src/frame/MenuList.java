@@ -110,7 +110,6 @@ public class MenuList extends JPanel {
 			                break;
 			            }
 			        }
-					System.out.println(index);
 					Menu menu = list.get(index);
 					
 				MenuResetPopup menuResetPopup = new MenuResetPopup(MenuList.this, menu);
@@ -134,6 +133,7 @@ public class MenuList extends JPanel {
 		scrollPane.setPreferredSize(new Dimension(590, 496));
 		scrollPane.setBackground(graycolor);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setBorder(null);
 		scrollPane.revalidate();
 		scrollPane.repaint();
 		panel.add(scrollPane);

@@ -22,6 +22,7 @@ public class PosRepo {
 	private PreparedStatement stmt = null;
 	private ResultSet rs = null;
 	private InputImage ip;
+	private int day;
 
 	public List<Menu> menuIdPrice() {
 		list = new ArrayList<>();
@@ -95,6 +96,53 @@ public class PosRepo {
 			DBUtil.close(conn);
 		}
 		return listY;
+	}
+
+	public int getPurchase(String date) {
+		String sql = "select purchase from account where date = '" + date + "'";
+		int purchase = 0;
+
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+			rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				purchase = rs.getInt("purchase");
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		System.out.println(purchase);
+		return purchase;
+	}
+
+	public int getSales(String date) {
+		String sql = "select sales from account where date = '" + date + "'";
+		int sales = 0;
+
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+			rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				sales = rs.getInt("sales");
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		return sales;
 	}
 
 	public List<Integer> month(Integer year) {
@@ -351,10 +399,9 @@ public class PosRepo {
 		return toppoingList;
 	}
 
+
 	
-	public HashMap<String, Integer> deleteRecipe(){
-		
-	}
+	
 	public int deletePizzaRecipe(String type, String name, String size, List<String> removerecipe) {
 
 		String sql = "DELETE FROM recipe  WHERE menu_id = ? AND ingredient_id = ?";
@@ -372,7 +419,9 @@ public class PosRepo {
 				stmt.executeUpdate();
 			}
 
+	
 			return 1;
+
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -383,24 +432,27 @@ public class PosRepo {
 		}
 		return 0;
 	}
+
 
 	public int deletePizzaMenu(String originType, String originName, String originSize, String originPrice,
 			List<String> originList, String setPrice, List<String> setList) {
 
 		String sql = "DELETE FROM menu WHERE menu_id = ?";
 
-		try {
-			conn = DBUtil.getConnection();
-			stmt = conn.prepareStatement(sql);
-
+	
 			String menuName = originName + originSize;
 			String menuId = originType + "_" + menuName;
 
+
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, menuId);
 			stmt.executeUpdate();
 
 			return 1;
 
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -410,20 +462,18 @@ public class PosRepo {
 		}
 		return 0;
 	}
+
+
 
 	public int dropPizzaRecipe(String origin) {
 
 		String sql = "DELETE FROM recipe WHERE menu_id = ?";
-
 		try {
 			conn = DBUtil.getConnection();
 			stmt = conn.prepareStatement(sql);
-
 			stmt.setString(1, origin);
 			stmt.executeUpdate();
-
 			return 1;
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -433,6 +483,8 @@ public class PosRepo {
 		}
 		return 0;
 	}
+
+
 
 	public int dropPizzaMenu(String origin) {
 
@@ -478,9 +530,6 @@ public class PosRepo {
 		return 0;
 	}
 
-	public static void main(String[] args) {
-		PosRepo pr = new PosRepo();
 
-	}
 
 }
