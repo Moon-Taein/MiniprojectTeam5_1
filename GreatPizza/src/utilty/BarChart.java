@@ -16,25 +16,40 @@ import java.awt.*;
 
 public class BarChart extends JPanel {
 	
-    public BarChart() {
+    public BarChart(String x, String date) {
+    	int z = Integer.valueOf(x);
         // 데이터셋 생성 및 값 추가
         DefaultCategoryDataset dataset1 = new DefaultCategoryDataset();
-        dataset1.addValue(50, "Database 1", "Category 1");
-        dataset1.addValue(30, "Database 1", "Category 2");
-        dataset1.addValue(20, "Database 1", "Category 3");
-        dataset1.addValue(20, "Database 1", "Category 4");
-        dataset1.addValue(80, "Database 1", "Category 5");
-        dataset1.addValue(50, "Database 1", "Category 6");
-        dataset1.addValue(20, "Database 1", "Category 7");
+        if (date == "MONDAY") {
+        	dataset1.setValue(z, "Database 1", "Category 1");
+        } else if (date == "TUESDAY") {
+        	dataset1.setValue(14, "Database 1", "Category 1");
+        	dataset1.addValue(z, "Database 1", "Category 2");
+        } else if (date == "WEDNESDAY") {
+        	dataset1.setValue(14, "Database 1", "Category 1");
+        	dataset1.addValue(16, "Database 1", "Category 2");
+        	dataset1.addValue(z, "Database 1", "Category 3");
+        } else if (date == "THURSDAY") {
+        	dataset1.setValue(14, "Database 1", "Category 1");
+        	dataset1.addValue(16, "Database 1", "Category 2");
+        	dataset1.addValue(20, "Database 1", "Category 3");
+        	dataset1.addValue(z, "Database 1", "Category 4");
+        } else if (date == "FRIDAY") {
+        	dataset1.addValue(z, "Database 1", "Category 5");
+        } else if (date == "SATURDAY") {
+        	dataset1.addValue(z, "Database 1", "Category 6");
+        } else if (date == "SUNDAY") {
+        	dataset1.addValue(z, "Database 1", "Category 7");
+        }
 
         DefaultCategoryDataset dataset2 = new DefaultCategoryDataset();
-        dataset2.addValue(40, "Database 2", "Category 1");
-        dataset2.addValue(20, "Database 2", "Category 2");
-        dataset2.addValue(80, "Database 2", "Category 3");
-        dataset2.addValue(20, "Database 2", "Category 4");
-        dataset2.addValue(90, "Database 2", "Category 5");
-        dataset2.addValue(20, "Database 2", "Category 6");
-        dataset2.addValue(30, "Database 2", "Category 7");
+        dataset2.addValue(14, "Database 2", "Category 1");
+        dataset2.addValue(18, "Database 2", "Category 2");
+        dataset2.addValue(11, "Database 2", "Category 3");
+        dataset2.addValue(12, "Database 2", "Category 4");
+        dataset2.addValue(13, "Database 2", "Category 5");
+        dataset2.addValue(16, "Database 2", "Category 6");
+        dataset2.addValue(14, "Database 2", "Category 7");
 
         // 데이터셋 병합
         DefaultCategoryDataset mergedDataset = new DefaultCategoryDataset();
@@ -77,9 +92,8 @@ public class BarChart extends JPanel {
         renderer.setShadowVisible(false);
         renderer.setShadowVisible(false);  // 그래프 그림자 비활성화
         renderer.setSeriesPaint(0, new Color(169, 223, 216));
-        renderer.setSeriesPaint(1, Color.decode("#2B2B36"));
+        renderer.setSeriesPaint(1, Color.decode("#87888C"));
 
-        
         // 막대 너비 및 간격 설정
         double barWidth = 0.3; // 막대의 너비
         double categoryMargin = 0; // 막대 사이의 간격

@@ -125,7 +125,7 @@ public class SalesList extends JPanel {
 		btnmonth.setBounds(30, 30, 40, 23);
 		dateback.add(btnmonth);
 		
-		BarChart barChart = new BarChart();
+		BarChart barChart = new BarChart(order.soldtoday(day,"확인"), String.valueOf(today.getDayOfWeek()));
 		dateback.add(barChart);
 		barChart.setBounds(97, 412, 565, 260);
 		barChart.setOpaque(false);
@@ -142,7 +142,7 @@ public class SalesList extends JPanel {
 		minus.setBounds(472, 180, 100, 30);
 		dateback.add(minus);
 		
-		JLabel finish = new JLabel(order.soldtoday(day,"확인")+"개의 주문 완료");
+		JLabel finish = new JLabel(order.soldtoday(day,"확인")+"건 주문 완료");
 		finish.setForeground(Color.WHITE);
 		finish.setBounds(120, 109, 150, 30);
 		finish.setFont(new Font("굴림", Font.BOLD, 15));
