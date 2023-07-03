@@ -38,11 +38,11 @@ public class IngredientList extends JPanel {
 	public Color graycolor = Color.decode("#21222D");
 
 	public IngredientList() {
-		order = new OrderRepo();
 		setting();
 	}
 	
 	public void setting() {
+		order = new OrderRepo();
 		setBounds(0, 0, 750, 800);
 		setLayout(null);
 		

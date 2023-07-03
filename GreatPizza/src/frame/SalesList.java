@@ -117,7 +117,7 @@ public class SalesList extends JPanel {
 		
 		JLabel total = new JLabel(order.todaySales(day) + "원");
 		total.setForeground(mintcolor);
-		total.setBounds(435, 163, 100, 30);
+		total.setBounds(435, 161, 100, 30);
 		total.setFont(new Font("굴림", Font.BOLD, 15));
 		total.setHorizontalAlignment(SwingConstants.CENTER);
 		dateback.add(total);

@@ -33,6 +33,8 @@ public class HomeFrame extends JFrame {
 	public static final Color graycolor = Color.decode("#21222D");
 	public static final Color mintcolor = Color.decode("#A9DFD8");
 	private SalesList salesList;
+	private IngredientList ingredientList;
+	private FinancialList financialList;
 
 	public HomeFrame() {
 		setUndecorated(true);
@@ -94,7 +96,7 @@ public class HomeFrame extends JFrame {
 		salesList = new SalesList();
 		cards.add(salesList, "salesList");
 
-		FinancialList financialList = new FinancialList();
+		financialList = new FinancialList();
 		financialList.setLayout(null);
 		financialList.setBackground(blackcolor);
 		cards.add(financialList, "financialList");
@@ -104,7 +106,7 @@ public class HomeFrame extends JFrame {
 		menuList.setBackground(blackcolor);
 		cards.add(menuList, "menuList");
 
-		IngredientList ingredientList = new IngredientList();
+		ingredientList = new IngredientList();
 		ingredientList.setLayout(null);
 		ingredientList.setBackground(blackcolor);
 		cards.add(ingredientList, "ingredientList");
@@ -139,8 +141,9 @@ public class HomeFrame extends JFrame {
 
 		inventorybtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				InventoryPopup pop = new InventoryPopup();
-//				pop.setVisible(true);
+				ingredientList.removeAll();
+				ingredientList.repaint();
+				ingredientList.setting();
 				cardLayout.show(cards, "ingredientList");
 			}
 		});
