@@ -1,23 +1,38 @@
 package frame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JList;
+
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 import javax.swing.JTextField;
+import javax.swing.ListCellRenderer;
+import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.border.LineBorder;
+import javax.swing.plaf.basic.BasicComboBoxUI;
 
 import img.RoundButton;
 import repo.OrderRepo;
 
 import java.awt.Color;
+import java.awt.Component;
+
+import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
 
 public class IngredientPlus extends JFrame {
@@ -26,6 +41,9 @@ public class IngredientPlus extends JFrame {
 	private JTextField priceSupply;
 	private JTextField lowerCount;
 	private OrderRepo order;
+	public static final Color blackcolor = Color.decode("#171821");
+	public static final Color graycolor = Color.decode("#21222D");
+	public static final Color mintcolor = Color.decode("#A9DFD8");
 
 	public IngredientPlus(IngredientList ingredientList) {
 		order = new OrderRepo();
@@ -37,7 +55,7 @@ public class IngredientPlus extends JFrame {
 		pnlPlus.setSize(750, 350);
 		pnlPlus.setBackground(Color.decode("#171821"));
 		pnlPlus.setLayout(null);
-		add(pnlPlus);
+		getContentPane().add(pnlPlus);
 		
 		ImageIcon background = new ImageIcon("GreatPizza/img//InBuy.png");
 		JLabel back = new JLabel(background);
@@ -96,6 +114,7 @@ public class IngredientPlus extends JFrame {
 		JComboBox comboBox = new JComboBox();
 		back.add(comboBox);
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"소스", "토핑", "엣지"}));
+		comboBox.setUI(new CustomComboBoxUI());
 		comboBox.setBounds(619, 111, 97, 21);
 		
 		RoundButton btninput = new RoundButton("재료추가");
@@ -115,7 +134,11 @@ public class IngredientPlus extends JFrame {
 		});
 		btninput.setBounds(386, 255, 200, 39);
 		
-		JButton image = new JButton("이미지");
+		RoundButton image = new RoundButton("이미지");
+		image.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		back.add(image);
 		image.setBounds(619, 71, 97, 23);
 		
@@ -147,5 +170,33 @@ public class IngredientPlus extends JFrame {
 			}
 		});
 		back.add(dots);
+	}
+	class CustomComboBoxUI extends BasicComboBoxUI {
+		private BufferedImage backgroundImg;
+		
+		@Override
+		protected ListCellRenderer<?> createRenderer() {
+			// 셀 렌더러 생성 및 디자인 설정
+			return new DefaultListCellRenderer() {
+				@Override
+				public Component getListCellRendererComponent(JList<?> list, Object value, int index,
+						boolean isSelected, boolean cellHasFocus) {
+					JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected,
+							cellHasFocus);
+					label.setForeground(mintcolor);
+					label.setBackground(graycolor);
+					label.setHorizontalAlignment(SwingConstants.CENTER); // 텍스트 중앙 정렬
+
+					return label;
+				}
+			};
+		}
+
+		@Override
+		public void paint(Graphics g, JComponent c) {
+			super.paint(g, c);
+			Graphics2D g2 = (Graphics2D) g;
+			g2.drawImage(backgroundImg, 0, 0, c.getWidth(), c.getHeight(), null);
+		}
 	}
 }

@@ -75,14 +75,14 @@ public class MenuList extends JPanel {
 		PosRepo pr = new PosRepo();
 		List<Menu> list = pr.menuIdPrice();
 		setting(list);
-		
+
 		// JScrollPane 생성 및 스크롤 가능한 패널 설정
 		JScrollPane scrollPane = new JScrollPane(scrollablePanel);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 //		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setPreferredSize(new Dimension(590, 496));
 		scrollPane.setBackground(graycolor);
-		
+
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.getVerticalScrollBar().setBackground(graycolor); // 스크롤 바 배경
 		scrollPane.getVerticalScrollBar().setUnitIncrement(15); // 스크롤 바 속도
@@ -121,7 +121,7 @@ public class MenuList extends JPanel {
 		background.add(textField);
 		textField.setColumns(10);
 	}
-	
+
 	public void setting(List<Menu> list) {
 		for (Menu m : list) {
 			innerPanel = new JPanel();
@@ -185,7 +185,6 @@ public class MenuList extends JPanel {
 	}
 
 	static class CustomScrollBarUI extends BasicScrollBarUI {
-
 		@Override
 		protected void configureScrollBarColors() {
 			// ScrollBar의 색상 설정

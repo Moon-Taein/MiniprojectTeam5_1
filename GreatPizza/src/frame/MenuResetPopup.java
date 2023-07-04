@@ -10,7 +10,9 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.basic.BasicScrollBarUI;
 
+import frame.MenuPopup.CustomScrollBarUI;
 import img.RoundButton;
 import repo.Ingredient;
 import repo.Menu;
@@ -21,14 +23,18 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.Rectangle;
 
 import javax.swing.ScrollPaneConstants;
 import java.awt.event.ActionListener;
@@ -212,6 +218,10 @@ public class MenuResetPopup extends JFrame {
 		JScrollPane jsp = new JScrollPane(scrollablePanel);
 		jsp.setPreferredSize(new Dimension(250, 198));
 		jsp.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		jsp.getVerticalScrollBar().setBackground(Color.WHITE); // 스크롤 바 배경
+		jsp.getVerticalScrollBar().setUnitIncrement(15); // 스크롤 바 속도
+		jsp.getVerticalScrollBar().setPreferredSize(new Dimension(5, 200));
+		jsp.getVerticalScrollBar().setUI(new CustomScrollBarUI()); // 뭔지 모르는데 UI 설정
 		panel_4.add(jsp);
 
 		JLabel lblNewLabel_4 = new JLabel("사 이 즈");
@@ -721,5 +731,43 @@ public class MenuResetPopup extends JFrame {
 		lblNewLabel_5.setIcon(image);
 		lblNewLabel_5.setText("");
 
+	}
+	static class CustomScrollBarUI extends BasicScrollBarUI {
+
+		@Override
+		protected void configureScrollBarColors() {
+			// ScrollBar의 색상 설정
+			thumbColor = mintcolor;
+			thumbDarkShadowColor = Color.BLUE;
+			thumbHighlightColor = Color.GREEN;
+			thumbLightShadowColor = Color.YELLOW;
+		}
+
+		@Override
+		protected void paintThumb(Graphics g, JComponent c, Rectangle thumbBounds) {
+			// Thumb의 디자인을 그림
+			// 예시로 단색의 Thumb을 그리는 코드를 작성하겠습니다.
+			g.setColor(thumbColor);
+			g.fillRect(thumbBounds.x, thumbBounds.y, thumbBounds.width, thumbBounds.height);
+		}
+
+		@Override
+		protected JButton createDecreaseButton(int orientation) {
+			return createZeroButton();
+		}
+
+		@Override
+		protected JButton createIncreaseButton(int orientation) {
+			return createZeroButton();
+		}
+
+		private JButton createZeroButton() {
+			JButton button = new JButton();
+			Dimension zeroDim = new Dimension(0, 0);
+			button.setPreferredSize(zeroDim);
+			button.setMinimumSize(zeroDim);
+			button.setMaximumSize(zeroDim);
+			return button;
+		}
 	}
 }

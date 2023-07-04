@@ -7,6 +7,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
+import javafx.scene.layout.Background;
 import repo.PosRepo;
 
 import java.awt.*;
@@ -37,6 +38,7 @@ public class FinancialList extends JPanel {
 		// 연도 콤보박스 생성
 		yearComboBox = new JComboBox<>();
 		yearComboBox.setBounds(0, 10, 77, 35);
+		yearComboBox.setOpaque(false);
 
 		int currentYear = YearMonth.now().getYear();
 		for (int i : pr.year()) {
@@ -46,6 +48,7 @@ public class FinancialList extends JPanel {
 		// 월 콤보박스 생성
 		monthComboBox = new JComboBox<>();
 		monthComboBox.setBounds(126, 10, 64, 35);
+		monthComboBox.setOpaque(false);
 
 		JLabel lblNewLabel_5 = new JLabel("년도를 선택하면 사라집니다.");
 
@@ -199,9 +202,9 @@ public class FinancialList extends JPanel {
 		for (int row = 0; row < 6; row++) {
 			for (int col = 0; col < 7; col++) {
 				if (row == 0 && col < firstDayOfWeek - 1) {
-					data[row][col] = "앞에 빈칸";
+					data[row][col] = "   [나만의 피자]";
 				} else if (day > lastDayOfMonth) {
-					data[row][col] = "뒤에 빈칸";
+					data[row][col] = "   [나만의 피자]";
 				} else {
 					String date = year + "-" + month + "-" + day;
 
@@ -235,7 +238,7 @@ public class FinancialList extends JPanel {
 		}
 
 		model = new DefaultTableModel(data, columnNames);
-
+		yearComboBox.setOpaque(false);
 		calendarTable.setModel(model);
 		calendarTable.setDefaultRenderer(Object.class, new PanelCellRenderer());
 		calendarTable.setSize(640, 640);
@@ -295,6 +298,7 @@ public class FinancialList extends JPanel {
 			button.setContentAreaFilled(false);
 			button.setFocusPainted(false);
 			button.setBorder(BorderFactory.createEmptyBorder());
+			comboBox.setOpaque(false);
 
 			return button;
 		}
