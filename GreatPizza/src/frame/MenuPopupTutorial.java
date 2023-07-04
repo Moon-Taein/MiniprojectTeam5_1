@@ -6,11 +6,15 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import com.mysql.cj.x.protobuf.MysqlxPrepare.Execute;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JLabel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 import javax.swing.ImageIcon;
 
 public class MenuPopupTutorial extends JFrame {
@@ -46,8 +50,10 @@ public class MenuPopupTutorial extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				dispose();
+				setVisible(false);
 			}
 		});
+
 		lblNewLabel.setBounds(0, 0, 652, 613);
 		contentPane.add(lblNewLabel);
 		setLocationRelativeTo(null);
