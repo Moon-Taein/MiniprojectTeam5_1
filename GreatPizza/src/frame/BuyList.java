@@ -4,6 +4,11 @@ import javax.swing.JPanel;
 
 import img.RoundButton;
 
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -15,9 +20,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import repo.MainOrder;
 import repo.OrderRepo;
+import repo.PosRepo;
 
 public class BuyList extends JPanel {
 	OrderRepo order;
@@ -29,19 +37,74 @@ public class BuyList extends JPanel {
 	private JLabel[] prices;
 	private JButton[] checks;
 	private List<MainOrder> mainOrders;
+	public static final Color mintcolor = Color.decode("#A9DFD8");
 	private int size;
 	private JLabel background;
 	private JLabel dots;
+	PosRepo pr = new PosRepo();
+	int lastMainOrder = pr.lastOrder();
+	JPanel issue = new JPanel();
 
 	public BuyList() {
 		order = new OrderRepo();
 		initialize();
+		
+		
 	}
+
 
 	public void initialize() {
 		setLayout(null);
 		setBounds(0, 0, 750, 800);
 		ImageIcon frame = new ImageIcon(getClass().getResource("/order.png"));
+		
+		JPanel issue = new JPanel();
+		issue.setBounds(380, 20, 280, 27);
+		JLabel lbl = new JLabel("주문이 들어왔습니다. 새로고침 후 확인하세요.");
+		issue.add(lbl);
+		issue.setBackground(mintcolor);
+		issue.setVisible(false);
+		add(issue);
+		
+		TimerTask dask = new TimerTask() {
+		    boolean visible = true;
+		    int count = 0;
+			@Override
+			public void run() {
+				
+				System.out.println(!(lastMainOrder == pr.lastOrder()));
+		        if (!(lastMainOrder == pr.lastOrder())) {
+		        	System.out.println(count);
+		            if (count == 0) {
+		            	PosRepo.ballSound();
+		                issue.setVisible(visible);
+		                visible = !visible;
+		                count++;
+		            } else if (count < 5) {
+		                issue.setVisible(visible);
+		                visible = !visible;
+		                count++;
+		            } else {
+		                issue.setVisible(false);
+		                // 횟수가 완료되면 패널 숨김
+		                // this.cancel(); // TimerTask 중지
+		                lastMainOrder++; // 전역 변수 값 증가
+		            }
+
+		        }
+				
+			}
+		};
+
+		
+		
+		System.out.println(!(lastMainOrder==pr.lastOrder()));
+		Timer timer = new Timer();
+
+
+		timer.schedule(dask, 0, 500);
+		
+		
 		background = new JLabel(frame);
 		background.setBounds(0, 0, 750, 800);
 		add(background);
@@ -133,6 +196,8 @@ public class BuyList extends JPanel {
 		background.add(dots);
 	}
 
+
+	
 	public void setTexts() {
 		for (int i = 0; i < size; i++) {
 			final MainOrder currentOrder = mainOrders.get(i);

@@ -18,6 +18,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -50,6 +52,7 @@ public class MenuList extends JPanel {
 	public MenuList() {
 		setBackground(Color.BLACK);
 		createMenuList();
+
 	}
 
 	public void createMenuList() {
@@ -178,10 +181,16 @@ public class MenuList extends JPanel {
 			scrollablePanel.setOpaque(false);
 			scrollablePanel.revalidate();
 			scrollablePanel.repaint();
-		}
-
+			
+			
+			
+			  
+		    }
 	}
 
+
+	
+	
 	static class CustomScrollBarUI extends BasicScrollBarUI {
 		@Override
 		protected void configureScrollBarColors() {
@@ -218,5 +227,9 @@ public class MenuList extends JPanel {
 			button.setMaximumSize(zeroDim);
 			return button;
 		}
+	
 	}
 }
+
+
+

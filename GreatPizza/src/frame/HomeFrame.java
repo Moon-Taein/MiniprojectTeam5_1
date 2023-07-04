@@ -42,6 +42,10 @@ public class HomeFrame extends JFrame {
 	public JButton menubtn;
 	public JButton salesbtn;
 	public JButton financialbtn;
+	
+	public void salasList() {
+		cardLayout.show(cards, "salesList");
+	}
 
 	public HomeFrame() {
 		setUndecorated(true);

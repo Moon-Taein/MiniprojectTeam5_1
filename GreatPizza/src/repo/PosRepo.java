@@ -1,5 +1,7 @@
 package repo;
 
+import java.io.IOException;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,6 +13,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import javax.sound.sampled.*;
 
 import frame.InputImage;
 
@@ -657,5 +660,53 @@ public class PosRepo {
 		}
 		return list;
 	}
+
+
+
+
+public int lastOrder(){
+	String sql = "SELECT * FROM mainorder ORDER BY no DESC LIMIT 1";
+	
+	Connection conn = null;
+	PreparedStatement stmt = null;
+	ResultSet rs = null;
+	List<Menu> list = new ArrayList<>();
+	try {
+		conn = DBUtil.getConnection();
+		stmt = conn.prepareStatement(sql);
+		rs = stmt.executeQuery();
+		if (rs.next()) {
+			int no = rs.getInt("no");
+			return no;
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		DBUtil.close(rs);
+		DBUtil.close(stmt);
+		DBUtil.close(conn);
+	}
+	return 0;
+}
+
+
+
+
+public static void ballSound() {
+	   try {
+	       URL soundFile = PosRepo.class.getClassLoader().getResource("call-to-attention-123107.wav");
+	       // 사운드 파일 경로 설정
+	       
+	       AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
+	       Clip clip = AudioSystem.getClip();
+	       clip.open(audioInputStream);
+	       clip.start();
+	    } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
+	       ex.printStackTrace();
+	    }
+	
+}
+
+
 
 }
