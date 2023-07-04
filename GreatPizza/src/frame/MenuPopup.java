@@ -61,6 +61,7 @@ public class MenuPopup extends JFrame {
 	public static final Color blackcolor = Color.decode("#171821");
 	public static final Color graycolor = Color.decode("#21222D");
 	public static final Color mintcolor = Color.decode("#A9DFD8");
+	private JLabel pizzaSize;
 
 // 메뉴 추가
 
@@ -73,7 +74,7 @@ public class MenuPopup extends JFrame {
 		getContentPane().setLayout(null);
 		final JComboBox comboBox = new JComboBox();
 		comboBox.setEnabled(false);
-		ImageIcon tutoImage = new ImageIcon("GreatPizza/img//Frame 95.png");
+		ImageIcon tutoImage = new ImageIcon("GreatPizza/img//튜토리얼.png");
 		JLabel tuto = new JLabel(tutoImage);
 		tuto.addMouseListener(new MouseAdapter() {
 			@Override
@@ -385,7 +386,7 @@ public class MenuPopup extends JFrame {
 		lblNewLabel_5.setForeground(mintcolor);
 		panel_5.add(lblNewLabel_5);
 
-		final JLabel pizzaSize = new JLabel("없 음");
+		pizzaSize = new JLabel("없 음");
 		pizzaSize.setSize(new Dimension(0, 20));
 		pizzaSize.setHorizontalAlignment(SwingConstants.CENTER);
 		pizzaSize.setBounds(81, 11, 109, 25);
@@ -483,6 +484,7 @@ public class MenuPopup extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				String item = (String) comboBox_1_1.getSelectedItem();
 				pizzaSize.setText(item);
+				pizzaSize.setForeground(Color.white);
 			}
 		});
 
@@ -640,6 +642,7 @@ public class MenuPopup extends JFrame {
 		edge.setForeground(blackcolor);
 		sauce.setText("없 음");
 		sauce.setForeground(blackcolor);
+		pizzaSize.setForeground(blackcolor);
 	}
 
 	public void addImage(byte[] bytes) {
