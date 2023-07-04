@@ -12,6 +12,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.List;
 
 import repo.MainOrder;
@@ -29,6 +31,7 @@ public class BuyList extends JPanel {
 	private List<MainOrder> mainOrders;
 	private int size;
 	private JLabel background;
+	private JLabel dots;
 
 	public BuyList() {
 		order = new OrderRepo();
@@ -99,6 +102,33 @@ public class BuyList extends JPanel {
 			pnls[i].add(prices[i]);
 		}
 		setTexts();
+		
+		dots = new JLabel(new ImageIcon("GreatPizza/img//reset2.png"));
+		dots.setBounds(680, 10, 50, 50);
+		dots.addMouseListener(new MouseListener() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				removeAll();
+				repaint();
+				initialize();
+				revalidate();
+			}
+			@Override
+			public void mousePressed(MouseEvent e) {
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// 여기서 바꿔주려고 했는데!!
+				dots = new JLabel(new ImageIcon("GreatPizza/img//reset.png"));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+			}
+		});
+		background.add(dots);
 	}
 
 	public void setTexts() {
