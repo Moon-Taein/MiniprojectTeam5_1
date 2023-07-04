@@ -195,8 +195,7 @@ public class IngredientBuy extends JFrame {
 				@Override
 				public Component getListCellRendererComponent(JList<?> list, Object value, int index,
 						boolean isSelected, boolean cellHasFocus) {
-					JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected,
-							cellHasFocus);
+					JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 					label.setForeground(mintcolor);
 					label.setBackground(graycolor);
 					label.setHorizontalAlignment(SwingConstants.CENTER); // 텍스트 중앙 정렬
