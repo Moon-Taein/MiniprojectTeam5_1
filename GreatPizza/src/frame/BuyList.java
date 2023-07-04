@@ -62,6 +62,7 @@ public class BuyList extends JPanel {
 		add(issue);
 		
 		lastMainOrder = order.lastOrder();
+		Timer timer = new Timer();
 		TimerTask dask = new TimerTask() {
 			boolean visible = true;
 			int count = 0;
@@ -83,6 +84,7 @@ public class BuyList extends JPanel {
 						repaint();
 						initialize();
 						revalidate();
+						timer.cancel();
 						this.cancel(); // TimerTask 중지
 					} else {
 						issue.setVisible(false);
@@ -92,9 +94,8 @@ public class BuyList extends JPanel {
 				}
 			}
 		};
-		Timer timer = new Timer();
-		
 		timer.schedule(dask, 0, 500);
+		
 		
 		pnls = new JPanel[4];
 		nums = new JLabel[4];
