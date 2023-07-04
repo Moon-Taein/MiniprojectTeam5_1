@@ -12,6 +12,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
+import com.sun.glass.ui.Timer;
+
 import frame.MenuList.CustomScrollBarUI;
 import img.RoundButton;
 import repo.Ingredient;
@@ -39,6 +41,8 @@ import javax.swing.ScrollPaneConstants;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -80,7 +84,7 @@ public class MenuPopup extends JFrame {
 		setUndecorated(true);
 		getContentPane().setLayout(null);
 		setLocation(700, 250);
-		
+
 		final JComboBox comboBox = new JComboBox();
 		comboBox.setEnabled(false);
 		ImageIcon tutoImage = new ImageIcon(getClass().getResource("/튜토리얼.png"));
@@ -143,9 +147,13 @@ public class MenuPopup extends JFrame {
 		btnNewButton_1.setForeground(Color.WHITE);
 		panel_5.add(btnNewButton_1);
 
+		RoundButton btnNewButton_3 = new RoundButton("확 정");
+		RoundButton btnNewButton_3_1 = new RoundButton("수 정");
+
 		final JComboBox comboBox_1 = new JComboBox();
 		comboBox_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				btnNewButton_3.setEnabled(true);
 				String type = (String) comboBox_1.getSelectedItem();
 
 				if (type.equals("피자")) {
@@ -184,17 +192,32 @@ public class MenuPopup extends JFrame {
 		lblNewLabel_2.setBounds(12, 10, 60, 30);
 		panel_2.add(lblNewLabel_2);
 
+		JLabel nameNotion = new JLabel("이름을 입력하세요");
+		nameNotion.setForeground(Color.PINK);
+		nameNotion.setHorizontalAlignment(SwingConstants.CENTER);
+		nameNotion.setBounds(86, 10, 153, 30);
+		nameNotion.setVisible(false);
+
 		menuName = new JTextField();
 		menuName.setHorizontalAlignment(SwingConstants.RIGHT);
 		menuName.setBounds(84, 11, 155, 30);
-		panel_2.add(menuName);
 		menuName.setColumns(10);
+
+		panel_2.add(nameNotion);
+		panel_2.add(menuName);
 
 		JPanel panel_3 = new JPanel();
 		panel_3.setBackground(graycolor);
 		panel_3.setBounds(17, 234, 251, 50);
 		getContentPane().add(panel_3);
 		panel_3.setLayout(null);
+
+		JLabel priceNotion = new JLabel("숫자를 입력하세요");
+		priceNotion.setForeground(Color.PINK);
+		priceNotion.setHorizontalAlignment(SwingConstants.CENTER);
+		priceNotion.setBounds(86, 10, 153, 30);
+		priceNotion.setVisible(false);
+		panel_3.add(priceNotion);
 
 		JLabel lblNewLabel_3 = new JLabel("희망가격");
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
@@ -207,6 +230,10 @@ public class MenuPopup extends JFrame {
 		hopedPrice.setColumns(10);
 		hopedPrice.setBounds(84, 11, 155, 30);
 		panel_3.add(hopedPrice);
+
+		JLabel label = new JLabel("New label");
+		label.setBounds(0, 0, 57, 15);
+		panel_3.add(label);
 
 		JPanel panel_4 = new JPanel();
 		panel_4.setBackground(graycolor);
@@ -569,18 +596,33 @@ public class MenuPopup extends JFrame {
 		btnNewButton.setBounds(438, 574, 186, 38);
 		getContentPane().add(btnNewButton);
 
-		RoundButton btnNewButton_3 = new RoundButton("확 정");
-		RoundButton btnNewButton_3_1 = new RoundButton("수 정");
+		btnNewButton_3.setEnabled(false);
 		btnNewButton_3_1.setEnabled(false);
 		btnNewButton_3.setForeground(Color.WHITE);
+
+		// 확정버튼 액션리스너
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if (!menuName.getText().equals("") && !hopedPrice.getText().equals("")) {
-					btnNewButton.setEnabled(true);
-					menuName.setEnabled(false);
-					hopedPrice.setEnabled(false);
-					btnNewButton_3.setEnabled(false);
-					btnNewButton_3_1.setEnabled(true);
+				Pattern pattern = Pattern.compile("[0-9]{1,}");
+				Matcher matcher = pattern.matcher(hopedPrice.getText());
+				priceNotion.setVisible(false);
+
+				if (menuName.getText().equals("")) {
+					nameNotion.setVisible(true);
+				} else {
+					nameNotion.setVisible(false);
+				}
+
+				if (matcher.matches()) {
+					if (!menuName.getText().equals("") && !hopedPrice.getText().equals("") && selectType != "") {
+						btnNewButton.setEnabled(true);
+						menuName.setEnabled(false);
+						hopedPrice.setEnabled(false);
+						btnNewButton_3.setEnabled(false);
+						btnNewButton_3_1.setEnabled(true);
+					}
+				} else {
+					priceNotion.setVisible(true);
 				}
 			}
 		});
@@ -626,8 +668,8 @@ public class MenuPopup extends JFrame {
 		JLabel background = new JLabel(icon);
 		background.setBounds(0, 0, 671, 622);
 		panel_6.add(background);
-		
-		ImageIcon dot = new ImageIcon("GreatPizza/img//back.png");
+
+		ImageIcon dot = new ImageIcon(getClass().getResource("/back.png"));
 		JLabel dots = new JLabel(dot);
 		dots.setBounds(5, 7, 60, 30);
 		dots.addMouseListener(new MouseListener() {
@@ -685,7 +727,7 @@ public class MenuPopup extends JFrame {
 		lblNewLabel_5.setIcon(image);
 		lblNewLabel_5.setText("");
 	}
-	
+
 	static class CustomScrollBarUI extends BasicScrollBarUI {
 
 		@Override

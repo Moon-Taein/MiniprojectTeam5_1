@@ -46,6 +46,8 @@ import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
 
 public class MenuResetPopup extends JFrame {
@@ -200,6 +202,13 @@ public class MenuResetPopup extends JFrame {
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_3.setBounds(12, 10, 60, 30);
 		panel_3.add(lblNewLabel_3);
+
+		JLabel lblNewLabel_6 = new JLabel("숫자를 입력하세요.");
+		lblNewLabel_6.setForeground(Color.PINK);
+		lblNewLabel_6.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_6.setBounds(84, 10, 155, 30);
+		lblNewLabel_6.setVisible(false);
+		panel_3.add(lblNewLabel_6);
 
 		hopedPrice = new JTextField();
 		hopedPrice.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -500,60 +509,66 @@ public class MenuResetPopup extends JFrame {
 			private List<String> setRecipe;
 
 			public void actionPerformed(ActionEvent e) {
+				Pattern pattern = Pattern.compile("[0-9]{1,}");
+				Matcher matcher = pattern.matcher(hopedPrice.getText());
 
-				selectType = comboBox_1.getSelectedItem().toString();
-				if (selectType.equals("피자") || selectType.equals("음료")) {
-					selectSize = comboBox_1_1.getSelectedItem().toString();
-				}
-				// 가격
-				String setPrice = String.valueOf(hopedPrice.getText());
-				// 작성한 이름
-				String name = String.valueOf(menuName.getText());
-
-				// 입력된 소스
-
-				setRecipe = new ArrayList<>();
-				setRecipe.add(topping_1.getText());
-				setRecipe.add(topping_2.getText());
-				setRecipe.add(topping_3.getText());
-				setRecipe.add(topping_4.getText());
-				setRecipe.add(topping_5.getText());
-				setRecipe.add(sauce.getText());
-				setRecipe.add(edge.getText());
-
-				setRecipe.removeAll(Collections.singleton("없 음"));
-
-				if (name != null || setPrice != null) {
-					if (selectType.equals("피자")) {
-						pr.dropPizzaRecipe(origin);
-						pr.dropPizzaMenu(origin);
-						System.out.println("삭제완료");
-						pr.InsertPizzaMenu(selectType, name, selectSize, setPrice, sBytes);
-						pr.InsertPizzaRecipe(selectType, name, selectSize, setPrice, setRecipe);
-						System.out.println("인서트완료");
-						addMenuReset();
-						menuName.setText(" ");
-						hopedPrice.setText(" ");
-					} else if (selectType.equals("음료")) {
-						System.out.println(setRecipe);
-						addMenuReset();
-						menuName.setText(" ");
-						hopedPrice.setText(" ");
-					} else if (selectType.equals("사이드")) {
-						System.out.println(setRecipe);
-						addMenuReset();
-						menuName.setText(" ");
-						hopedPrice.setText(" ");
+				if (matcher.matches()) {
+					selectType = comboBox_1.getSelectedItem().toString();
+					if (selectType.equals("피자") || selectType.equals("음료")) {
+						selectSize = comboBox_1_1.getSelectedItem().toString();
 					}
-				} else {
-					System.out.println(" 입력은 하고 하는거냐! ");
-				}
+					// 가격
+					String setPrice = String.valueOf(hopedPrice.getText());
+					// 작성한 이름
+					String name = String.valueOf(menuName.getText());
 
-				menulist.removeAll();
-				menulist.repaint();
-				menulist.revalidate();
-				menulist.createMenuList();
-				setVisible(false);
+					// 입력된 소스
+
+					setRecipe = new ArrayList<>();
+					setRecipe.add(topping_1.getText());
+					setRecipe.add(topping_2.getText());
+					setRecipe.add(topping_3.getText());
+					setRecipe.add(topping_4.getText());
+					setRecipe.add(topping_5.getText());
+					setRecipe.add(sauce.getText());
+					setRecipe.add(edge.getText());
+
+					setRecipe.removeAll(Collections.singleton("없 음"));
+
+					if (name != null || setPrice != null) {
+						if (selectType.equals("피자")) {
+							pr.dropPizzaRecipe(origin);
+							pr.dropPizzaMenu(origin);
+							System.out.println("삭제완료");
+							pr.InsertPizzaMenu(selectType, name, selectSize, setPrice, sBytes);
+							pr.InsertPizzaRecipe(selectType, name, selectSize, setPrice, setRecipe);
+							System.out.println("인서트완료");
+							addMenuReset();
+							menuName.setText(" ");
+							hopedPrice.setText(" ");
+						} else if (selectType.equals("음료")) {
+							System.out.println(setRecipe);
+							addMenuReset();
+							menuName.setText(" ");
+							hopedPrice.setText(" ");
+						} else if (selectType.equals("사이드")) {
+							System.out.println(setRecipe);
+							addMenuReset();
+							menuName.setText(" ");
+							hopedPrice.setText(" ");
+						}
+					} else {
+						System.out.println(" 입력은 하고 하는거냐! ");
+					}
+
+					menulist.removeAll();
+					menulist.repaint();
+					menulist.revalidate();
+					menulist.createMenuList();
+					setVisible(false);
+				} else {
+					lblNewLabel_6.setVisible(true);
+				}
 			}
 		});
 
@@ -732,6 +747,7 @@ public class MenuResetPopup extends JFrame {
 		lblNewLabel_5.setText("");
 
 	}
+
 	static class CustomScrollBarUI extends BasicScrollBarUI {
 
 		@Override
