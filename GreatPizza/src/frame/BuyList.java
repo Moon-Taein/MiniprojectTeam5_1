@@ -49,15 +49,6 @@ public class BuyList extends JPanel {
 		order = new OrderRepo();
 		initialize();
 		
-		
-	}
-
-
-	public void initialize() {
-		setLayout(null);
-		setBounds(0, 0, 750, 800);
-		ImageIcon frame = new ImageIcon(getClass().getResource("/order.png"));
-		
 		JPanel issue = new JPanel();
 		issue.setBounds(380, 20, 280, 27);
 		JLabel lbl = new JLabel("주문이 들어왔습니다. 새로고침 후 확인하세요.");
@@ -95,15 +86,17 @@ public class BuyList extends JPanel {
 				
 			}
 		};
-
-		
 		
 		System.out.println(!(lastMainOrder==pr.lastOrder()));
 		Timer timer = new Timer();
 
-
 		timer.schedule(dask, 0, 500);
-		
+	}
+
+	public void initialize() {
+		setLayout(null);
+		setBounds(0, 0, 750, 800);
+		ImageIcon frame = new ImageIcon(getClass().getResource("/order.png"));
 		
 		background = new JLabel(frame);
 		background.setBounds(0, 0, 750, 800);
@@ -165,8 +158,8 @@ public class BuyList extends JPanel {
 			prices[i].setForeground(Color.WHITE);
 			pnls[i].add(prices[i]);
 		}
-		}
 		setTexts();
+		}
 		
 		dots = new JLabel(new ImageIcon(getClass().getResource("/reset2.png")));
 		dots.setBounds(680, 10, 50, 50);
@@ -196,8 +189,6 @@ public class BuyList extends JPanel {
 		background.add(dots);
 	}
 
-
-	
 	public void setTexts() {
 		for (int i = 0; i < size; i++) {
 			final MainOrder currentOrder = mainOrders.get(i);
