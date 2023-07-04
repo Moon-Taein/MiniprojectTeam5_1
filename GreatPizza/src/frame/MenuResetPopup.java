@@ -11,6 +11,7 @@ import javax.swing.JList;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import img.RoundButton;
 import repo.Ingredient;
 import repo.Menu;
 import repo.OrderRepo;
@@ -20,7 +21,6 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -62,7 +62,7 @@ public class MenuResetPopup extends JFrame {
 	private ImageIcon image;
 	private JLabel lblNewLabel_5;
 	private byte[] sBytes;
-	private JButton btnNewButton;
+	private RoundButton btnNewButton;
 	public static final Color blackcolor = Color.decode("#171821");
 	public static final Color graycolor = Color.decode("#21222D");
 	public static final Color mintcolor = Color.decode("#A9DFD8");
@@ -80,8 +80,9 @@ public class MenuResetPopup extends JFrame {
 		setUndecorated(true);
 		getContentPane().setLayout(null);
 		getContentPane().setBackground(Color.LIGHT_GRAY);
-		setLocation(0,0);
-		
+		setLocation(700, 250);
+		setVisible(true);
+
 		or.getIngredients(menu.getMenuId());
 		setSize(new Dimension(668, 626));
 
@@ -121,8 +122,8 @@ public class MenuResetPopup extends JFrame {
 		comboBox_1_1.setBounds(84, 10, 155, 30);
 		panel_1.add(comboBox_1_1);
 
-		JButton btnNewButton_1 = new JButton("추가");
-		btnNewButton_1.setForeground(Color.WHITE);
+		RoundButton btnNewButton_1 = new RoundButton("추가");
+		btnNewButton_1.setForeground(Color.BLACK);
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				lblNewLabel_5.setIcon(null);
@@ -202,7 +203,7 @@ public class MenuResetPopup extends JFrame {
 
 		JPanel panel_4 = new JPanel();
 		panel_4.setBackground(graycolor);
-		panel_4.setBounds(17, 349, 251, 225);
+		panel_4.setBounds(17, 375, 251, 199);
 		getContentPane().add(panel_4);
 
 		final JPanel scrollablePanel = new JPanel();
@@ -327,40 +328,34 @@ public class MenuResetPopup extends JFrame {
 		pizzaSize.setSize(new Dimension(0, 20));
 		pizzaSize.setHorizontalAlignment(SwingConstants.CENTER);
 		pizzaSize.setBounds(81, 11, 109, 25);
+		pizzaSize.setForeground(Color.WHITE);
 		panel_5.add(pizzaSize);
 
-		JButton btnNewButton_2 = new JButton("취 소");
-		btnNewButton_2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				pizzaSize.setText("없 음");
-
-			}
-		});
-		btnNewButton_2.setBounds(188, 10, 65, 25);
-		panel_5.add(btnNewButton_2);
-
-		JButton btnNewButton_2_1 = new JButton("취 소");
+		RoundButton btnNewButton_2_1 = new RoundButton("취 소");
 		btnNewButton_2_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				edge.setText("없 음");
+				edge.setForeground(blackcolor);
 			}
 		});
 		btnNewButton_2_1.setBounds(188, 40, 65, 25);
 		panel_5.add(btnNewButton_2_1);
 
-		JButton btnNewButton_2_2 = new JButton("취 소");
+		RoundButton btnNewButton_2_2 = new RoundButton("취 소");
 		btnNewButton_2_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				sauce.setText("없 음");
+				sauce.setForeground(blackcolor);
 			}
 		});
 		btnNewButton_2_2.setBounds(188, 71, 65, 25);
 		panel_5.add(btnNewButton_2_2);
 
-		JButton btnNewButton_2_3 = new JButton("취 소");
+		RoundButton btnNewButton_2_3 = new RoundButton("취 소");
 		btnNewButton_2_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				topping_1.setText("없 음");
+				topping_1.setForeground(blackcolor);
 				countCb--;
 
 			}
@@ -368,10 +363,11 @@ public class MenuResetPopup extends JFrame {
 		btnNewButton_2_3.setBounds(188, 101, 65, 25);
 		panel_5.add(btnNewButton_2_3);
 
-		JButton btnNewButton_2_4 = new JButton("취 소");
+		RoundButton btnNewButton_2_4 = new RoundButton("취 소");
 		btnNewButton_2_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				topping_2.setText("없 음");
+				topping_2.setForeground(blackcolor);
 				countCb--;
 
 			}
@@ -379,10 +375,11 @@ public class MenuResetPopup extends JFrame {
 		btnNewButton_2_4.setBounds(188, 131, 65, 25);
 		panel_5.add(btnNewButton_2_4);
 
-		JButton btnNewButton_2_4_1 = new JButton("취 소");
+		RoundButton btnNewButton_2_4_1 = new RoundButton("취 소");
 		btnNewButton_2_4_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				topping_3.setText("없 음");
+				topping_3.setForeground(blackcolor);
 				countCb--;
 
 			}
@@ -390,10 +387,11 @@ public class MenuResetPopup extends JFrame {
 		btnNewButton_2_4_1.setBounds(188, 161, 65, 25);
 		panel_5.add(btnNewButton_2_4_1);
 
-		JButton btnNewButton_2_4_2 = new JButton("취 소");
+		RoundButton btnNewButton_2_4_2 = new RoundButton("취 소");
 		btnNewButton_2_4_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				topping_4.setText("없 음");
+				topping_4.setForeground(blackcolor);
 				countCb--;
 
 			}
@@ -401,11 +399,11 @@ public class MenuResetPopup extends JFrame {
 		btnNewButton_2_4_2.setBounds(188, 192, 65, 25);
 		panel_5.add(btnNewButton_2_4_2);
 
-		JButton btnNewButton_2_4_3 = new JButton("취 소");
+		RoundButton btnNewButton_2_4_3 = new RoundButton("취 소");
 		btnNewButton_2_4_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
 				topping_5.setText("없 음");
+				topping_5.setForeground(blackcolor);
 				countCb--;
 
 			}
@@ -421,7 +419,7 @@ public class MenuResetPopup extends JFrame {
 		});
 
 		comboBox.addActionListener(new ActionListener() {
-			private JButton btn;
+			private RoundButton btn;
 
 			public void actionPerformed(ActionEvent arg0) {
 				selectType = comboBox.getSelectedItem().toString();
@@ -431,7 +429,7 @@ public class MenuResetPopup extends JFrame {
 				for (final Ingredient ig : list) {
 					JPanel igPanel = new JPanel();
 					JLabel igLabel = new JLabel(ig.getId());
-					btn = new JButton("선 택");
+					btn = new RoundButton("선 택");
 					igLabel.setHorizontalAlignment(SwingConstants.LEFT);
 					igLabel.setOpaque(true);
 					igPanel.add(igLabel);
@@ -446,29 +444,36 @@ public class MenuResetPopup extends JFrame {
 							if (countCb < 5 && selectType.equals("토핑")) {
 								if (selectType.equals("토핑") && topping_1.getText().equals("없 음")) {
 									topping_1.setText(ig.getId());
+									topping_1.setForeground(Color.WHITE);
 									countCb++;
 
 								} else if (selectType.equals("토핑") && topping_2.getText().equals("없 음")) {
 									topping_2.setText(ig.getId());
+									topping_2.setForeground(Color.WHITE);
 									countCb++;
 
 								} else if (selectType.equals("토핑") && topping_3.getText().equals("없 음")) {
 									topping_3.setText(ig.getId());
+									topping_3.setForeground(Color.WHITE);
 									countCb++;
 
 								} else if (selectType.equals("토핑") && topping_4.getText().equals("없 음")) {
 									topping_4.setText(ig.getId());
+									topping_4.setForeground(Color.WHITE);
 									countCb++;
 
 								} else if (selectType.equals("토핑") && topping_5.getText().equals("없 음")) {
 									topping_5.setText(ig.getId());
+									topping_5.setForeground(Color.WHITE);
 									countCb++;
 
 								}
 							} else if (selectType.equals("소스")) {
 								sauce.setText(ig.getId());
+								sauce.setForeground(Color.WHITE);
 							} else if (selectType.equals("엣지")) {
 								edge.setText(ig.getId());
+								edge.setForeground(Color.WHITE);
 							}
 						}
 					});
@@ -480,7 +485,7 @@ public class MenuResetPopup extends JFrame {
 		});
 
 		// 메뉴 추가
-		JButton btnNewButton = new JButton("메 뉴 수 정");
+		RoundButton btnNewButton = new RoundButton("메 뉴 수 정");
 		btnNewButton.addActionListener(new ActionListener() {
 			private List<String> setRecipe;
 
@@ -542,15 +547,15 @@ public class MenuResetPopup extends JFrame {
 			}
 		});
 
-		btnNewButton.setBackground(new Color(255, 222, 173));
+		btnNewButton.setBackground(mintcolor);
 		btnNewButton.setBounds(439, 578, 186, 38);
 		getContentPane().add(btnNewButton);
 		comboBox.setToolTipText("분 류\r\n");
 		comboBox.setModel(new DefaultComboBoxModel(new String[] { "엣지", "소스", "토핑" }));
-		comboBox.setBounds(155, 303, 113, 43);
+		comboBox.setBounds(193, 332, 75, 33);
 		getContentPane().add(comboBox);
 
-		JButton btnNewButton_3 = new JButton("메 뉴 삭 제");
+		RoundButton btnNewButton_3 = new RoundButton("메 뉴 삭 제");
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println(menu.getMenuId().substring(0, menu.getMenuId().indexOf("_")).equals("피자"));
@@ -594,7 +599,6 @@ public class MenuResetPopup extends JFrame {
 				comboBox_1.setSelectedItem(originType);
 				comboBox_1.setEnabled(false);
 				comboBox_1_1.setSelectedItem(originSize);
-				btnNewButton_2.setEnabled(false);
 
 				comboBox_1_1.setEnabled(false);
 				menuName.setText(originName);
@@ -607,62 +611,68 @@ public class MenuResetPopup extends JFrame {
 				for (String str : originList) {
 					if (str.startsWith("도우_") && pizzaSize.getText().equals("없 음")) {
 						pizzaSize.setText(str);
+						pizzaSize.setForeground(Color.WHITE);
 					} else if (str.startsWith("엣지_") && edge.getText().equals("없 음")) {
 						edge.setText(str);
+						edge.setForeground(Color.WHITE);
 					} else if (str.startsWith("소스_") && sauce.getText().equals("없 음")) {
 						sauce.setText(str);
+						sauce.setForeground(Color.WHITE);
 					} else if (str.startsWith("토핑_") && topping_1.getText().equals("없 음")) {
 						topping_1.setText(str);
+						topping_1.setForeground(Color.WHITE);
 						countCb++;
 					} else if (str.startsWith("토핑_") && topping_2.getText().equals("없 음")) {
 						topping_2.setText(str);
+						topping_2.setForeground(Color.WHITE);
 						countCb++;
 					} else if (str.startsWith("토핑_") && topping_3.getText().equals("없 음")) {
 						topping_3.setText(str);
+						topping_3.setForeground(Color.WHITE);
 						countCb++;
 					} else if (str.startsWith("토핑_") && topping_4.getText().equals("없 음")) {
 						topping_4.setText(str);
+						topping_4.setForeground(Color.WHITE);
 						countCb++;
 					} else if (str.startsWith("토핑_") && topping_5.getText().equals("없 음")) {
 						topping_5.setText(str);
+						topping_5.setForeground(Color.WHITE);
 						countCb++;
 					}
-
 				}
-
 			}
 		});
 
-		btnNewButton_3.setBackground(new Color(255, 222, 173));
+		btnNewButton_3.setBackground(mintcolor);
 		btnNewButton_3.setBounds(45, 578, 186, 38);
 		getContentPane().add(btnNewButton_3);
 
 		JPanel panel_6 = new JPanel();
 		panel_6.setBounds(0, 0, 668, 626);
-		panel_6.setBackground(blackcolor);
+		panel_6.setBackground(graycolor);
 		getContentPane().add(panel_6);
 		panel_6.setLayout(null);
 		ImageIcon backIcon = new ImageIcon("GreatPizza/img/Frame 94.png");
-		JLabel background = new JLabel(backIcon);
-		background.setBounds(0, 0, 668, 626);
-		panel_6.add(background);
 
 		JPanel panel_7 = new JPanel();
 		panel_7.setBounds(12, 56, 262, 242);
-		panel_7.setBackground(new Color(0, 0, 0));
+		panel_7.setBackground(blackcolor);
 		panel_6.add(panel_7);
 
 		JPanel panel_8 = new JPanel();
-		panel_8.setBounds(12, 300, 262, 278);
-		panel_8.setBackground(new Color(0, 0, 0));
+		panel_8.setBounds(12, 324, 262, 256);
+		panel_8.setBackground(blackcolor);
 		panel_6.add(panel_8);
 
 		JPanel panel_9 = new JPanel();
 		panel_9.setBounds(383, 56, 285, 570);
-		panel_9.setBackground(new Color(0, 0, 0));
+		panel_9.setBackground(blackcolor);
 		panel_6.add(panel_9);
-		
+
 		ImageIcon dot = new ImageIcon("GreatPizza/img//back.png");
+		JLabel background = new JLabel(backIcon);
+		background.setBounds(0, 0, 668, 626);
+		panel_6.add(background);
 		JLabel dots = new JLabel(dot);
 		dots.setBounds(5, 7, 60, 30);
 		dots.addMouseListener(new MouseListener() {
