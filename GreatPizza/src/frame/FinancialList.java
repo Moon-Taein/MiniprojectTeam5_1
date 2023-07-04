@@ -104,6 +104,11 @@ public class FinancialList extends JPanel {
 		calendarTable.setBounds(50, 140, 650, 515);
 		calendarTable.setEnabled(false);
 		setLayout(null);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(graycolor);
+		panel_2.setBounds(0, 84, 750, 2);
+		add(panel_2);
 
 		lblNewLabel_5.setOpaque(true);
 		lblNewLabel_5.setFont(new Font("굴림", Font.PLAIN, 20));

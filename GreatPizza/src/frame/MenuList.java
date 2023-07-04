@@ -79,7 +79,6 @@ public class MenuList extends JPanel {
 		// JScrollPane 생성 및 스크롤 가능한 패널 설정
 		JScrollPane scrollPane = new JScrollPane(scrollablePanel);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-//		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setPreferredSize(new Dimension(590, 496));
 		scrollPane.setBackground(graycolor);
 
@@ -152,7 +151,6 @@ public class MenuList extends JPanel {
 			priceLabel.setBackground(graycolor);
 			priceLabel.setForeground(mintcolor);
 
-			// Add the labels to the inner panel
 			innerPanel.add(nameLabel);
 			innerPanel.add(typeLabel);
 			innerPanel.add(priceLabel);
