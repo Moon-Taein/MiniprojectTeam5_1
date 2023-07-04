@@ -609,6 +609,30 @@ public class OrderRepo {
 		}
 		return map;
 	}
+	public int lastOrder(){
+		String sql = "SELECT * FROM mainorder ORDER BY no DESC LIMIT 1";
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+			rs = stmt.executeQuery();
+			if (rs.next()) {
+				int no = rs.getInt("no");
+				return no;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		return 0;
+	}
+
 	
 	
 }
