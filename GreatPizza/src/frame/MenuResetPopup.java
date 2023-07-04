@@ -91,6 +91,7 @@ public class MenuResetPopup extends JFrame {
 
 		JLabel lblNewLabel = new JLabel("분 류");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setForeground(mintcolor);
 		lblNewLabel.setBounds(12, 10, 60, 30);
 		panel.add(lblNewLabel);
 
@@ -102,6 +103,7 @@ public class MenuResetPopup extends JFrame {
 
 		JLabel lblNewLabel_1 = new JLabel("사 이 즈");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setForeground(mintcolor);
 		lblNewLabel_1.setBounds(12, 10, 60, 30);
 		panel_1.add(lblNewLabel_1);
 
@@ -118,6 +120,7 @@ public class MenuResetPopup extends JFrame {
 		panel_1.add(comboBox_1_1);
 
 		JButton btnNewButton_1 = new JButton("추가");
+		btnNewButton_1.setForeground(Color.WHITE);
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				lblNewLabel_5.setIcon(null);
@@ -166,6 +169,7 @@ public class MenuResetPopup extends JFrame {
 		panel_2.setLayout(null);
 
 		JLabel lblNewLabel_2 = new JLabel("메뉴이름");
+		lblNewLabel_2.setForeground(mintcolor);
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_2.setBounds(12, 10, 60, 30);
 		panel_2.add(lblNewLabel_2);
@@ -183,6 +187,7 @@ public class MenuResetPopup extends JFrame {
 		panel_3.setLayout(null);
 
 		JLabel lblNewLabel_3 = new JLabel("희망가격");
+		lblNewLabel_3.setForeground(mintcolor);
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_3.setBounds(12, 10, 60, 30);
 		panel_3.add(lblNewLabel_3);
@@ -207,53 +212,62 @@ public class MenuResetPopup extends JFrame {
 		panel_4.add(jsp);
 
 		JLabel lblNewLabel_4 = new JLabel("사 이 즈");
+		lblNewLabel_4.setForeground(mintcolor);
 		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_4.setBounds(12, 11, 60, 25);
 		panel_5.add(lblNewLabel_4);
 
 		JLabel lblNewLabel_4_1 = new JLabel("엣지");
+		lblNewLabel_4_1.setForeground(mintcolor);
 		lblNewLabel_4_1.setSize(new Dimension(60, 20));
 		lblNewLabel_4_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_4_1.setBounds(12, 41, 60, 25);
 		panel_5.add(lblNewLabel_4_1);
 
 		JLabel lblNewLabel_4_2 = new JLabel("소 스");
+		lblNewLabel_4_2.setForeground(mintcolor);
 		lblNewLabel_4_2.setSize(new Dimension(60, 20));
 		lblNewLabel_4_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_4_2.setBounds(12, 71, 60, 25);
 		panel_5.add(lblNewLabel_4_2);
 
 		JLabel lblNewLabel_4_3 = new JLabel("토 핑");
+		lblNewLabel_4_3.setForeground(mintcolor);
 		lblNewLabel_4_3.setSize(new Dimension(60, 20));
 		lblNewLabel_4_3.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_4_3.setBounds(12, 102, 60, 25);
 		panel_5.add(lblNewLabel_4_3);
 
 		JLabel lblNewLabel_4_4 = new JLabel("토 핑");
+		lblNewLabel_4_4.setForeground(mintcolor);
 		lblNewLabel_4_4.setSize(new Dimension(60, 20));
 		lblNewLabel_4_4.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_4_4.setBounds(12, 132, 60, 25);
 		panel_5.add(lblNewLabel_4_4);
 
 		JLabel lblNewLabel_4_5 = new JLabel("토 핑");
+		lblNewLabel_4_5.setForeground(mintcolor);
 		lblNewLabel_4_5.setSize(new Dimension(60, 20));
 		lblNewLabel_4_5.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_4_5.setBounds(12, 162, 60, 25);
 		panel_5.add(lblNewLabel_4_5);
 
 		JLabel lblNewLabel_4_6 = new JLabel("토 핑");
+		lblNewLabel_4_6.setForeground(mintcolor);
 		lblNewLabel_4_6.setSize(new Dimension(60, 20));
 		lblNewLabel_4_6.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_4_6.setBounds(12, 193, 60, 25);
 		panel_5.add(lblNewLabel_4_6);
 
 		JLabel lblNewLabel_4_7 = new JLabel("토 핑");
+		lblNewLabel_4_7.setForeground(mintcolor);
 		lblNewLabel_4_7.setSize(new Dimension(60, 20));
 		lblNewLabel_4_7.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_4_7.setBounds(12, 224, 60, 25);
 		panel_5.add(lblNewLabel_4_7);
 
 		JLabel lblNewLabel_4_8 = new JLabel("이 미 지");
+		lblNewLabel_4_8.setForeground(mintcolor);
 		lblNewLabel_4_8.setSize(new Dimension(60, 20));
 		lblNewLabel_4_8.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_4_8.setBounds(55, 255, 60, 20);
@@ -303,6 +317,7 @@ public class MenuResetPopup extends JFrame {
 
 		lblNewLabel_5 = new JLabel("이 미 지 출 력");
 		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_5.setForeground(mintcolor);
 		lblNewLabel_5.setBounds(26, 283, 215, 215);
 		panel_5.add(lblNewLabel_5);
 
@@ -632,17 +647,17 @@ public class MenuResetPopup extends JFrame {
 
 		JPanel panel_7 = new JPanel();
 		panel_7.setBounds(12, 56, 262, 242);
-		panel_7.setBackground(blackcolor);
+		panel_7.setBackground(new Color(0, 0, 0));
 		panel_6.add(panel_7);
 
 		JPanel panel_8 = new JPanel();
 		panel_8.setBounds(12, 300, 262, 278);
-		panel_8.setBackground(blackcolor);
+		panel_8.setBackground(new Color(0, 0, 0));
 		panel_6.add(panel_8);
 
 		JPanel panel_9 = new JPanel();
 		panel_9.setBounds(383, 56, 285, 570);
-		panel_9.setBackground(blackcolor);
+		panel_9.setBackground(new Color(0, 0, 0));
 		panel_6.add(panel_9);
 
 		setVisible(true);
