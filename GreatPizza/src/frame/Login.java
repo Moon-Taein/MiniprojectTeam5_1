@@ -52,7 +52,6 @@ public class Login extends JFrame {
 			}
 		});
 	}
-
 	public Login() {
 		frame = new HomeFrame();
 		setUndecorated(true);
@@ -148,12 +147,12 @@ public class Login extends JFrame {
 		login.setBounds(300, 438, 300, 45);
 		contentPane.add(login);
 
-		ImageIcon logo = new ImageIcon("GreatPizza/img//logo.png");
+		ImageIcon logo = new ImageIcon(getClass().getResource("/logo.png"));
 		JLabel lbl = new JLabel(logo);
 		lbl.setBounds(336, 165, 225, 142);
 		contentPane.add(lbl);
 
-		ImageIcon dot = new ImageIcon("GreatPizza/img//Dots.png");
+		ImageIcon dot = new ImageIcon(getClass().getResource("/Dots.png"));
 		JLabel dots = new JLabel(dot);
 		dots.setBounds(15, 25, 60, 30);
 		dots.addMouseListener(new MouseListener() {

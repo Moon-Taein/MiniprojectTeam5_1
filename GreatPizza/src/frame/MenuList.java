@@ -56,7 +56,7 @@ public class MenuList extends JPanel {
 		setSize(new Dimension(750, 800));
 		setLayout(null);
 
-		ImageIcon frame = new ImageIcon("GreatPizza/img//menu.png");
+		ImageIcon frame = new ImageIcon(getClass().getResource("/menu.png"));
 		background = new JLabel(frame);
 		background.setBounds(0, 0, 750, 800);
 		add(background);

@@ -62,7 +62,7 @@ public class SalesList extends JPanel {
 		cards.add(datepage, "ccp1");
 		datepage.setLayout(null);
 
-		ImageIcon salesD = new ImageIcon("GreatPizza/img//salesD.png");
+		ImageIcon salesD = new ImageIcon(getClass().getResource("/salesD.png"));
 		JLabel dateback = new JLabel(salesD);
 		dateback.setBounds(0, 0, 750, 845);
 		datepage.add(dateback);
@@ -72,7 +72,7 @@ public class SalesList extends JPanel {
 		cards.add(monthpage, "ccp2");
 		monthpage.setLayout(null);
 		
-		ImageIcon salesM = new ImageIcon("GreatPizza/img//salesM.png");
+		ImageIcon salesM = new ImageIcon(getClass().getResource("/salesM.png"));
 		JLabel monthback = new JLabel(salesM);
 		monthback.setBounds(0, 0, 750, 845);
 		monthpage.add(monthback);

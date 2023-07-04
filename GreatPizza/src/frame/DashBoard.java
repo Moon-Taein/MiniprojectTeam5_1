@@ -46,7 +46,7 @@ public class DashBoard extends JPanel {
 
 		setLayout(null);
 		setSize(750, 800);
-		ImageIcon frame = new ImageIcon("GreatPizza/img//dashboard.png");
+		ImageIcon frame = new ImageIcon(getClass().getResource("/dashboard.png"));
 		background = new JLabel(frame);
 		background.setBounds(0, 0, 750, 800);
 		add(background);

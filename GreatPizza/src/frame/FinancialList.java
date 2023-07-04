@@ -37,6 +37,7 @@ public class FinancialList extends JPanel {
 		setBackground(blackcolor);
 		// 연도 콤보박스 생성
 		yearComboBox = new JComboBox<>();
+		yearComboBox.setFont(new Font("굴림", Font.PLAIN, 15));
 		yearComboBox.setBounds(0, 10, 77, 35);
 		yearComboBox.setOpaque(false);
 
@@ -47,6 +48,7 @@ public class FinancialList extends JPanel {
 
 		// 월 콤보박스 생성
 		monthComboBox = new JComboBox<>();
+		monthComboBox.setFont(new Font("굴림", Font.PLAIN, 15));
 		monthComboBox.setBounds(126, 10, 64, 35);
 		monthComboBox.setOpaque(false);
 
@@ -83,10 +85,10 @@ public class FinancialList extends JPanel {
 		}
 
 		// 커스텀 Renderer 설정
-		yearComboBox.setUI(new CustomComboBoxUI("GreatPizza/img//Rectangle 491.png"));
+		yearComboBox.setUI(new CustomComboBoxUI());
 		yearComboBox.setBackground(blackcolor);
 		yearComboBox.setForeground(mintcolor);
-		monthComboBox.setUI(new CustomComboBoxUI("GreatPizza/img//Rectangle 491.png"));
+		monthComboBox.setUI(new CustomComboBoxUI());
 		monthComboBox.setBackground(blackcolor);
 		monthComboBox.setForeground(mintcolor);
 
@@ -127,7 +129,6 @@ public class FinancialList extends JPanel {
 		lblNewLabel.setForeground(Color.WHITE);
 		comboBoxPanel.add(lblNewLabel);
 
-		ImageIcon icon = new ImageIcon("GreatPizza/img//colorName.png");
 
 		JLabel lblNewLabel_6 = new JLabel("\u25CF Purchase");
 		lblNewLabel_6.setHorizontalAlignment(SwingConstants.CENTER);
@@ -280,26 +281,12 @@ public class FinancialList extends JPanel {
 	class CustomComboBoxUI extends BasicComboBoxUI {
 		private BufferedImage backgroundImg;
 
-		public CustomComboBoxUI(String backgroundImgPath) {
-			try {
-				backgroundImg = ImageIO.read(new File(backgroundImgPath));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-
-		@Override
-		public void installUI(JComponent c) {
-			super.installUI(c);
-			JComboBox<?> comboBox = (JComboBox<?>) c;
-			comboBox.setOpaque(false);
-		}
 
 		@Override
 		protected JButton createArrowButton() {
 			// 화살표 버튼 생성 및 디자인 설정
 			JButton button = new JButton();
-			button.setIcon(new ImageIcon("GreatPizza/img//Polygon 1.png")); // 화살표 아이콘 설정
+			button.setIcon(new ImageIcon(getClass().getResource("/Polygon 1.png"))); // 화살표 아이콘 설정
 			button.setContentAreaFilled(false);
 			button.setFocusPainted(false);
 			button.setBorder(BorderFactory.createEmptyBorder());

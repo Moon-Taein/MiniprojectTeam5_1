@@ -58,7 +58,7 @@ public class IngredientList extends JPanel {
 		setBounds(0, 0, 750, 800);
 		setLayout(null);
 
-		ImageIcon frame = new ImageIcon("GreatPizza/img//ingredient.png");
+		ImageIcon frame = new ImageIcon(getClass().getResource("/ingredient.png"));
 		background = new JLabel(frame);
 		background.setBounds(0, 0, 750, 800);
 		add(background);

@@ -662,7 +662,7 @@ public class MenuResetPopup extends JFrame {
 		panel_6.setBackground(graycolor);
 		getContentPane().add(panel_6);
 		panel_6.setLayout(null);
-		ImageIcon backIcon = new ImageIcon("GreatPizza/img/Frame 94.png");
+		ImageIcon backIcon = new ImageIcon(getClass().getResource("Frame 94.png"));
 
 		JPanel panel_7 = new JPanel();
 		panel_7.setBounds(12, 56, 262, 242);
@@ -679,7 +679,7 @@ public class MenuResetPopup extends JFrame {
 		panel_9.setBackground(blackcolor);
 		panel_6.add(panel_9);
 
-		ImageIcon dot = new ImageIcon("GreatPizza/img//back.png");
+		ImageIcon dot = new ImageIcon(getClass().getResource("/back.png"));
 		JLabel background = new JLabel(backIcon);
 		background.setBounds(0, 0, 668, 626);
 		panel_6.add(background);

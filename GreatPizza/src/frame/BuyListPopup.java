@@ -61,7 +61,7 @@ public class BuyListPopup extends JFrame {
         setUndecorated(true);
         setLocation(660, 120);
         
-        ImageIcon background = new ImageIcon("GreatPizza/img//영수증.png");
+        ImageIcon background = new ImageIcon(getClass().getResource("/영수증.png"));
         back = new JLabel(background);
         back.setBounds(0, 0, 750, 800);
         contentPane.add(back);

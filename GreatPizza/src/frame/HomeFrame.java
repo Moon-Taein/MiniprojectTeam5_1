@@ -174,7 +174,7 @@ public class HomeFrame extends JFrame {
 			}
 		});
 
-		ImageIcon dot = new ImageIcon("GreatPizza/img//Dots.png");
+		ImageIcon dot = new ImageIcon(getClass().getResource("/Dots.png"));
 		JLabel dots = new JLabel(dot);
 		dots.setBounds(2, 25, 60, 30);
 		dots.addMouseListener(new MouseListener() {

@@ -41,7 +41,7 @@ public class BuyList extends JPanel {
 	public void initialize() {
 		setLayout(null);
 		setBounds(0, 0, 750, 800);
-		ImageIcon frame = new ImageIcon("GreatPizza/img//order.png");
+		ImageIcon frame = new ImageIcon(getClass().getResource("/order.png"));
 		background = new JLabel(frame);
 		background.setBounds(0, 0, 750, 800);
 		add(background);
@@ -105,7 +105,7 @@ public class BuyList extends JPanel {
 		}
 		setTexts();
 		
-		dots = new JLabel(new ImageIcon("GreatPizza/img//reset2.png"));
+		dots = new JLabel(new ImageIcon(getClass().getResource("/reset2.png")));
 		dots.setBounds(680, 10, 50, 50);
 		dots.addMouseListener(new MouseListener() {
 			@Override
@@ -124,7 +124,7 @@ public class BuyList extends JPanel {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				// 여기서 바꿔주려고 했는데!!
-				dots = new JLabel(new ImageIcon("GreatPizza/img//reset.png"));
+				dots = new JLabel(new ImageIcon(getClass().getResource("/reset.png")));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {

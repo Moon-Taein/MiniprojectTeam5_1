@@ -57,7 +57,7 @@ public class IngredientPlus extends JFrame {
 		pnlPlus.setLayout(null);
 		getContentPane().add(pnlPlus);
 		
-		ImageIcon background = new ImageIcon("GreatPizza/img//InBuy.png");
+		ImageIcon background = new ImageIcon(getClass().getResource("/InBuy.png"));
 		JLabel back = new JLabel(background);
 		back.setBounds(0, 0, 750, 350);
 		pnlPlus.add(back);
@@ -142,7 +142,7 @@ public class IngredientPlus extends JFrame {
 		back.add(image);
 		image.setBounds(619, 71, 97, 23);
 		
-		ImageIcon dot = new ImageIcon("GreatPizza/img//back.png");
+		ImageIcon dot = new ImageIcon(getClass().getResource("/back.png"));
 		JLabel dots = new JLabel(dot);
 		dots.setBounds(10, 25, 60, 30);
 		dots.addMouseListener(new MouseListener() {

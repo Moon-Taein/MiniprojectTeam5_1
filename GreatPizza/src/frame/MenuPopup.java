@@ -83,7 +83,7 @@ public class MenuPopup extends JFrame {
 		
 		final JComboBox comboBox = new JComboBox();
 		comboBox.setEnabled(false);
-		ImageIcon tutoImage = new ImageIcon("GreatPizza/img//튜토리얼.png");
+		ImageIcon tutoImage = new ImageIcon(getClass().getResource("/튜토리얼.png"));
 		JLabel tuto = new JLabel(tutoImage);
 		tuto.addMouseListener(new MouseAdapter() {
 			@Override
@@ -566,8 +566,6 @@ public class MenuPopup extends JFrame {
 		// 메뉴를 추가하는 행위를 제한하기 위한 불가능상태조정
 		btnNewButton.setEnabled(false);
 
-//		btnNewButton.setBackground(new Color(102, 205, 170));
-//		btnNewButton.setBounds(395, 526, 186, 38);
 		btnNewButton.setBounds(438, 574, 186, 38);
 		getContentPane().add(btnNewButton);
 
@@ -603,7 +601,7 @@ public class MenuPopup extends JFrame {
 		btnNewButton_3_1.setBounds(123, 294, 67, 28);
 		getContentPane().add(btnNewButton_3_1);
 
-		ImageIcon icon = new ImageIcon("GreatPizza/img//Frame 94.png");
+		ImageIcon icon = new ImageIcon(getClass().getResource("/Frame 94.png"));
 		JPanel panel_6 = new JPanel();
 		panel_6.setBackground(blackcolor);
 		panel_6.setBounds(0, 0, 671, 622);
