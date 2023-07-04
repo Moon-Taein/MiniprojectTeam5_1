@@ -35,16 +35,16 @@ public class MenuPopupTutorial extends JFrame {
 	}
 
 	public MenuPopupTutorial() {
-		setSize(new Dimension(524, 528));
+		setSize(new Dimension(675, 624));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 652, 613);
+		setBounds(100, 100, 675, 624);
 		contentPane = new JPanel();
-		contentPane.setSize(new Dimension(652, 613));
+		contentPane.setSize(new Dimension(675, 624));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		ImageIcon icon = new ImageIcon("GreatPizza/img//Frame88.png");
+		ImageIcon icon = new ImageIcon("GreatPizza/img//튜토리얼.png");
 		JLabel lblNewLabel = new JLabel(icon);
 		lblNewLabel.addMouseListener(new MouseAdapter() {
 			@Override
@@ -54,7 +54,7 @@ public class MenuPopupTutorial extends JFrame {
 			}
 		});
 
-		lblNewLabel.setBounds(0, 0, 652, 613);
+		lblNewLabel.setBounds(0, 0, 675, 624);
 		contentPane.add(lblNewLabel);
 		setLocationRelativeTo(null);
 		setUndecorated(true);
