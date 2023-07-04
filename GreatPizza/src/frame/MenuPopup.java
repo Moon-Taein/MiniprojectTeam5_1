@@ -12,7 +12,6 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
-import com.sun.glass.ui.Timer;
 
 import frame.MenuList.CustomScrollBarUI;
 import img.RoundButton;

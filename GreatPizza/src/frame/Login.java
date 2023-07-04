@@ -177,7 +177,7 @@ public class Login extends JFrame {
 		dots.addMouseListener(new MouseListener() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				dispose();
+				System.exit(0);
 			}
 			@Override
 			public void mousePressed(MouseEvent e) {
