@@ -64,6 +64,9 @@ public class OrderRepo {
 			DBUtil.close(stmt);
 			DBUtil.close(conn);
 		}
+		if (list.isEmpty()) {
+	        return null;
+	    }
 		return list;
 	}
 	

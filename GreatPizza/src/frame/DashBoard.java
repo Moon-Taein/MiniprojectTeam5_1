@@ -159,6 +159,8 @@ public class DashBoard extends JPanel {
 		}
 
 		List<MainOrder> mainOrders = order.getMainOrders("미확인");
-		lblNewLabel.setText(mainOrders.get(0).getDate().replace("-", "") + mainOrders.get(0).getNo());
+		if (mainOrders != null) {
+			lblNewLabel.setText(mainOrders.get(0).getDate().replace("-", "") + mainOrders.get(0).getNo());
+		}
 	}
 }
