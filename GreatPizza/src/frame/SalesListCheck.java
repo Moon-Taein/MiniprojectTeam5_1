@@ -98,7 +98,7 @@ public class SalesListCheck extends JFrame {
 		private BufferedImage backgroundImg;
 
 		@Override
-		protected ListCellRenderer<?> createRenderer() {
+		protected ListCellRenderer<Object> createRenderer() {
 			// 셀 렌더러 생성 및 디자인 설정
 			return new DefaultListCellRenderer() {
 				@Override

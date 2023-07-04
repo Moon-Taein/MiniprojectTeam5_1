@@ -7,7 +7,6 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
-import javafx.scene.layout.Background;
 import repo.PosRepo;
 
 import java.awt.*;
@@ -296,8 +295,8 @@ public class FinancialList extends JPanel {
 		}
 
 		@Override
-		protected ListCellRenderer<?> createRenderer() {
-			// 셀 렌더러 생성 및 디자인 설정
+		protected ListCellRenderer<Object> createRenderer() {
+			// 셀 렌더러 생성 및 디자인 설정``
 			return new DefaultListCellRenderer() {
 				@Override
 				public Component getListCellRendererComponent(JList<?> list, Object value, int index,
