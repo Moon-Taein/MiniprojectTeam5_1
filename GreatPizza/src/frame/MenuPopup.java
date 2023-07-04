@@ -395,16 +395,6 @@ public class MenuPopup extends JFrame {
 		pizzaSize.setBounds(81, 11, 109, 25);
 		panel_5.add(pizzaSize);
 
-		RoundButton btnNewButton_2 = new RoundButton("취 소");
-		btnNewButton_2.setForeground(Color.WHITE);
-		btnNewButton_2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				pizzaSize.setText("없 음");
-			}
-		});
-		btnNewButton_2.setBounds(188, 10, 65, 25);
-		panel_5.add(btnNewButton_2);
-
 		RoundButton btnNewButton_2_1 = new RoundButton("취 소");
 		btnNewButton_2_1.setForeground(Color.WHITE);
 		btnNewButton_2_1.addActionListener(new ActionListener() {
@@ -581,6 +571,7 @@ public class MenuPopup extends JFrame {
 					btnNewButton.setEnabled(true);
 					menuName.setEnabled(false);
 					hopedPrice.setEnabled(false);
+					btnNewButton_3.setEnabled(false);
 					btnNewButton_3_1.setEnabled(true);
 				}
 			}
@@ -595,6 +586,7 @@ public class MenuPopup extends JFrame {
 				menuName.setEnabled(true);
 				hopedPrice.setEnabled(true);
 				btnNewButton_3.setEnabled(true);
+				btnNewButton_3_1.setEnabled(false);
 
 			}
 		});

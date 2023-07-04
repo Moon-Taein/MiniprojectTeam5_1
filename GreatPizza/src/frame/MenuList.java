@@ -170,10 +170,10 @@ public class MenuList extends JPanel {
 						}
 					}
 					Menu menu = list.get(index);
-
 					MenuResetPopup menuResetPopup = new MenuResetPopup(MenuList.this, menu);
-				}
+					menuResetPopup.setAlwaysOnTop(true);
 
+				}
 			});
 
 			scrollablePanel.add(innerPanel);
