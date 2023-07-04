@@ -22,6 +22,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.RoundRectangle2D;
+import java.util.Arrays;
 
 import javax.swing.SwingConstants;
 import java.awt.Color;
@@ -140,8 +141,10 @@ public class Login extends JFrame {
 		RoundButton login = new RoundButton("로그인");
 		login.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frame.setVisible(true);
-				setVisible(false);
+				if (id.getText().equals("naman") && Arrays.equals(pw.getPassword(), "1234".toCharArray())) {
+					frame.setVisible(true);
+					setVisible(false);
+				}
 			}
 		});
 		login.setFont(new Font("굴림", Font.BOLD, 20));
@@ -161,7 +164,6 @@ public class Login extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				dispose();
 			}
-
 			@Override
 			public void mousePressed(MouseEvent e) {
 			}
@@ -181,6 +183,7 @@ public class Login extends JFrame {
 			}
 		});
 		contentPane.add(dots);
+		
 
 		KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
 			@Override
