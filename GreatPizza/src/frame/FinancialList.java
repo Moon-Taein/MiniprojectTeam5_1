@@ -206,7 +206,7 @@ public class FinancialList extends JPanel {
 		int day = 1;
 		for (int row = 0; row < 6; row++) {
 			for (int col = 0; col < 7; col++) {
-				if (row == 0 && col < firstDayOfWeek - 1) {
+				if (row == 0 && col < firstDayOfWeek) {
 					data[row][col] = "   [나만의 피자]";
 				} else if (day > lastDayOfMonth) {
 					data[row][col] = "   [나만의 피자]";

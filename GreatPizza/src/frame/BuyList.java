@@ -68,7 +68,7 @@ public class BuyList extends JPanel {
 			int count = 0;
 			@Override
 			public void run() {
-				System.out.println(count);
+//				System.out.println(count);
 				if (!(lastMainOrder == order.lastOrder())) {
 					if (count == 0) {
 						PosRepo.ballSound();
