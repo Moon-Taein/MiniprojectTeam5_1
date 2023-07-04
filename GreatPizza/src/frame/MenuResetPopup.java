@@ -32,6 +32,8 @@ import java.awt.GridLayout;
 
 import javax.swing.ScrollPaneConstants;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -78,10 +80,10 @@ public class MenuResetPopup extends JFrame {
 		setUndecorated(true);
 		getContentPane().setLayout(null);
 		getContentPane().setBackground(Color.LIGHT_GRAY);
-
+		setLocation(0,0);
+		
 		or.getIngredients(menu.getMenuId());
 		setSize(new Dimension(668, 626));
-		getContentPane().setLayout(null);
 
 		JPanel panel = new JPanel();
 		panel.setBackground(graycolor);
@@ -659,6 +661,35 @@ public class MenuResetPopup extends JFrame {
 		panel_9.setBounds(383, 56, 285, 570);
 		panel_9.setBackground(new Color(0, 0, 0));
 		panel_6.add(panel_9);
+		
+		ImageIcon dot = new ImageIcon("GreatPizza/img//back.png");
+		JLabel dots = new JLabel(dot);
+		dots.setBounds(5, 7, 60, 30);
+		dots.addMouseListener(new MouseListener() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				dispose();
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				dots.setBounds(1, 7, 60, 30);
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				dots.setBounds(5, 7, 60, 30);
+			}
+		});
+		background.add(dots);
 
 		setVisible(true);
 	}

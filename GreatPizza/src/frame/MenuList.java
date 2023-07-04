@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -24,6 +25,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
 import img.RoundButton;
+import repo.Ingredient;
 import repo.Menu;
 import repo.PosRepo;
 
@@ -34,6 +36,7 @@ import java.awt.Graphics;
 
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 
 public class MenuList extends JPanel {
 	private JPanel scrollablePanel;
@@ -42,6 +45,7 @@ public class MenuList extends JPanel {
 	public static final Color graycolor = Color.decode("#21222D");
 	public static final Color mintcolor = Color.decode("#A9DFD8");
 	private JTextField textField;
+	private JPanel innerPanel;
 
 	public MenuList() {
 		setBackground(Color.BLACK);
@@ -70,8 +74,57 @@ public class MenuList extends JPanel {
 		// 패널 내부의 패널 생성
 		PosRepo pr = new PosRepo();
 		List<Menu> list = pr.menuIdPrice();
+		setting(list);
+		
+		// JScrollPane 생성 및 스크롤 가능한 패널 설정
+		JScrollPane scrollPane = new JScrollPane(scrollablePanel);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+//		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setPreferredSize(new Dimension(590, 496));
+		scrollPane.setBackground(graycolor);
+		
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.getVerticalScrollBar().setBackground(graycolor); // 스크롤 바 배경
+		scrollPane.getVerticalScrollBar().setUnitIncrement(15); // 스크롤 바 속도
+		scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(5, 200));
+		scrollPane.getVerticalScrollBar().setUI(new CustomScrollBarUI()); // 뭔지 모르는데 UI 설정
+		scrollPane.setBorder(null);
+		scrollPane.revalidate();
+		scrollPane.repaint();
+		panel.add(scrollPane);
+
+		RoundButton btnNewButton = new RoundButton("ADD MENU");
+		btnNewButton.setOpaque(false);
+		background.add(btnNewButton);
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				MenuPopup menuPopup = new MenuPopup(MenuList.this);
+			}
+		});
+		btnNewButton.setBounds(270, 670, 200, 50);
+
+		textField = new JTextField();
+		textField.setBounds(120, 60, 423, 44);
+		textField.setOpaque(false);
+		textField.setBorder(null);
+		textField.registerKeyboardAction(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				List<Menu> menus = pr.findmenus(textField.getText());
+				scrollablePanel.removeAll();
+				scrollablePanel.repaint();
+				scrollablePanel.revalidate();
+				setting(menus);
+			}
+		}, null, KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), JComponent.WHEN_FOCUSED);
+		textField.setForeground(Color.WHITE);
+		background.add(textField);
+		textField.setColumns(10);
+	}
+	
+	public void setting(List<Menu> list) {
 		for (Menu m : list) {
-			JPanel innerPanel = new JPanel();
+			innerPanel = new JPanel();
 			innerPanel.setLayout(new GridLayout(1, 3, 0, 25)); // (행, 열, 글자사이 가로 간격, 격자사이 수직 간격)
 
 			innerPanel.setBorder(new EmptyBorder(15, 5, 15, 5)); // (위로 간격, 왼쪽 ,아래, 우측) 레이아웃과의 간격
@@ -123,48 +176,12 @@ public class MenuList extends JPanel {
 
 			});
 
-			innerPanel.revalidate();
-			innerPanel.repaint();
 			scrollablePanel.add(innerPanel);
 			scrollablePanel.setOpaque(false);
 			scrollablePanel.revalidate();
 			scrollablePanel.repaint();
 		}
 
-		// JScrollPane 생성 및 스크롤 가능한 패널 설정
-		JScrollPane scrollPane = new JScrollPane(scrollablePanel);
-		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-//		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setPreferredSize(new Dimension(590, 496));
-		scrollPane.setBackground(graycolor);
-		
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPane.getVerticalScrollBar().setBackground(graycolor); // 스크롤 바 배경
-		scrollPane.getVerticalScrollBar().setUnitIncrement(15); // 스크롤 바 속도
-		scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(5, 200));
-		scrollPane.getVerticalScrollBar().setUI(new CustomScrollBarUI()); // 뭔지 모르는데 UI 설정
-		scrollPane.setBorder(null);
-		scrollPane.revalidate();
-		scrollPane.repaint();
-		panel.add(scrollPane);
-
-		RoundButton btnNewButton = new RoundButton("ADD MENU");
-		btnNewButton.setOpaque(false);
-		background.add(btnNewButton);
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				MenuPopup menuPopup = new MenuPopup(MenuList.this);
-			}
-		});
-		btnNewButton.setBounds(270, 670, 200, 50);
-
-		textField = new JTextField();
-		textField.setBounds(120, 60, 423, 44);
-		textField.setOpaque(false);
-		textField.setBorder(null);
-		textField.setForeground(Color.WHITE);
-		background.add(textField);
-		textField.setColumns(10);
 	}
 
 	static class CustomScrollBarUI extends BasicScrollBarUI {

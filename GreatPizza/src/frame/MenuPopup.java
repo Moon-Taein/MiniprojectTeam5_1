@@ -36,6 +36,7 @@ import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 public class MenuPopup extends JFrame {
 	private JTextField menuName;
@@ -67,11 +68,13 @@ public class MenuPopup extends JFrame {
 
 	public MenuPopup(MenuList menulist) {
 		pr = new PosRepo();
-		getContentPane().setBackground(Color.LIGHT_GRAY);
+		getContentPane().setBackground(graycolor);
 		setSize(new Dimension(671, 622));
 		setLocationRelativeTo(null);
 		setUndecorated(true);
 		getContentPane().setLayout(null);
+		setLocation(700, 250);
+		
 		final JComboBox comboBox = new JComboBox();
 		comboBox.setEnabled(false);
 		ImageIcon tutoImage = new ImageIcon("GreatPizza/img//튜토리얼.png");
@@ -600,6 +603,7 @@ public class MenuPopup extends JFrame {
 
 		ImageIcon icon = new ImageIcon("GreatPizza/img//Frame 94.png");
 		JPanel panel_6 = new JPanel();
+		panel_6.setBackground(blackcolor);
 		panel_6.setBounds(0, 0, 671, 622);
 		getContentPane().add(panel_6);
 		panel_6.setLayout(null);
@@ -622,6 +626,35 @@ public class MenuPopup extends JFrame {
 		JLabel background = new JLabel(icon);
 		background.setBounds(0, 0, 671, 622);
 		panel_6.add(background);
+		
+		ImageIcon dot = new ImageIcon("GreatPizza/img//back.png");
+		JLabel dots = new JLabel(dot);
+		dots.setBounds(5, 7, 60, 30);
+		dots.addMouseListener(new MouseListener() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				dispose();
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				dots.setBounds(1, 7, 60, 30);
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				dots.setBounds(5, 7, 60, 30);
+			}
+		});
+		background.add(dots);
 
 		setVisible(true);
 
