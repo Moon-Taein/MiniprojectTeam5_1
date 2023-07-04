@@ -34,6 +34,7 @@ public class PosRepo {
 	private int day;
 	private byte[] bytesSs;
 	private byte[] bytesBs;
+	static private Clip clip;
 
 	public List<Menu> menuIdPrice() {
 		list = new ArrayList<>();
@@ -770,13 +771,23 @@ public class PosRepo {
 			// 사운드 파일 경로 설정
 
 			AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
-			Clip clip = AudioSystem.getClip();
+			clip = AudioSystem.getClip();
 			clip.open(audioInputStream);
 			clip.start();
+	
 		} catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
 			ex.printStackTrace();
 		}
 	}
+	
+	  public static void releaseSound() {
+	        if (clip != null) {
+	            clip.stop();
+	            clip.close();
+	            clip = null;
+	        }
+	    }
+
 
 	private static byte[] convertImageIconToBytes(ImageIcon icon) throws IOException {
 		Image image = icon.getImage();

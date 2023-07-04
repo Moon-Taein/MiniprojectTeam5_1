@@ -84,8 +84,7 @@ public class BuyList extends JPanel {
 						repaint();
 						initialize();
 						revalidate();
-						timer.cancel();
-						this.cancel(); // TimerTask 중지
+						PosRepo.releaseSound();
 					} else {
 						issue.setVisible(false);
 						// 횟수가 완료되면 패널 숨김
