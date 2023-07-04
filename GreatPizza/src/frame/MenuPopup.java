@@ -12,6 +12,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
+import com.sun.glass.ui.Timer;
+
 import frame.MenuList.CustomScrollBarUI;
 import img.RoundButton;
 import repo.Ingredient;
@@ -190,24 +192,32 @@ public class MenuPopup extends JFrame {
 		lblNewLabel_2.setBounds(12, 10, 60, 30);
 		panel_2.add(lblNewLabel_2);
 
+		JLabel nameNotion = new JLabel("이름을 입력하세요");
+		nameNotion.setForeground(Color.PINK);
+		nameNotion.setHorizontalAlignment(SwingConstants.CENTER);
+		nameNotion.setBounds(86, 10, 153, 30);
+		nameNotion.setVisible(false);
+
 		menuName = new JTextField();
 		menuName.setHorizontalAlignment(SwingConstants.RIGHT);
 		menuName.setBounds(84, 11, 155, 30);
-		panel_2.add(menuName);
 		menuName.setColumns(10);
+
+		panel_2.add(nameNotion);
+		panel_2.add(menuName);
 
 		JPanel panel_3 = new JPanel();
 		panel_3.setBackground(graycolor);
 		panel_3.setBounds(17, 234, 251, 50);
 		getContentPane().add(panel_3);
 		panel_3.setLayout(null);
-		
-				JLabel priceNotion = new JLabel("숫자 입력하세요");
-				priceNotion.setForeground(Color.PINK);
-				priceNotion.setHorizontalAlignment(SwingConstants.CENTER);
-				priceNotion.setBounds(86, 10, 153, 30);
-				priceNotion.setVisible(false);
-				panel_3.add(priceNotion);
+
+		JLabel priceNotion = new JLabel("숫자를 입력하세요");
+		priceNotion.setForeground(Color.PINK);
+		priceNotion.setHorizontalAlignment(SwingConstants.CENTER);
+		priceNotion.setBounds(86, 10, 153, 30);
+		priceNotion.setVisible(false);
+		panel_3.add(priceNotion);
 
 		JLabel lblNewLabel_3 = new JLabel("희망가격");
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
@@ -220,6 +230,10 @@ public class MenuPopup extends JFrame {
 		hopedPrice.setColumns(10);
 		hopedPrice.setBounds(84, 11, 155, 30);
 		panel_3.add(hopedPrice);
+
+		JLabel label = new JLabel("New label");
+		label.setBounds(0, 0, 57, 15);
+		panel_3.add(label);
 
 		JPanel panel_4 = new JPanel();
 		panel_4.setBackground(graycolor);
@@ -593,6 +607,12 @@ public class MenuPopup extends JFrame {
 				Matcher matcher = pattern.matcher(hopedPrice.getText());
 				priceNotion.setVisible(false);
 
+				if (menuName.getText().equals("")) {
+					nameNotion.setVisible(true);
+				} else {
+					nameNotion.setVisible(false);
+				}
+
 				if (matcher.matches()) {
 					if (!menuName.getText().equals("") && !hopedPrice.getText().equals("") && selectType != "") {
 						btnNewButton.setEnabled(true);
@@ -603,7 +623,6 @@ public class MenuPopup extends JFrame {
 					}
 				} else {
 					priceNotion.setVisible(true);
-					hopedPrice.setText("");
 				}
 			}
 		});
