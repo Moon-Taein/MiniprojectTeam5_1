@@ -53,9 +53,6 @@ public class Login extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public Login() {
 		frame = new HomeFrame();
 		setUndecorated(true);

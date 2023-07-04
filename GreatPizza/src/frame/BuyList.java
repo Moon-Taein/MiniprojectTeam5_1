@@ -55,8 +55,9 @@ public class BuyList extends JPanel {
 		checks = new JButton[4];
 
 		mainOrders = order.getMainOrders("미확인");
-		size = Math.min(mainOrders.size(), 4);
-
+		if(mainOrders != null) {
+			size = Math.min(mainOrders.size(), 4);
+			
 		for (int i = 0; i < size; i++) {
 			pnls[i] = new JPanel();
 			pnls[i].setBounds(50, 75 + (i*165), 630, 150);
@@ -100,6 +101,7 @@ public class BuyList extends JPanel {
 			prices[i].setBounds(407, 63, 84, 21);
 			prices[i].setForeground(Color.WHITE);
 			pnls[i].add(prices[i]);
+		}
 		}
 		setTexts();
 		
