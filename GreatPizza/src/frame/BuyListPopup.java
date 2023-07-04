@@ -72,13 +72,13 @@ public class BuyListPopup extends JFrame {
         pane.setLayout(null);
 
         JPanel inventory = new JPanel();
-        inventory.setBounds(470, 186, 200, 393);
+        inventory.setBounds(388, 186, 270, 393);
         back.add(inventory);
         inventory.setLayout(null);
 
         JScrollPane scrollPane2 = new JScrollPane();
         scrollPane2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        scrollPane2.setBounds(0, 0, 200, 393);
+        scrollPane2.setBounds(0, 0,  291, 393);
         scrollPane2.setOpaque(false);
         scrollPane2.getVerticalScrollBar().setPreferredSize(new Dimension(0, 200));
         scrollPane2.setBorder(null);
