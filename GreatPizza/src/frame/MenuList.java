@@ -48,6 +48,7 @@ public class MenuList extends JPanel {
 	public static final Color mintcolor = Color.decode("#A9DFD8");
 	private JTextField textField;
 	private JPanel innerPanel;
+	private PosRepo pr = new PosRepo();
 
 	public MenuList() {
 		setBackground(Color.BLACK);
@@ -160,6 +161,8 @@ public class MenuList extends JPanel {
 
 			innerPanel.addMouseListener(new MouseAdapter() {
 
+
+
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					int index = 0;
@@ -171,6 +174,7 @@ public class MenuList extends JPanel {
 						}
 					}
 					System.out.println(list.get(index));
+
 					Menu menu = list.get(index);
 					MenuResetPopup menuResetPopup = new MenuResetPopup(MenuList.this, menu);
 					menuResetPopup.setAlwaysOnTop(true);

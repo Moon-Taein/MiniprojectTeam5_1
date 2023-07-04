@@ -231,10 +231,6 @@ public class MenuPopup extends JFrame {
 		hopedPrice.setBounds(84, 11, 155, 30);
 		panel_3.add(hopedPrice);
 
-		JLabel label = new JLabel("New label");
-		label.setBounds(0, 0, 57, 15);
-		panel_3.add(label);
-
 		JPanel panel_4 = new JPanel();
 		panel_4.setBackground(graycolor);
 		panel_4.setBounds(17, 404, 251, 208);

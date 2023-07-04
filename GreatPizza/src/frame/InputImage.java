@@ -254,7 +254,6 @@ public class InputImage {
 				String twofilePath = ImageResizeBig(filePath);
 				byte[] fileBytes = fileToBytes(newfilePath);
 				bigBytes = fileToBytes(twofilePath);
-				menuResetpopup.addImage(fileBytes);
 
 
 				// 추가적인 파일 처리 작업 수행

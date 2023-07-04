@@ -1,5 +1,8 @@
 package repo;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -13,7 +16,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import javax.imageio.ImageIO;
 import javax.sound.sampled.*;
+import javax.swing.ImageIcon;
 
 import frame.InputImage;
 
@@ -26,6 +32,8 @@ public class PosRepo {
 	private ResultSet rs = null;
 	private InputImage ip;
 	private int day;
+	private byte[] bytesSs;
+	private byte[] bytesBs;
 
 	public List<Menu> menuIdPrice() {
 		list = new ArrayList<>();
@@ -270,10 +278,52 @@ public class PosRepo {
 		return 0;
 	}
 
-	// 피자는 메뉴 용 하나, 레시피용 하나가 필요합니다. 주의 하세요
 	public int InsertPizzaMenu(String type, String name, String size, String price, byte[] bytes) {
 		ip = new InputImage();
+		ImageIcon iconS = new ImageIcon(getClass().getResource("/pizzaImageS.png"));
+		ImageIcon iconB = new ImageIcon(getClass().getResource("/pizzaImageB.png"));
+
 		byte[] Bigbyte = ip.getBytes();
+		if (bytes == null) {
+			try {
+				bytesSs = convertImageIconToBytes(iconS);
+				bytesBs = convertImageIconToBytes(iconB);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else {
+			bytesSs = bytes;
+			bytesBs = Bigbyte;
+		}
+
+		String sql = "INSERT INTO menu (Menu_id,Menu_name,size,price,image,image_big) VALUES (?,?,?,?,?,?)";
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+
+			String menuName = name + size;
+			String menuId = type + "_" + menuName;
+
+			stmt.setString(1, menuId);
+			stmt.setString(2, menuName);
+			stmt.setString(3, size);
+			stmt.setString(4, price);
+			stmt.setBytes(5, bytesSs);
+			stmt.setBytes(6, bytesBs);
+			System.out.println("메뉴에 피자가 추가 됐다!");
+			return stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
+		}
+		return 0;
+	}
+	
+	public int InsertPizzaMenuB(String type, String name, String size, String price, byte[] bytes, byte[] bytesB) {
+		ip = new InputImage();
 
 		String sql = "INSERT INTO menu (Menu_id,Menu_name,size,price,image,image_big) VALUES (?,?,?,?,?,?)";
 		try {
@@ -288,7 +338,7 @@ public class PosRepo {
 			stmt.setString(3, size);
 			stmt.setString(4, price);
 			stmt.setBytes(5, bytes);
-			stmt.setBytes(6, Bigbyte);
+			stmt.setBytes(6, bytesB);
 			System.out.println("메뉴에 피자가 추가 됐다!");
 			return stmt.executeUpdate();
 		} catch (SQLException e) {
@@ -410,7 +460,6 @@ public class PosRepo {
 				setHash.remove(key);
 			}
 		}
-
 		return setHash;
 	}
 
@@ -444,7 +493,6 @@ public class PosRepo {
 				toppoingList.add(key);
 			}
 		}
-
 		return toppoingList;
 	}
 
@@ -673,12 +721,48 @@ public class PosRepo {
 		}
 		return 0;
 	}
+
+	public byte[] getImage(String menuId) {
+		byte[] image = null;
+		String sql = "select image from menu where  menu_id like '%" + menuId + "'";
+
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+			rs = stmt.executeQuery();
+			if (rs.next()) {
+				byte[] no = rs.getBytes("image");
+				System.out.println(no);
+				return no;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		System.out.println(image);
+		return image;
+	}
 	
-//	public byte[] getImage(String menuId) {
-//		byte[] image = null;
-//		String sql = "select image from menu where  menu_id like '%"+menuId+"'";
-//		return image;
-//	}
+	public byte[] getImageB(String menuId) {
+		byte[] image = null;
+		String sql = "select image_big from menu where  menu_id like '%" + menuId + "'";
+
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+			rs = stmt.executeQuery();
+			if (rs.next()) {
+				byte[] no = rs.getBytes("image_big");
+				System.out.println(no);
+				return no;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		System.out.println(image);
+		return image;
+	}
 
 	public static void ballSound() {
 		try {
@@ -692,7 +776,19 @@ public class PosRepo {
 		} catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
 			ex.printStackTrace();
 		}
-
 	}
 
+	private static byte[] convertImageIconToBytes(ImageIcon icon) throws IOException {
+		Image image = icon.getImage();
+
+		BufferedImage bufferedImage = new BufferedImage(image.getWidth(null), image.getHeight(null),
+				BufferedImage.TYPE_INT_RGB);
+
+		bufferedImage.getGraphics().drawImage(image, 0, 0, null);
+
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		ImageIO.write(bufferedImage, "png", baos);
+
+		return baos.toByteArray();
+	}
 }
