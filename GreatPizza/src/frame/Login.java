@@ -27,9 +27,7 @@ import java.awt.geom.RoundRectangle2D;
 import java.util.Arrays;
 import java.util.List;
 
-
 import javax.swing.SwingConstants;
-
 
 import java.awt.Color;
 import javax.swing.JPasswordField;
@@ -52,15 +50,14 @@ public class Login extends JFrame {
 				try {
 					Login frame = new Login();
 					frame.setVisible(true);
-					
-				
-					
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
 	}
+
 	public Login() {
 		frame = new HomeFrame();
 		setUndecorated(true);
@@ -149,16 +146,16 @@ public class Login extends JFrame {
 				if (id.getText().equals("naman") && Arrays.equals(pw.getPassword(), "1234".toCharArray())) {
 					frame.setVisible(true);
 					setVisible(false);
-					
+
 					OrderRepo or = new OrderRepo();
 					List<MainOrder> check = or.getMainOrders();
-					for(int i = 0;i<check.size();i++) {
-						if(check.get(i).getState().equals("미확인")) {
+					for (int i = 0; i < check.size(); i++) {
+						if (check.get(i).getState().equals("미확인")) {
 							SalesListCheck slc = new SalesListCheck();
 							slc.setVisible(true);
 							break;
 						}
-				}
+					}
 				}
 			}
 		});
@@ -179,6 +176,7 @@ public class Login extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				dispose();
 			}
+
 			@Override
 			public void mousePressed(MouseEvent e) {
 			}
@@ -198,7 +196,6 @@ public class Login extends JFrame {
 			}
 		});
 		contentPane.add(dots);
-		
 
 		KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
 			@Override

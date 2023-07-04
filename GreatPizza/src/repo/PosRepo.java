@@ -385,53 +385,52 @@ public class PosRepo {
 		}
 		return recipe;
 	}
+
 	// 수정된 레시피
-	public HashMap<String, Integer> setHash(List<String>setRecipe) {
+	public HashMap<String, Integer> setHash(List<String> setRecipe) {
 		HashMap<String, Integer> set = new HashMap<>();
 		for (String item : setRecipe) {
 			System.out.println(item);
 			set.put(item, set.getOrDefault(item, 0) + 1);
-        }
+		}
 		return set;
 	}
-	
-	public HashMap<String, Integer> addRecipe(HashMap<String, Integer>originHash,HashMap<String, Integer>setHash){
-	       for (Map.Entry<String, Integer> entry : setHash.entrySet()) {
-	            String key = entry.getKey();
-	            int setValue = entry.getValue();
-	            int originValue = originHash.getOrDefault(key, 0);
 
-	            int difference = setValue - originValue;
-	            if (difference != 0) {
-	            	
-	                setHash.put(key, difference);
-	            } else {
-	                setHash.remove(key);
-	            }
-	        }
+	public HashMap<String, Integer> addRecipe(HashMap<String, Integer> originHash, HashMap<String, Integer> setHash) {
+		for (Map.Entry<String, Integer> entry : setHash.entrySet()) {
+			String key = entry.getKey();
+			int setValue = entry.getValue();
+			int originValue = originHash.getOrDefault(key, 0);
 
-	        return setHash;
+			int difference = setValue - originValue;
+			if (difference != 0) {
+
+				setHash.put(key, difference);
+			} else {
+				setHash.remove(key);
+			}
+		}
+
+		return setHash;
 	}
-	
-	public HashMap<String, Integer> removeRecipe(HashMap<String, Integer> originHash, HashMap<String, Integer> setHash){
-	    for (Map.Entry<String, Integer> entry : setHash.entrySet()) {
-            String key = entry.getKey();
-            int originValue = entry.getValue();
-            int setValue = originHash.getOrDefault(key, 0);
 
-            int difference =  originValue - setValue ;
-            if (difference != 0) {
-            	
-                originHash.put(key, difference);
-            } else {
-                originHash.remove(key);
-            }
-        }
+	public HashMap<String, Integer> removeRecipe(HashMap<String, Integer> originHash,
+			HashMap<String, Integer> setHash) {
+		for (Map.Entry<String, Integer> entry : setHash.entrySet()) {
+			String key = entry.getKey();
+			int originValue = entry.getValue();
+			int setValue = originHash.getOrDefault(key, 0);
+
+			int difference = originValue - setValue;
+			if (difference != 0) {
+
+				originHash.put(key, difference);
+			} else {
+				originHash.remove(key);
+			}
+		}
 		return originHash;
 	}
-	
-
-	
 
 	public List<String> getToppingList(HashMap<String, Integer> hashMap, String menuId) {
 		List<String> toppoingList = new ArrayList<>();
@@ -448,7 +447,6 @@ public class PosRepo {
 
 		return toppoingList;
 	}
-
 
 	public int updateSide(String type, String name, String price, byte[] bytes) {
 		ip = new InputImage();
@@ -503,7 +501,7 @@ public class PosRepo {
 		}
 		return 0;
 	}
-	
+
 	public int deletePizzaRecipe(String type, String name, String size, List<String> removerecipe) {
 
 		String sql = "DELETE FROM recipe  WHERE menu_id = ? AND ingredient_id = ?";
@@ -521,9 +519,7 @@ public class PosRepo {
 				stmt.executeUpdate();
 			}
 
-	
 			return 1;
-
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -535,16 +531,13 @@ public class PosRepo {
 		return 0;
 	}
 
-
 	public int deletePizzaMenu(String originType, String originName, String originSize, String originPrice,
 			List<String> originList, String setPrice, List<String> setList) {
 
 		String sql = "DELETE FROM menu WHERE menu_id = ?";
 
-	
-			String menuName = originName + originSize;
-			String menuId = originType + "_" + menuName;
-
+		String menuName = originName + originSize;
+		String menuId = originType + "_" + menuName;
 
 		try {
 			conn = DBUtil.getConnection();
@@ -554,7 +547,6 @@ public class PosRepo {
 
 			return 1;
 
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -564,8 +556,6 @@ public class PosRepo {
 		}
 		return 0;
 	}
-
-
 
 	public int dropPizzaRecipe(String origin) {
 
@@ -585,8 +575,6 @@ public class PosRepo {
 		}
 		return 0;
 	}
-
-
 
 	public int dropPizzaMenu(String origin) {
 
@@ -632,9 +620,9 @@ public class PosRepo {
 		return 0;
 	}
 
-	public List<Menu> findmenus(String find){
+	public List<Menu> findmenus(String find) {
 		String sql = "SELECT * FROM menu WHERE menu_id Like ?";
-		
+
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -642,7 +630,7 @@ public class PosRepo {
 		try {
 			conn = DBUtil.getConnection();
 			stmt = conn.prepareStatement(sql);
-			String line = "%"+find+"%";
+			String line = "%" + find + "%";
 			stmt.setString(1, line);
 			rs = stmt.executeQuery();
 			while (rs.next()) {
@@ -661,52 +649,50 @@ public class PosRepo {
 		return list;
 	}
 
+	public int lastOrder() {
+		String sql = "SELECT * FROM mainorder ORDER BY no DESC LIMIT 1";
 
-
-
-public int lastOrder(){
-	String sql = "SELECT * FROM mainorder ORDER BY no DESC LIMIT 1";
-	
-	Connection conn = null;
-	PreparedStatement stmt = null;
-	ResultSet rs = null;
-	List<Menu> list = new ArrayList<>();
-	try {
-		conn = DBUtil.getConnection();
-		stmt = conn.prepareStatement(sql);
-		rs = stmt.executeQuery();
-		if (rs.next()) {
-			int no = rs.getInt("no");
-			return no;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		List<Menu> list = new ArrayList<>();
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+			rs = stmt.executeQuery();
+			if (rs.next()) {
+				int no = rs.getInt("no");
+				return no;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(stmt);
+			DBUtil.close(conn);
 		}
-	} catch (SQLException e) {
-		e.printStackTrace();
-	} finally {
-		DBUtil.close(rs);
-		DBUtil.close(stmt);
-		DBUtil.close(conn);
+		return 0;
 	}
-	return 0;
-}
-
-
-
-
-public static void ballSound() {
-	   try {
-	       URL soundFile = PosRepo.class.getClassLoader().getResource("call-to-attention-123107.wav");
-	       // 사운드 파일 경로 설정
-	       
-	       AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
-	       Clip clip = AudioSystem.getClip();
-	       clip.open(audioInputStream);
-	       clip.start();
-	    } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
-	       ex.printStackTrace();
-	    }
 	
-}
+//	public byte[] getImage(String menuId) {
+//		byte[] image = null;
+//		String sql = "select image from menu where  menu_id like '%"+menuId+"'";
+//		return image;
+//	}
 
+	public static void ballSound() {
+		try {
+			URL soundFile = PosRepo.class.getClassLoader().getResource("call-to-attention-123107.wav");
+			// 사운드 파일 경로 설정
 
+			AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
+			Clip clip = AudioSystem.getClip();
+			clip.open(audioInputStream);
+			clip.start();
+		} catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
+			ex.printStackTrace();
+		}
+
+	}
 
 }

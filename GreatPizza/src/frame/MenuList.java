@@ -170,6 +170,7 @@ public class MenuList extends JPanel {
 							break;
 						}
 					}
+					System.out.println(list.get(index));
 					Menu menu = list.get(index);
 					MenuResetPopup menuResetPopup = new MenuResetPopup(MenuList.this, menu);
 					menuResetPopup.setAlwaysOnTop(true);
@@ -181,16 +182,10 @@ public class MenuList extends JPanel {
 			scrollablePanel.setOpaque(false);
 			scrollablePanel.revalidate();
 			scrollablePanel.repaint();
-			
-			
-			
-			  
-		    }
+
+		}
 	}
 
-
-	
-	
 	static class CustomScrollBarUI extends BasicScrollBarUI {
 		@Override
 		protected void configureScrollBarColors() {
@@ -227,9 +222,6 @@ public class MenuList extends JPanel {
 			button.setMaximumSize(zeroDim);
 			return button;
 		}
-	
+
 	}
 }
-
-
-
