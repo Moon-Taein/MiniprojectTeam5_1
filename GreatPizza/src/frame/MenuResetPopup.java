@@ -64,7 +64,7 @@ public class MenuResetPopup extends JFrame {
 	public static final Color blackcolor = Color.decode("#171821");
 	public static final Color graycolor = Color.decode("#21222D");
 	public static final Color mintcolor = Color.decode("#A9DFD8");
-	
+
 	private String origin = "";
 	private String originType;
 	private String originSize;
@@ -75,21 +75,17 @@ public class MenuResetPopup extends JFrame {
 	public MenuResetPopup(MenuList menulist, Menu menu) {
 		OrderRepo or = new OrderRepo();
 		PosRepo pr = new PosRepo();
+		setUndecorated(true);
+		getContentPane().setLayout(null);
+		getContentPane().setBackground(Color.LIGHT_GRAY);
+
 		or.getIngredients(menu.getMenuId());
-		System.out.println(menu);
-	
-		
-		
-		
-		
-		getContentPane().setBackground(Color.PINK);
-		setBackground(Color.PINK);
-		setSize(new Dimension(652, 613));
+		setSize(new Dimension(668, 626));
 		getContentPane().setLayout(null);
 
 		JPanel panel = new JPanel();
-		panel.setBackground(new Color(255, 228, 225));
-		panel.setBounds(17, 10, 251, 50);
+		panel.setBackground(graycolor);
+		panel.setBounds(17, 63, 251, 50);
 		getContentPane().add(panel);
 		panel.setLayout(null);
 
@@ -99,8 +95,8 @@ public class MenuResetPopup extends JFrame {
 		panel.add(lblNewLabel);
 
 		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(255, 228, 225));
-		panel_1.setBounds(17, 70, 251, 50);
+		panel_1.setBackground(graycolor);
+		panel_1.setBounds(17, 123, 251, 50);
 		getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 
@@ -110,8 +106,8 @@ public class MenuResetPopup extends JFrame {
 		panel_1.add(lblNewLabel_1);
 
 		JPanel panel_5 = new JPanel();
-		panel_5.setBackground(Color.WHITE);
-		panel_5.setBounds(359, 10, 265, 508);
+		panel_5.setBackground(graycolor);
+		panel_5.setBounds(391, 66, 265, 508);
 		getContentPane().add(panel_5);
 		panel_5.setLayout(null);
 
@@ -164,8 +160,8 @@ public class MenuResetPopup extends JFrame {
 		panel.add(comboBox_1);
 
 		JPanel panel_2 = new JPanel();
-		panel_2.setBackground(new Color(255, 228, 225));
-		panel_2.setBounds(17, 130, 251, 50);
+		panel_2.setBackground(graycolor);
+		panel_2.setBounds(17, 183, 251, 50);
 		getContentPane().add(panel_2);
 		panel_2.setLayout(null);
 
@@ -181,8 +177,8 @@ public class MenuResetPopup extends JFrame {
 		menuName.setColumns(10);
 
 		JPanel panel_3 = new JPanel();
-		panel_3.setBackground(new Color(255, 228, 225));
-		panel_3.setBounds(17, 190, 251, 50);
+		panel_3.setBackground(graycolor);
+		panel_3.setBounds(17, 243, 251, 50);
 		getContentPane().add(panel_3);
 		panel_3.setLayout(null);
 
@@ -198,8 +194,8 @@ public class MenuResetPopup extends JFrame {
 		panel_3.add(hopedPrice);
 
 		JPanel panel_4 = new JPanel();
-		panel_4.setBackground(Color.PINK);
-		panel_4.setBounds(17, 293, 251, 225);
+		panel_4.setBackground(graycolor);
+		panel_4.setBounds(17, 349, 251, 225);
 		getContentPane().add(panel_4);
 
 		final JPanel scrollablePanel = new JPanel();
@@ -320,7 +316,7 @@ public class MenuResetPopup extends JFrame {
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				pizzaSize.setText("없 음");
-				
+
 			}
 		});
 		btnNewButton_2.setBounds(188, 10, 65, 25);
@@ -349,7 +345,7 @@ public class MenuResetPopup extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				topping_1.setText("없 음");
 				countCb--;
-				
+
 			}
 		});
 		btnNewButton_2_3.setBounds(188, 101, 65, 25);
@@ -360,7 +356,7 @@ public class MenuResetPopup extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				topping_2.setText("없 음");
 				countCb--;
-				
+
 			}
 		});
 		btnNewButton_2_4.setBounds(188, 131, 65, 25);
@@ -371,7 +367,7 @@ public class MenuResetPopup extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				topping_3.setText("없 음");
 				countCb--;
-				
+
 			}
 		});
 		btnNewButton_2_4_1.setBounds(188, 161, 65, 25);
@@ -382,7 +378,7 @@ public class MenuResetPopup extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				topping_4.setText("없 음");
 				countCb--;
-				
+
 			}
 		});
 		btnNewButton_2_4_2.setBounds(188, 192, 65, 25);
@@ -391,11 +387,10 @@ public class MenuResetPopup extends JFrame {
 		JButton btnNewButton_2_4_3 = new JButton("취 소");
 		btnNewButton_2_4_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			
+
 				topping_5.setText("없 음");
-					countCb--;
-					
-				
+				countCb--;
+
 			}
 		});
 		btnNewButton_2_4_3.setBounds(188, 221, 65, 25);
@@ -414,7 +409,6 @@ public class MenuResetPopup extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				selectType = comboBox.getSelectedItem().toString();
 				scrollablePanel.removeAll();
-			
 
 				List<Ingredient> list = pr.ingredientID(selectType);
 				for (final Ingredient ig : list) {
@@ -428,31 +422,31 @@ public class MenuResetPopup extends JFrame {
 					igPanel.revalidate();
 
 					btn.addActionListener(new ActionListener() {
-						
+
 						@Override
 						public void actionPerformed(ActionEvent e) {
-							
+
 							if (countCb < 5 && selectType.equals("토핑")) {
-								if (selectType.equals("토핑")&&topping_1.getText().equals("없 음")) {
+								if (selectType.equals("토핑") && topping_1.getText().equals("없 음")) {
 									topping_1.setText(ig.getId());
 									countCb++;
-									
-								} else if (selectType.equals("토핑")&&topping_2.getText().equals("없 음")) {
+
+								} else if (selectType.equals("토핑") && topping_2.getText().equals("없 음")) {
 									topping_2.setText(ig.getId());
 									countCb++;
-									
-								} else if (selectType.equals("토핑")&&topping_3.getText().equals("없 음")) {
+
+								} else if (selectType.equals("토핑") && topping_3.getText().equals("없 음")) {
 									topping_3.setText(ig.getId());
 									countCb++;
-									
-								} else if (selectType.equals("토핑")&&topping_4.getText().equals("없 음")) {
+
+								} else if (selectType.equals("토핑") && topping_4.getText().equals("없 음")) {
 									topping_4.setText(ig.getId());
 									countCb++;
-									
-								} else if (selectType.equals("토핑")&&topping_5.getText().equals("없 음")) {
+
+								} else if (selectType.equals("토핑") && topping_5.getText().equals("없 음")) {
 									topping_5.setText(ig.getId());
 									countCb++;
-									
+
 								}
 							} else if (selectType.equals("소스")) {
 								sauce.setText(ig.getId());
@@ -474,7 +468,7 @@ public class MenuResetPopup extends JFrame {
 			private List<String> setRecipe;
 
 			public void actionPerformed(ActionEvent e) {
-				
+
 				selectType = comboBox_1.getSelectedItem().toString();
 				if (selectType.equals("피자") || selectType.equals("음료")) {
 					selectSize = comboBox_1_1.getSelectedItem().toString();
@@ -483,9 +477,8 @@ public class MenuResetPopup extends JFrame {
 				String setPrice = String.valueOf(hopedPrice.getText());
 				// 작성한 이름
 				String name = String.valueOf(menuName.getText());
-				
+
 				// 입력된 소스
-				
 
 				setRecipe = new ArrayList<>();
 				setRecipe.add(topping_1.getText());
@@ -495,7 +488,7 @@ public class MenuResetPopup extends JFrame {
 				setRecipe.add(topping_5.getText());
 				setRecipe.add(sauce.getText());
 				setRecipe.add(edge.getText());
-				
+
 				setRecipe.removeAll(Collections.singleton("없 음"));
 
 				if (name != null || setPrice != null) {
@@ -523,71 +516,64 @@ public class MenuResetPopup extends JFrame {
 				} else {
 					System.out.println(" 입력은 하고 하는거냐! ");
 				}
-			
+
 				menulist.removeAll();
 				menulist.repaint();
 				menulist.revalidate();
 				menulist.createMenuList();
 				setVisible(false);
 			}
-		}); 
+		});
 
 		btnNewButton.setBackground(new Color(255, 222, 173));
-		btnNewButton.setBounds(395, 526, 186, 38);
+		btnNewButton.setBounds(439, 578, 186, 38);
 		getContentPane().add(btnNewButton);
 		comboBox.setToolTipText("분 류\r\n");
 		comboBox.setModel(new DefaultComboBoxModel(new String[] { "엣지", "소스", "토핑" }));
-		comboBox.setBounds(155, 250, 113, 43);
+		comboBox.setBounds(155, 303, 113, 43);
 		getContentPane().add(comboBox);
-		
+
 		JButton btnNewButton_3 = new JButton("메 뉴 삭 제");
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println(menu.getMenuId().substring(0, menu.getMenuId().indexOf("_")).equals("피자"));
-				if(menu.getMenuId().substring(0, menu.getMenuId().indexOf("_")).equals("피자")) {
+				if (menu.getMenuId().substring(0, menu.getMenuId().indexOf("_")).equals("피자")) {
 					pr.dropPizzaRecipe(origin);
 					pr.dropPizzaMenu(origin);
 
-				}else {
+				} else {
 					System.out.println(origin);
 					pr.drupMenu(origin);
 
 				}
-				
+
 				menulist.removeAll();
 				menulist.repaint();
 				menulist.revalidate();
 				menulist.createMenuList();
 				setVisible(false);
-				
-				
+
 			}
 		});
-		
-		
-		
+
 		addWindowListener(new WindowAdapter() {
-			
-
-			
-
-			
 
 			@Override
 			public void windowOpened(WindowEvent e) {
-				
+
 				origin = menu.getMenuId();
 				originType = origin.substring(0, origin.indexOf("_"));
-				if(originType.equals("피자")) {
-					originSize = menu.getMenuId().substring(menu.getMenuId().indexOf(menu.getMenuName())+menu.getMenuName().length());
-				}else {
+				if (originType.equals("피자")) {
+					originSize = menu.getMenuId()
+							.substring(menu.getMenuId().indexOf(menu.getMenuName()) + menu.getMenuName().length());
+				} else {
 					originSize = "";
-					
+
 				}
 				originName = menu.getMenuName();
 				originPrice = String.valueOf(menu.getPrice());
 				System.out.println(originType);
-				
+
 				comboBox_1.setSelectedItem(originType);
 				comboBox_1.setEnabled(false);
 				comboBox_1_1.setSelectedItem(originSize);
@@ -598,51 +584,67 @@ public class MenuResetPopup extends JFrame {
 				menuName.setEnabled(false);
 				hopedPrice.setText(originPrice);
 				System.out.println(pr.originHash(menu.getMenuId()));
-				
-				
-				originList = pr.getToppingList(pr.originHash(menu.getMenuId()), menu.getMenuId());
-				
-				  for (String str : originList) {
-			            if (str.startsWith("도우_")&&pizzaSize.getText().equals("없 음")) {
-			            	pizzaSize.setText(str);
-			            }else if (str.startsWith("엣지_")&&edge.getText().equals("없 음")) {
-			            	edge.setText(str);
-			            }else if (str.startsWith("소스_")&&sauce.getText().equals("없 음")) {
-			            	sauce.setText(str);
-			            }else if (str.startsWith("토핑_")&&topping_1.getText().equals("없 음")) {
-			            	topping_1.setText(str);
-			            	countCb++;
-			            }else if (str.startsWith("토핑_")&&topping_2.getText().equals("없 음")) {
-			            	topping_2.setText(str);
-			            	countCb++;
-			            }else if (str.startsWith("토핑_")&&topping_3.getText().equals("없 음")) {
-			            	topping_3.setText(str);
-			            	countCb++;
-			            }else if (str.startsWith("토핑_")&&topping_4.getText().equals("없 음")) {
-			            	topping_4.setText(str);
-			            	countCb++;
-			            }else if (str.startsWith("토핑_")&&topping_5.getText().equals("없 음")) {
-			            	topping_5.setText(str);
-			            	countCb++;
-			            }
-			          
-			        }
-					  
-			            	
-			            
-				  
-				
 
-				
+				originList = pr.getToppingList(pr.originHash(menu.getMenuId()), menu.getMenuId());
+
+				for (String str : originList) {
+					if (str.startsWith("도우_") && pizzaSize.getText().equals("없 음")) {
+						pizzaSize.setText(str);
+					} else if (str.startsWith("엣지_") && edge.getText().equals("없 음")) {
+						edge.setText(str);
+					} else if (str.startsWith("소스_") && sauce.getText().equals("없 음")) {
+						sauce.setText(str);
+					} else if (str.startsWith("토핑_") && topping_1.getText().equals("없 음")) {
+						topping_1.setText(str);
+						countCb++;
+					} else if (str.startsWith("토핑_") && topping_2.getText().equals("없 음")) {
+						topping_2.setText(str);
+						countCb++;
+					} else if (str.startsWith("토핑_") && topping_3.getText().equals("없 음")) {
+						topping_3.setText(str);
+						countCb++;
+					} else if (str.startsWith("토핑_") && topping_4.getText().equals("없 음")) {
+						topping_4.setText(str);
+						countCb++;
+					} else if (str.startsWith("토핑_") && topping_5.getText().equals("없 음")) {
+						topping_5.setText(str);
+						countCb++;
+					}
+
+				}
+
 			}
 		});
-		
-		
-		
-		
+
 		btnNewButton_3.setBackground(new Color(255, 222, 173));
-		btnNewButton_3.setBounds(82, 526, 186, 38);
+		btnNewButton_3.setBounds(45, 578, 186, 38);
 		getContentPane().add(btnNewButton_3);
+
+		JPanel panel_6 = new JPanel();
+		panel_6.setBounds(0, 0, 668, 626);
+		panel_6.setBackground(blackcolor);
+		getContentPane().add(panel_6);
+		panel_6.setLayout(null);
+		ImageIcon backIcon = new ImageIcon("GreatPizza/img/Frame 94.png");
+		JLabel background = new JLabel(backIcon);
+		background.setBounds(0, 0, 668, 626);
+		panel_6.add(background);
+
+		JPanel panel_7 = new JPanel();
+		panel_7.setBounds(12, 56, 262, 242);
+		panel_7.setBackground(blackcolor);
+		panel_6.add(panel_7);
+
+		JPanel panel_8 = new JPanel();
+		panel_8.setBounds(12, 300, 262, 278);
+		panel_8.setBackground(blackcolor);
+		panel_6.add(panel_8);
+
+		JPanel panel_9 = new JPanel();
+		panel_9.setBounds(383, 56, 285, 570);
+		panel_9.setBackground(blackcolor);
+		panel_6.add(panel_9);
+
 		setVisible(true);
 	}
 
@@ -655,7 +657,6 @@ public class MenuResetPopup extends JFrame {
 		edge.setText("없 음");
 		sauce.setText("없 음");
 	}
-	
 
 	public void addImage(byte[] fileBytes) {
 		sBytes = fileBytes;
@@ -663,10 +664,6 @@ public class MenuResetPopup extends JFrame {
 		lblNewLabel_5.setIcon(null);
 		lblNewLabel_5.setIcon(image);
 		lblNewLabel_5.setText("");
-		
-	}
-	
-	
-	
 
+	}
 }

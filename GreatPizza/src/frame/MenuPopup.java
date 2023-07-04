@@ -34,6 +34,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MenuPopup extends JFrame {
 	private JTextField menuName;
@@ -71,6 +73,16 @@ public class MenuPopup extends JFrame {
 		getContentPane().setLayout(null);
 		final JComboBox comboBox = new JComboBox();
 		comboBox.setEnabled(false);
+		ImageIcon tutoImage = new ImageIcon("GreatPizza/img//Frame 95.png");
+		JLabel tuto = new JLabel(tutoImage);
+		tuto.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				tuto.setVisible(false);
+			}
+		});
+		tuto.setBounds(0, 0, 671, 622);
+		getContentPane().add(tuto);
 
 		JPanel panel = new JPanel();
 		panel.setBackground(graycolor);
@@ -118,7 +130,7 @@ public class MenuPopup extends JFrame {
 			}
 		});
 		btnNewButton_1.setBounds(143, 270, 82, 23);
-		btnNewButton_1.setForeground(mintcolor);
+		btnNewButton_1.setForeground(Color.WHITE);
 		panel_5.add(btnNewButton_1);
 
 		final JComboBox comboBox_1 = new JComboBox();
@@ -578,7 +590,7 @@ public class MenuPopup extends JFrame {
 				menuName.setEnabled(true);
 				hopedPrice.setEnabled(true);
 				btnNewButton_3.setEnabled(true);
-				
+
 			}
 		});
 		btnNewButton_3_1.setBounds(123, 294, 67, 28);

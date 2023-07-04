@@ -64,6 +64,9 @@ public class OrderRepo {
 			DBUtil.close(stmt);
 			DBUtil.close(conn);
 		}
+		for(MainOrder m : list) {
+			System.out.println(m);
+		}
 		return list;
 	}
 	
