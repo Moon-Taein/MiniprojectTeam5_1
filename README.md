@@ -54,7 +54,7 @@
 
 ## 화면 구성 & 주요 기능
 
-### [wiki](https://github.com/Moon-Taein/MiniprojectTeam5_1.wiki.git)에서 확인
+### [wiki](https://github.com/Moon-Taein/MiniprojectTeam5_1/wiki)에서 확인
 
 ## ERD
 <img src="https://github.com/Moon-Taein/MiniprojectTeam5_1/assets/130747714/a02e9cc9-a63e-4164-ad70-a36f493742e7">
